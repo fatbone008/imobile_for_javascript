@@ -1,0 +1,518 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FFD1F0191E31E22200CACDC5 /* JSAdoptMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */; };
+		FFD1F01A1E31E22200CACDC5 /* JSBufferAnalystGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC01E31E22200CACDC5 /* JSBufferAnalystGeometry.m */; };
+		FFD1F01B1E31E22200CACDC5 /* JSCallOut.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC21E31E22200CACDC5 /* JSCallOut.m */; };
+		FFD1F01C1E31E22200CACDC5 /* JSDataDownloadService.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC41E31E22200CACDC5 /* JSDataDownloadService.m */; };
+		FFD1F01D1E31E22200CACDC5 /* JSDataset.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC61E31E22200CACDC5 /* JSDataset.m */; };
+		FFD1F01E1E31E22200CACDC5 /* JSDatasets.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC81E31E22200CACDC5 /* JSDatasets.m */; };
+		FFD1F01F1E31E22200CACDC5 /* JSDatasetVector.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFCA1E31E22200CACDC5 /* JSDatasetVector.m */; };
+		FFD1F0201E31E22200CACDC5 /* JSDatasetVectorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFCC1E31E22200CACDC5 /* JSDatasetVectorInfo.m */; };
+		FFD1F0211E31E22200CACDC5 /* JSDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFCE1E31E22200CACDC5 /* JSDatasource.m */; };
+		FFD1F0221E31E22200CACDC5 /* JSDatasourceConnectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFD01E31E22200CACDC5 /* JSDatasourceConnectionInfo.m */; };
+		FFD1F0231E31E22200CACDC5 /* JSDatasources.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFD21E31E22200CACDC5 /* JSDatasources.m */; };
+		FFD1F0241E31E22200CACDC5 /* JSDataUploadService.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFD41E31E22200CACDC5 /* JSDataUploadService.m */; };
+		FFD1F0261E31E22200CACDC5 /* JSFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFD81E31E22200CACDC5 /* JSFeature.m */; };
+		FFD1F0271E31E22200CACDC5 /* JSFeatureSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFDA1E31E22200CACDC5 /* JSFeatureSet.m */; };
+		FFD1F0281E31E22200CACDC5 /* JSGeoLine.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFDC1E31E22200CACDC5 /* JSGeoLine.m */; };
+		FFD1F0291E31E22200CACDC5 /* JSGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFDE1E31E22200CACDC5 /* JSGeometry.m */; };
+		FFD1F02A1E31E22200CACDC5 /* JSGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFE01E31E22200CACDC5 /* JSGeoPoint.m */; };
+		FFD1F02B1E31E22200CACDC5 /* JSGeoRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFE21E31E22200CACDC5 /* JSGeoRegion.m */; };
+		FFD1F02C1E31E22200CACDC5 /* JSGeoStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFE41E31E22200CACDC5 /* JSGeoStyle.m */; };
+		FFD1F02D1E31E22200CACDC5 /* JSLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFE61E31E22200CACDC5 /* JSLayer.m */; };
+		FFD1F02E1E31E22200CACDC5 /* JSLayers.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFE81E31E22200CACDC5 /* JSLayers.m */; };
+		FFD1F02F1E31E22200CACDC5 /* JSLayerSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFEA1E31E22200CACDC5 /* JSLayerSetting.m */; };
+		FFD1F0301E31E22200CACDC5 /* JSLayerSettingVector.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFEC1E31E22200CACDC5 /* JSLayerSettingVector.m */; };
+		FFD1F0311E31E22200CACDC5 /* JSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFEE1E31E22200CACDC5 /* JSLocationManager.m */; };
+		FFD1F0321E31E22200CACDC5 /* JSMap.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFF01E31E22200CACDC5 /* JSMap.m */; };
+		FFD1F0331E31E22200CACDC5 /* JSMapControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFF21E31E22200CACDC5 /* JSMapControl.m */; };
+		FFD1F0341E31E22200CACDC5 /* JSMaps.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFF41E31E22200CACDC5 /* JSMaps.m */; };
+		FFD1F0351E31E22200CACDC5 /* JSMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFF61E31E22200CACDC5 /* JSMapView.m */; };
+		FFD1F0361E31E22200CACDC5 /* JSNavigation2.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFF81E31E22200CACDC5 /* JSNavigation2.m */; };
+		FFD1F0371E31E22200CACDC5 /* JSObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFFA1E31E22200CACDC5 /* JSObjManager.m */; };
+		FFD1F0381E31E22200CACDC5 /* JSPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFFC1E31E22200CACDC5 /* JSPoint.m */; };
+		FFD1F0391E31E22200CACDC5 /* JSPoint2D.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFFE1E31E22200CACDC5 /* JSPoint2D.m */; };
+		FFD1F03A1E31E22200CACDC5 /* JSPrjCoordSys.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0001E31E22200CACDC5 /* JSPrjCoordSys.m */; };
+		FFD1F03B1E31E22200CACDC5 /* JSQueryParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0021E31E22200CACDC5 /* JSQueryParameter.m */; };
+		FFD1F03C1E31E22200CACDC5 /* JSQueryService.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0041E31E22200CACDC5 /* JSQueryService.m */; };
+		FFD1F03D1E31E22200CACDC5 /* JSRecordset.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0061E31E22200CACDC5 /* JSRecordset.m */; };
+		FFD1F03E1E31E22200CACDC5 /* JSRectangle2D.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0081E31E22200CACDC5 /* JSRectangle2D.m */; };
+		FFD1F03F1E31E22200CACDC5 /* JSSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F00A1E31E22200CACDC5 /* JSSelection.m */; };
+		FFD1F0401E31E22200CACDC5 /* JSServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F00C1E31E22200CACDC5 /* JSServiceBase.m */; };
+		FFD1F0411E31E22200CACDC5 /* JSServiceQueryParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F00E1E31E22200CACDC5 /* JSServiceQueryParameter.m */; };
+		FFD1F0421E31E22200CACDC5 /* JSSize2D.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0101E31E22200CACDC5 /* JSSize2D.m */; };
+		FFD1F0431E31E22200CACDC5 /* JSTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0121E31E22200CACDC5 /* JSTrack.m */; };
+		FFD1F0441E31E22200CACDC5 /* JSTrackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0141E31E22200CACDC5 /* JSTrackingLayer.m */; };
+		FFD1F0451E31E22200CACDC5 /* JSWorkspace.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0161E31E22200CACDC5 /* JSWorkspace.m */; };
+		FFD1F0461E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0181E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libSupermap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSupermap.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFD1EFBD1E31E22200CACDC5 /* JSAdoptMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSAdoptMapView.h; path = objNative/JSAdoptMapView.h; sourceTree = "<group>"; };
+		FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSAdoptMapView.m; path = objNative/JSAdoptMapView.m; sourceTree = "<group>"; };
+		FFD1EFBF1E31E22200CACDC5 /* JSBufferAnalystGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSBufferAnalystGeometry.h; path = objNative/JSBufferAnalystGeometry.h; sourceTree = "<group>"; };
+		FFD1EFC01E31E22200CACDC5 /* JSBufferAnalystGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSBufferAnalystGeometry.m; path = objNative/JSBufferAnalystGeometry.m; sourceTree = "<group>"; };
+		FFD1EFC11E31E22200CACDC5 /* JSCallOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSCallOut.h; path = objNative/JSCallOut.h; sourceTree = "<group>"; };
+		FFD1EFC21E31E22200CACDC5 /* JSCallOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSCallOut.m; path = objNative/JSCallOut.m; sourceTree = "<group>"; };
+		FFD1EFC31E31E22200CACDC5 /* JSDataDownloadService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDataDownloadService.h; path = objNative/JSDataDownloadService.h; sourceTree = "<group>"; };
+		FFD1EFC41E31E22200CACDC5 /* JSDataDownloadService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDataDownloadService.m; path = objNative/JSDataDownloadService.m; sourceTree = "<group>"; };
+		FFD1EFC51E31E22200CACDC5 /* JSDataset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDataset.h; path = objNative/JSDataset.h; sourceTree = "<group>"; };
+		FFD1EFC61E31E22200CACDC5 /* JSDataset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDataset.m; path = objNative/JSDataset.m; sourceTree = "<group>"; };
+		FFD1EFC71E31E22200CACDC5 /* JSDatasets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasets.h; path = objNative/JSDatasets.h; sourceTree = "<group>"; };
+		FFD1EFC81E31E22200CACDC5 /* JSDatasets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasets.m; path = objNative/JSDatasets.m; sourceTree = "<group>"; };
+		FFD1EFC91E31E22200CACDC5 /* JSDatasetVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasetVector.h; path = objNative/JSDatasetVector.h; sourceTree = "<group>"; };
+		FFD1EFCA1E31E22200CACDC5 /* JSDatasetVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasetVector.m; path = objNative/JSDatasetVector.m; sourceTree = "<group>"; };
+		FFD1EFCB1E31E22200CACDC5 /* JSDatasetVectorInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasetVectorInfo.h; path = objNative/JSDatasetVectorInfo.h; sourceTree = "<group>"; };
+		FFD1EFCC1E31E22200CACDC5 /* JSDatasetVectorInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasetVectorInfo.m; path = objNative/JSDatasetVectorInfo.m; sourceTree = "<group>"; };
+		FFD1EFCD1E31E22200CACDC5 /* JSDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasource.h; path = objNative/JSDatasource.h; sourceTree = "<group>"; };
+		FFD1EFCE1E31E22200CACDC5 /* JSDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasource.m; path = objNative/JSDatasource.m; sourceTree = "<group>"; };
+		FFD1EFCF1E31E22200CACDC5 /* JSDatasourceConnectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasourceConnectionInfo.h; path = objNative/JSDatasourceConnectionInfo.h; sourceTree = "<group>"; };
+		FFD1EFD01E31E22200CACDC5 /* JSDatasourceConnectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasourceConnectionInfo.m; path = objNative/JSDatasourceConnectionInfo.m; sourceTree = "<group>"; };
+		FFD1EFD11E31E22200CACDC5 /* JSDatasources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDatasources.h; path = objNative/JSDatasources.h; sourceTree = "<group>"; };
+		FFD1EFD21E31E22200CACDC5 /* JSDatasources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDatasources.m; path = objNative/JSDatasources.m; sourceTree = "<group>"; };
+		FFD1EFD31E31E22200CACDC5 /* JSDataUploadService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDataUploadService.h; path = objNative/JSDataUploadService.h; sourceTree = "<group>"; };
+		FFD1EFD41E31E22200CACDC5 /* JSDataUploadService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDataUploadService.m; path = objNative/JSDataUploadService.m; sourceTree = "<group>"; };
+		FFD1EFD71E31E22200CACDC5 /* JSFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSFeature.h; path = objNative/JSFeature.h; sourceTree = "<group>"; };
+		FFD1EFD81E31E22200CACDC5 /* JSFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSFeature.m; path = objNative/JSFeature.m; sourceTree = "<group>"; };
+		FFD1EFD91E31E22200CACDC5 /* JSFeatureSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSFeatureSet.h; path = objNative/JSFeatureSet.h; sourceTree = "<group>"; };
+		FFD1EFDA1E31E22200CACDC5 /* JSFeatureSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSFeatureSet.m; path = objNative/JSFeatureSet.m; sourceTree = "<group>"; };
+		FFD1EFDB1E31E22200CACDC5 /* JSGeoLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSGeoLine.h; path = objNative/JSGeoLine.h; sourceTree = "<group>"; };
+		FFD1EFDC1E31E22200CACDC5 /* JSGeoLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSGeoLine.m; path = objNative/JSGeoLine.m; sourceTree = "<group>"; };
+		FFD1EFDD1E31E22200CACDC5 /* JSGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSGeometry.h; path = objNative/JSGeometry.h; sourceTree = "<group>"; };
+		FFD1EFDE1E31E22200CACDC5 /* JSGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSGeometry.m; path = objNative/JSGeometry.m; sourceTree = "<group>"; };
+		FFD1EFDF1E31E22200CACDC5 /* JSGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSGeoPoint.h; path = objNative/JSGeoPoint.h; sourceTree = "<group>"; };
+		FFD1EFE01E31E22200CACDC5 /* JSGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSGeoPoint.m; path = objNative/JSGeoPoint.m; sourceTree = "<group>"; };
+		FFD1EFE11E31E22200CACDC5 /* JSGeoRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSGeoRegion.h; path = objNative/JSGeoRegion.h; sourceTree = "<group>"; };
+		FFD1EFE21E31E22200CACDC5 /* JSGeoRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSGeoRegion.m; path = objNative/JSGeoRegion.m; sourceTree = "<group>"; };
+		FFD1EFE31E31E22200CACDC5 /* JSGeoStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSGeoStyle.h; path = objNative/JSGeoStyle.h; sourceTree = "<group>"; };
+		FFD1EFE41E31E22200CACDC5 /* JSGeoStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSGeoStyle.m; path = objNative/JSGeoStyle.m; sourceTree = "<group>"; };
+		FFD1EFE51E31E22200CACDC5 /* JSLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLayer.h; path = objNative/JSLayer.h; sourceTree = "<group>"; };
+		FFD1EFE61E31E22200CACDC5 /* JSLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLayer.m; path = objNative/JSLayer.m; sourceTree = "<group>"; };
+		FFD1EFE71E31E22200CACDC5 /* JSLayers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLayers.h; path = objNative/JSLayers.h; sourceTree = "<group>"; };
+		FFD1EFE81E31E22200CACDC5 /* JSLayers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLayers.m; path = objNative/JSLayers.m; sourceTree = "<group>"; };
+		FFD1EFE91E31E22200CACDC5 /* JSLayerSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLayerSetting.h; path = objNative/JSLayerSetting.h; sourceTree = "<group>"; };
+		FFD1EFEA1E31E22200CACDC5 /* JSLayerSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLayerSetting.m; path = objNative/JSLayerSetting.m; sourceTree = "<group>"; };
+		FFD1EFEB1E31E22200CACDC5 /* JSLayerSettingVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLayerSettingVector.h; path = objNative/JSLayerSettingVector.h; sourceTree = "<group>"; };
+		FFD1EFEC1E31E22200CACDC5 /* JSLayerSettingVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLayerSettingVector.m; path = objNative/JSLayerSettingVector.m; sourceTree = "<group>"; };
+		FFD1EFED1E31E22200CACDC5 /* JSLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLocationManager.h; path = objNative/JSLocationManager.h; sourceTree = "<group>"; };
+		FFD1EFEE1E31E22200CACDC5 /* JSLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLocationManager.m; path = objNative/JSLocationManager.m; sourceTree = "<group>"; };
+		FFD1EFEF1E31E22200CACDC5 /* JSMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSMap.h; path = objNative/JSMap.h; sourceTree = "<group>"; };
+		FFD1EFF01E31E22200CACDC5 /* JSMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMap.m; path = objNative/JSMap.m; sourceTree = "<group>"; };
+		FFD1EFF11E31E22200CACDC5 /* JSMapControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSMapControl.h; path = objNative/JSMapControl.h; sourceTree = "<group>"; };
+		FFD1EFF21E31E22200CACDC5 /* JSMapControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMapControl.m; path = objNative/JSMapControl.m; sourceTree = "<group>"; };
+		FFD1EFF31E31E22200CACDC5 /* JSMaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSMaps.h; path = objNative/JSMaps.h; sourceTree = "<group>"; };
+		FFD1EFF41E31E22200CACDC5 /* JSMaps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMaps.m; path = objNative/JSMaps.m; sourceTree = "<group>"; };
+		FFD1EFF51E31E22200CACDC5 /* JSMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSMapView.h; path = objNative/JSMapView.h; sourceTree = "<group>"; };
+		FFD1EFF61E31E22200CACDC5 /* JSMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMapView.m; path = objNative/JSMapView.m; sourceTree = "<group>"; };
+		FFD1EFF71E31E22200CACDC5 /* JSNavigation2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSNavigation2.h; path = objNative/JSNavigation2.h; sourceTree = "<group>"; };
+		FFD1EFF81E31E22200CACDC5 /* JSNavigation2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSNavigation2.m; path = objNative/JSNavigation2.m; sourceTree = "<group>"; };
+		FFD1EFF91E31E22200CACDC5 /* JSObjManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSObjManager.h; path = objNative/JSObjManager.h; sourceTree = "<group>"; };
+		FFD1EFFA1E31E22200CACDC5 /* JSObjManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSObjManager.m; path = objNative/JSObjManager.m; sourceTree = "<group>"; };
+		FFD1EFFB1E31E22200CACDC5 /* JSPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSPoint.h; path = objNative/JSPoint.h; sourceTree = "<group>"; };
+		FFD1EFFC1E31E22200CACDC5 /* JSPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSPoint.m; path = objNative/JSPoint.m; sourceTree = "<group>"; };
+		FFD1EFFD1E31E22200CACDC5 /* JSPoint2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSPoint2D.h; path = objNative/JSPoint2D.h; sourceTree = "<group>"; };
+		FFD1EFFE1E31E22200CACDC5 /* JSPoint2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSPoint2D.m; path = objNative/JSPoint2D.m; sourceTree = "<group>"; };
+		FFD1EFFF1E31E22200CACDC5 /* JSPrjCoordSys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSPrjCoordSys.h; path = objNative/JSPrjCoordSys.h; sourceTree = "<group>"; };
+		FFD1F0001E31E22200CACDC5 /* JSPrjCoordSys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSPrjCoordSys.m; path = objNative/JSPrjCoordSys.m; sourceTree = "<group>"; };
+		FFD1F0011E31E22200CACDC5 /* JSQueryParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSQueryParameter.h; path = objNative/JSQueryParameter.h; sourceTree = "<group>"; };
+		FFD1F0021E31E22200CACDC5 /* JSQueryParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQueryParameter.m; path = objNative/JSQueryParameter.m; sourceTree = "<group>"; };
+		FFD1F0031E31E22200CACDC5 /* JSQueryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSQueryService.h; path = objNative/JSQueryService.h; sourceTree = "<group>"; };
+		FFD1F0041E31E22200CACDC5 /* JSQueryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQueryService.m; path = objNative/JSQueryService.m; sourceTree = "<group>"; };
+		FFD1F0051E31E22200CACDC5 /* JSRecordset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSRecordset.h; path = objNative/JSRecordset.h; sourceTree = "<group>"; };
+		FFD1F0061E31E22200CACDC5 /* JSRecordset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSRecordset.m; path = objNative/JSRecordset.m; sourceTree = "<group>"; };
+		FFD1F0071E31E22200CACDC5 /* JSRectangle2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSRectangle2D.h; path = objNative/JSRectangle2D.h; sourceTree = "<group>"; };
+		FFD1F0081E31E22200CACDC5 /* JSRectangle2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSRectangle2D.m; path = objNative/JSRectangle2D.m; sourceTree = "<group>"; };
+		FFD1F0091E31E22200CACDC5 /* JSSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSelection.h; path = objNative/JSSelection.h; sourceTree = "<group>"; };
+		FFD1F00A1E31E22200CACDC5 /* JSSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSelection.m; path = objNative/JSSelection.m; sourceTree = "<group>"; };
+		FFD1F00B1E31E22200CACDC5 /* JSServiceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSServiceBase.h; path = objNative/JSServiceBase.h; sourceTree = "<group>"; };
+		FFD1F00C1E31E22200CACDC5 /* JSServiceBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSServiceBase.m; path = objNative/JSServiceBase.m; sourceTree = "<group>"; };
+		FFD1F00D1E31E22200CACDC5 /* JSServiceQueryParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSServiceQueryParameter.h; path = objNative/JSServiceQueryParameter.h; sourceTree = "<group>"; };
+		FFD1F00E1E31E22200CACDC5 /* JSServiceQueryParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSServiceQueryParameter.m; path = objNative/JSServiceQueryParameter.m; sourceTree = "<group>"; };
+		FFD1F00F1E31E22200CACDC5 /* JSSize2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSize2D.h; path = objNative/JSSize2D.h; sourceTree = "<group>"; };
+		FFD1F0101E31E22200CACDC5 /* JSSize2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSize2D.m; path = objNative/JSSize2D.m; sourceTree = "<group>"; };
+		FFD1F0111E31E22200CACDC5 /* JSTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSTrack.h; path = objNative/JSTrack.h; sourceTree = "<group>"; };
+		FFD1F0121E31E22200CACDC5 /* JSTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSTrack.m; path = objNative/JSTrack.m; sourceTree = "<group>"; };
+		FFD1F0131E31E22200CACDC5 /* JSTrackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSTrackingLayer.h; path = objNative/JSTrackingLayer.h; sourceTree = "<group>"; };
+		FFD1F0141E31E22200CACDC5 /* JSTrackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSTrackingLayer.m; path = objNative/JSTrackingLayer.m; sourceTree = "<group>"; };
+		FFD1F0151E31E22200CACDC5 /* JSWorkspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSWorkspace.h; path = objNative/JSWorkspace.h; sourceTree = "<group>"; };
+		FFD1F0161E31E22200CACDC5 /* JSWorkspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSWorkspace.m; path = objNative/JSWorkspace.m; sourceTree = "<group>"; };
+		FFD1F0171E31E22200CACDC5 /* JSWorkspaceConnectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSWorkspaceConnectionInfo.h; path = objNative/JSWorkspaceConnectionInfo.h; sourceTree = "<group>"; };
+		FFD1F0181E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSWorkspaceConnectionInfo.m; path = objNative/JSWorkspaceConnectionInfo.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libSupermap.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				FFD1EFBD1E31E22200CACDC5 /* JSAdoptMapView.h */,
+				FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */,
+				FFD1EFBF1E31E22200CACDC5 /* JSBufferAnalystGeometry.h */,
+				FFD1EFC01E31E22200CACDC5 /* JSBufferAnalystGeometry.m */,
+				FFD1EFC11E31E22200CACDC5 /* JSCallOut.h */,
+				FFD1EFC21E31E22200CACDC5 /* JSCallOut.m */,
+				FFD1EFC31E31E22200CACDC5 /* JSDataDownloadService.h */,
+				FFD1EFC41E31E22200CACDC5 /* JSDataDownloadService.m */,
+				FFD1EFC51E31E22200CACDC5 /* JSDataset.h */,
+				FFD1EFC61E31E22200CACDC5 /* JSDataset.m */,
+				FFD1EFC71E31E22200CACDC5 /* JSDatasets.h */,
+				FFD1EFC81E31E22200CACDC5 /* JSDatasets.m */,
+				FFD1EFC91E31E22200CACDC5 /* JSDatasetVector.h */,
+				FFD1EFCA1E31E22200CACDC5 /* JSDatasetVector.m */,
+				FFD1EFCB1E31E22200CACDC5 /* JSDatasetVectorInfo.h */,
+				FFD1EFCC1E31E22200CACDC5 /* JSDatasetVectorInfo.m */,
+				FFD1EFCD1E31E22200CACDC5 /* JSDatasource.h */,
+				FFD1EFCE1E31E22200CACDC5 /* JSDatasource.m */,
+				FFD1EFCF1E31E22200CACDC5 /* JSDatasourceConnectionInfo.h */,
+				FFD1EFD01E31E22200CACDC5 /* JSDatasourceConnectionInfo.m */,
+				FFD1EFD11E31E22200CACDC5 /* JSDatasources.h */,
+				FFD1EFD21E31E22200CACDC5 /* JSDatasources.m */,
+				FFD1EFD31E31E22200CACDC5 /* JSDataUploadService.h */,
+				FFD1EFD41E31E22200CACDC5 /* JSDataUploadService.m */,
+				FFD1EFD71E31E22200CACDC5 /* JSFeature.h */,
+				FFD1EFD81E31E22200CACDC5 /* JSFeature.m */,
+				FFD1EFD91E31E22200CACDC5 /* JSFeatureSet.h */,
+				FFD1EFDA1E31E22200CACDC5 /* JSFeatureSet.m */,
+				FFD1EFDB1E31E22200CACDC5 /* JSGeoLine.h */,
+				FFD1EFDC1E31E22200CACDC5 /* JSGeoLine.m */,
+				FFD1EFDD1E31E22200CACDC5 /* JSGeometry.h */,
+				FFD1EFDE1E31E22200CACDC5 /* JSGeometry.m */,
+				FFD1EFDF1E31E22200CACDC5 /* JSGeoPoint.h */,
+				FFD1EFE01E31E22200CACDC5 /* JSGeoPoint.m */,
+				FFD1EFE11E31E22200CACDC5 /* JSGeoRegion.h */,
+				FFD1EFE21E31E22200CACDC5 /* JSGeoRegion.m */,
+				FFD1EFE31E31E22200CACDC5 /* JSGeoStyle.h */,
+				FFD1EFE41E31E22200CACDC5 /* JSGeoStyle.m */,
+				FFD1EFE51E31E22200CACDC5 /* JSLayer.h */,
+				FFD1EFE61E31E22200CACDC5 /* JSLayer.m */,
+				FFD1EFE71E31E22200CACDC5 /* JSLayers.h */,
+				FFD1EFE81E31E22200CACDC5 /* JSLayers.m */,
+				FFD1EFE91E31E22200CACDC5 /* JSLayerSetting.h */,
+				FFD1EFEA1E31E22200CACDC5 /* JSLayerSetting.m */,
+				FFD1EFEB1E31E22200CACDC5 /* JSLayerSettingVector.h */,
+				FFD1EFEC1E31E22200CACDC5 /* JSLayerSettingVector.m */,
+				FFD1EFED1E31E22200CACDC5 /* JSLocationManager.h */,
+				FFD1EFEE1E31E22200CACDC5 /* JSLocationManager.m */,
+				FFD1EFEF1E31E22200CACDC5 /* JSMap.h */,
+				FFD1EFF01E31E22200CACDC5 /* JSMap.m */,
+				FFD1EFF11E31E22200CACDC5 /* JSMapControl.h */,
+				FFD1EFF21E31E22200CACDC5 /* JSMapControl.m */,
+				FFD1EFF31E31E22200CACDC5 /* JSMaps.h */,
+				FFD1EFF41E31E22200CACDC5 /* JSMaps.m */,
+				FFD1EFF51E31E22200CACDC5 /* JSMapView.h */,
+				FFD1EFF61E31E22200CACDC5 /* JSMapView.m */,
+				FFD1EFF71E31E22200CACDC5 /* JSNavigation2.h */,
+				FFD1EFF81E31E22200CACDC5 /* JSNavigation2.m */,
+				FFD1EFF91E31E22200CACDC5 /* JSObjManager.h */,
+				FFD1EFFA1E31E22200CACDC5 /* JSObjManager.m */,
+				FFD1EFFB1E31E22200CACDC5 /* JSPoint.h */,
+				FFD1EFFC1E31E22200CACDC5 /* JSPoint.m */,
+				FFD1EFFD1E31E22200CACDC5 /* JSPoint2D.h */,
+				FFD1EFFE1E31E22200CACDC5 /* JSPoint2D.m */,
+				FFD1EFFF1E31E22200CACDC5 /* JSPrjCoordSys.h */,
+				FFD1F0001E31E22200CACDC5 /* JSPrjCoordSys.m */,
+				FFD1F0011E31E22200CACDC5 /* JSQueryParameter.h */,
+				FFD1F0021E31E22200CACDC5 /* JSQueryParameter.m */,
+				FFD1F0031E31E22200CACDC5 /* JSQueryService.h */,
+				FFD1F0041E31E22200CACDC5 /* JSQueryService.m */,
+				FFD1F0051E31E22200CACDC5 /* JSRecordset.h */,
+				FFD1F0061E31E22200CACDC5 /* JSRecordset.m */,
+				FFD1F0071E31E22200CACDC5 /* JSRectangle2D.h */,
+				FFD1F0081E31E22200CACDC5 /* JSRectangle2D.m */,
+				FFD1F0091E31E22200CACDC5 /* JSSelection.h */,
+				FFD1F00A1E31E22200CACDC5 /* JSSelection.m */,
+				FFD1F00B1E31E22200CACDC5 /* JSServiceBase.h */,
+				FFD1F00C1E31E22200CACDC5 /* JSServiceBase.m */,
+				FFD1F00D1E31E22200CACDC5 /* JSServiceQueryParameter.h */,
+				FFD1F00E1E31E22200CACDC5 /* JSServiceQueryParameter.m */,
+				FFD1F00F1E31E22200CACDC5 /* JSSize2D.h */,
+				FFD1F0101E31E22200CACDC5 /* JSSize2D.m */,
+				FFD1F0111E31E22200CACDC5 /* JSTrack.h */,
+				FFD1F0121E31E22200CACDC5 /* JSTrack.m */,
+				FFD1F0131E31E22200CACDC5 /* JSTrackingLayer.h */,
+				FFD1F0141E31E22200CACDC5 /* JSTrackingLayer.m */,
+				FFD1F0151E31E22200CACDC5 /* JSWorkspace.h */,
+				FFD1F0161E31E22200CACDC5 /* JSWorkspace.m */,
+				FFD1F0171E31E22200CACDC5 /* JSWorkspaceConnectionInfo.h */,
+				FFD1F0181E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m */,
+				134814211AA4EA7D00B7C361 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* Supermap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Supermap" */;
+			buildPhases = (
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Supermap;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libSupermap.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Supermap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* Supermap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFD1F0451E31E22200CACDC5 /* JSWorkspace.m in Sources */,
+				FFD1F0351E31E22200CACDC5 /* JSMapView.m in Sources */,
+				FFD1F02F1E31E22200CACDC5 /* JSLayerSetting.m in Sources */,
+				FFD1F03D1E31E22200CACDC5 /* JSRecordset.m in Sources */,
+				FFD1F0341E31E22200CACDC5 /* JSMaps.m in Sources */,
+				FFD1F01D1E31E22200CACDC5 /* JSDataset.m in Sources */,
+				FFD1F0411E31E22200CACDC5 /* JSServiceQueryParameter.m in Sources */,
+				FFD1F0311E31E22200CACDC5 /* JSLocationManager.m in Sources */,
+				FFD1F02A1E31E22200CACDC5 /* JSGeoPoint.m in Sources */,
+				FFD1F0291E31E22200CACDC5 /* JSGeometry.m in Sources */,
+				FFD1F0301E31E22200CACDC5 /* JSLayerSettingVector.m in Sources */,
+				FFD1F0191E31E22200CACDC5 /* JSAdoptMapView.m in Sources */,
+				FFD1F0201E31E22200CACDC5 /* JSDatasetVectorInfo.m in Sources */,
+				FFD1F0211E31E22200CACDC5 /* JSDatasource.m in Sources */,
+				FFD1F03A1E31E22200CACDC5 /* JSPrjCoordSys.m in Sources */,
+				FFD1F03F1E31E22200CACDC5 /* JSSelection.m in Sources */,
+				FFD1F0381E31E22200CACDC5 /* JSPoint.m in Sources */,
+				FFD1F02B1E31E22200CACDC5 /* JSGeoRegion.m in Sources */,
+				FFD1F0441E31E22200CACDC5 /* JSTrackingLayer.m in Sources */,
+				FFD1F0391E31E22200CACDC5 /* JSPoint2D.m in Sources */,
+				FFD1F0461E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m in Sources */,
+				FFD1F01A1E31E22200CACDC5 /* JSBufferAnalystGeometry.m in Sources */,
+				FFD1F0261E31E22200CACDC5 /* JSFeature.m in Sources */,
+				FFD1F0281E31E22200CACDC5 /* JSGeoLine.m in Sources */,
+				FFD1F0361E31E22200CACDC5 /* JSNavigation2.m in Sources */,
+				FFD1F03B1E31E22200CACDC5 /* JSQueryParameter.m in Sources */,
+				FFD1F01F1E31E22200CACDC5 /* JSDatasetVector.m in Sources */,
+				FFD1F03E1E31E22200CACDC5 /* JSRectangle2D.m in Sources */,
+				FFD1F0231E31E22200CACDC5 /* JSDatasources.m in Sources */,
+				FFD1F0271E31E22200CACDC5 /* JSFeatureSet.m in Sources */,
+				FFD1F0421E31E22200CACDC5 /* JSSize2D.m in Sources */,
+				FFD1F0431E31E22200CACDC5 /* JSTrack.m in Sources */,
+				FFD1F01C1E31E22200CACDC5 /* JSDataDownloadService.m in Sources */,
+				FFD1F01B1E31E22200CACDC5 /* JSCallOut.m in Sources */,
+				FFD1F0241E31E22200CACDC5 /* JSDataUploadService.m in Sources */,
+				FFD1F02C1E31E22200CACDC5 /* JSGeoStyle.m in Sources */,
+				FFD1F03C1E31E22200CACDC5 /* JSQueryService.m in Sources */,
+				FFD1F02D1E31E22200CACDC5 /* JSLayer.m in Sources */,
+				FFD1F02E1E31E22200CACDC5 /* JSLayers.m in Sources */,
+				FFD1F0331E31E22200CACDC5 /* JSMapControl.m in Sources */,
+				FFD1F0401E31E22200CACDC5 /* JSServiceBase.m in Sources */,
+				FFD1F01E1E31E22200CACDC5 /* JSDatasets.m in Sources */,
+				FFD1F0371E31E22200CACDC5 /* JSObjManager.m in Sources */,
+				FFD1F0221E31E22200CACDC5 /* JSDatasourceConnectionInfo.m in Sources */,
+				FFD1F0321E31E22200CACDC5 /* JSMap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(BUILT_PRODUCTS_DIR)/include/React/**",
+					"$(SRCROOT)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Supermap;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(BUILT_PRODUCTS_DIR)/include/React/**",
+					"$(SRCROOT)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Supermap;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Supermap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Supermap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}
