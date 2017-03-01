@@ -10,6 +10,7 @@
 #import "JSWorkspace.h"
 #import "SuperMap/Workspace.h"
 #import "SuperMap/Datasources.h"
+#import "SuperMap/DatasourceConnectionInfo.h"
 #import "SuperMap/Maps.h"
 #import "JSWorkspaceConnectionInfo.h"
 #import "JSDatasourceConnectionInfo.h"
@@ -131,37 +132,130 @@ RCT_REMAP_METHOD(getMapName,getMapNameByKey:(NSString*)key andMapIndex:(int)inde
     }else
         reject(@"workspace",@"get mapName failed!",nil);
 }
-//*********************************************
-RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key andMapIndex:(int)index resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+
+RCT_REMAP_METHOD(openLocalDatasource,openLocalDatasourceByKey:(NSString*)key andPath:(NSString*)path andEngineType:(int)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Workspace* workspace = [JSObjManager getObjWithKey:key];
-    if(workspace){
-        Maps* maps = workspace.maps;
-        NSString* mapName = [maps get:index];
-        resolve(@{@"mapName":mapName});
+    Datasources* dataSources = workspace.datasources;
+    DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+    if(workspace&&info){
+        info.server = path;
+        info.engineType = type;
+        Datasource* dataSource = [dataSources open:info];
+        resolve(@"open");
     }else
-        reject(@"workspace",@"get mapName failed!",nil);
+        reject(@"workspace",@"open LocalDatasource failed!",nil);
 }
 
-RCT_REMAP_METHOD(save,saveKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key andPath:(NSString*)path andEngineType:(int)type andDriverStr:(NSString*)driver resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Datasources* dataSources = workspace.datasources;
+    DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+    if(workspace&&info){
+        info.server = path;
+        info.engineType = type;
+        info.driver = driver;
+        Datasource* dataSource = [dataSources open:info];
+        resolve(@"open");
+    }else
+        reject(@"workspace",@"open LocalDatasource failed!",nil);
+}
+/////////!!!!!!!!!!!!!
+//RCT_REMAP_METHOD(openWMSDatasource,openDatasourceByKey:(NSString*)key andServer:(NSString*)server andEngineType:(int)type andDriverStr:(NSString*)driver andVersionStr:(NSString*)version andVisableLayers:(NSString*)vLayers andWebBox:(NSString*)w resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+//    Workspace* workspace = [JSObjManager getObjWithKey:key];
+//    Datasources* dataSources = workspace.datasources;
+//    DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+//    if(workspace&&info){
+//        info.server = path;
+//        info.engineType = type;
+//        info.driver = driver;
+//        Datasource* dataSource = [dataSources open:info];
+//        resolve(@"open");
+//    }else
+//        reject(@"workspace",@"open LocalDatasource failed!",nil);
+//}
+
+RCT_REMAP_METHOD(saveWorkspace,saveWorkspaceByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Workspace* workspace = [JSObjManager getObjWithKey:key];
   if(workspace){
-    [workspace save];
-    resolve(@"1");
+    BOOL saved = [workspace save];
+      NSNumber* nsSaved = [NSNumber numberWithBool:saved];
+      resolve(@{@"saved":nsSaved});
   }else
     reject(@"workspace",@"save failed!!!",nil);
 }
 
-RCT_REMAP_METHOD(close,closeKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+RCT_REMAP_METHOD(closeWorkspace,closeWorkspaceByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Workspace* workspace = [JSObjManager getObjWithKey:key];
   if(workspace){
     [workspace close];
-    resolve(@"1");
+      NSNumber* nsClosed = [NSNumber numberWithBool:TRUE];
+    resolve(@{@"closed":nsClosed});
   }else
-    reject(@"workspace",@"save failed!!!",nil);
+    reject(@"workspace",@"close failed!!!",nil);
 }
 
+#pragma mark - 原datasources类放法
+
+RCT_REMAP_METHOD(createDatasource,createDatasourceByKey:(NSString*)key andFilePath:(NSString*)path andEngineType:(int)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Datasources* dataSources = workspace.datasources;
+    if(dataSources){
+        DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+        info.server = path;
+        info.engineType = type;
+        Datasource* dataSource = [dataSources create:info];
+        [JSObjManager addObj:dataSource];
+        NSInteger jsKey = (NSInteger)dataSource;
+        resolve(@{@"datasourceId":@(jsKey).stringValue});
+    }else
+        reject(@"workspace",@"create Datasource failed!!!",nil);
+}
+
+RCT_REMAP_METHOD(closeDatasource,closeDatasourceByKey:(NSString*)key andDatasourceName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Datasources* dataSources = workspace.datasources;
+    if(dataSources){
+        BOOL closed = [dataSources closeAlias:name];
+        NSNumber* nsClosed = [NSNumber numberWithBool:closed];
+        resolve(@{@"closed":nsClosed});
+    }else
+        reject(@"workspace",@"close Datasource failed!!!",nil);
+}
+
+RCT_REMAP_METHOD(closeAllDatasource,closeAllDatasourceByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Datasources* dataSources = workspace.datasources;
+    if(dataSources){
+        [dataSources closeAll];
+        resolve(@"closed");
+    }else
+        reject(@"workspace",@"close all Datasource failed!!!",nil);
+}
+
+#pragma mark - 原maps类方法
+
+RCT_REMAP_METHOD(removeMap,removeMapByKey:(NSString*)key andMapName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Maps* maps = workspace.maps;
+    if(maps){
+        BOOL removed = [maps removeMapName:name];
+        NSNumber* nsRemoved = [NSNumber numberWithBool:removed];
+        resolve(@{@"removed":nsRemoved});
+    }else
+        reject(@"workspace",@"remove map by name failed!!!",nil);
+}
+
+RCT_REMAP_METHOD(clearMap,clearMapByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Maps* maps = workspace.maps;
+    if(maps){
+        [maps clear];
+        resolve(@"cleared");
+    }else
+        reject(@"workspace",@"clear map failed!!!",nil);
+}
+
+#pragma mark - ios
 RCT_REMAP_METHOD(dispose,disposeKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   
   Workspace* workspace = [JSObjManager getObjWithKey:key];

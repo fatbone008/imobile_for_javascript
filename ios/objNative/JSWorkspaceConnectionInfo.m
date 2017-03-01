@@ -87,10 +87,12 @@ RCT_REMAP_METHOD(getServer,getServerKey:(NSString*)key resolver:(RCTPromiseResol
 RCT_REMAP_METHOD(setServer,setServerKey:(NSString*)key server:(NSString*)server  resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   WorkspaceConnectionInfo* info = [JSObjManager getObjWithKey:key];
   if(info){
-    
+      /*
     if([server containsString:@"+"]){
       server = [NSHomeDirectory() stringByAppendingString:[server substringFromIndex:1]];
     }
+       */
+    server = [NSHomeDirectory() stringByAppendingString:server];
     info.server = server;
     resolve(@"1");
   }else
@@ -117,8 +119,7 @@ RCT_REMAP_METHOD(setUser,setUserKey:(NSString*)key user:(NSString*)user  resolve
 RCT_REMAP_METHOD(setType,setTypeKey:(NSString*)key user:(int)type  resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   WorkspaceConnectionInfo* info = [JSObjManager getObjWithKey:key];
   if(info){
-    info.type = (WorkspaceType)type;
-   // info.user = user;
+    info.type = type;
     resolve(@"1");
   }else
     reject(@"WorkSpaceInfo",@"setType failed!!!",nil);
