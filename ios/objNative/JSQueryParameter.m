@@ -29,7 +29,7 @@ RCT_REMAP_METHOD(setAttributeFilter,setAttributeFilterById:(NSString*)paraId att
     para.attriButeFilter = attributeFilter;
     resolve(@"done");
   }else{
-    reject(@"queryParameter",@"get Obj failed!!!",nil);
+    reject(@"queryParameter",@"set attributeFilter failed!!!",nil);
   }
 }
 
@@ -39,7 +39,7 @@ RCT_REMAP_METHOD(setGroupBy,setGroupById:(NSString*)paraId groups:(NSArray*)grou
     para.groupBy = groups;
     resolve(@"done");
   }else{
-    reject(@"queryParameter",@"get Obj failed!!!",nil);
+    reject(@"queryParameter",@"set GroupBy failed!!!",nil);
   }
 }
 
@@ -49,7 +49,7 @@ RCT_REMAP_METHOD(setHasGeometry,setHasGeometryById:(NSString*)paraId has:(BOOL)i
     para.hasGeometry = isHas;
     resolve(@"done");
   }else{
-    reject(@"queryParameter",@"get Obj failed!!!",nil);
+    reject(@"queryParameter",@"set HasGeometry failed!!!",nil);
   }
 }
 
@@ -59,7 +59,7 @@ RCT_REMAP_METHOD(setResultFields,setResultFieldsById:(NSString*)paraId fields:(N
     para.resultFields = fields;
     resolve(@"done");
   }else{
-    reject(@"queryParameter",@"get Obj failed!!!",nil);
+    reject(@"queryParameter",@"set ResultFields failed!!!",nil);
   }
 }
 
@@ -69,11 +69,22 @@ RCT_REMAP_METHOD(setOrderBy,setOrderById:(NSString*)paraId fields:(NSArray*)fiel
     para.orderBy = fields;
     resolve(@"done");
   }else{
-    reject(@"queryParameter",@"get Obj failed!!!",nil);
+    reject(@"queryParameter",@"set OrderBy failed!!!",nil);
   }
 }
 
-RCT_REMAP_METHOD(setSpatialQueryMode,setSpatialQueryModeById:(NSString*)paraId mode:(SpatialQueryMode)mode resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(setSpatialQueryObject,setSpatialQueryObjectById:(NSString*)paraId andGeometryId:(NSString*)geoId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    QueryParameter* para = [JSObjManager getObjWithKey:paraId];
+    id geo = [JSObjManager getObjWithKey:geoId];
+    if (para&&geo) {
+        para.spatialQueryObject = geo;
+        resolve(@"done");
+    }else{
+        reject(@"queryParameter",@"set SpatialQueryObject failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setSpatialQueryMode,setSpatialQueryModeById:(NSString*)paraId mode:(int)mode resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   QueryParameter* para = [JSObjManager getObjWithKey:paraId];
   if (para) {
     para.spatialQueryMode = mode;

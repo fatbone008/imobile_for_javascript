@@ -20,6 +20,27 @@ RCT_REMAP_METHOD(getMap,geMapKey:(NSString*)key resolver:(RCTPromiseResolveBlock
   }else
     reject(@"MapControl",@"getMap:mapcontrol not exeist!!!",nil);
 }
+
+RCT_REMAP_METHOD(setAction,mapControlId:(NSString*)Id actionType:(int)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.action = type;
+        resolve(@"1");
+    }else{
+        reject(@"mapControl",@"setAction failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(submit,submitByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:key];
+    if (mapControl) {
+        [mapControl submit];
+        resolve(@"submit successful");
+    }else{
+        reject(@"mapControl",@"submit failed!!!",nil);
+    }
+}
+
 RCT_REMAP_METHOD(getNavigation2,getNavigation2BymapControlId:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   MapControl* mapControl = [JSObjManager getObjWithKey:Id];
   Navigation2* navi2 = [mapControl getNavigation2];
@@ -29,16 +50,6 @@ RCT_REMAP_METHOD(getNavigation2,getNavigation2BymapControlId:(NSString*)Id resol
     resolve(@{@"navigation2Id":@(key).stringValue});
   }else{
     reject(@"mapControl",@"get navi2 failed!!!",nil);
-  }
-}
-
-RCT_REMAP_METHOD(setAction,mapControlId:(NSString*)Id actionType:(int)type resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  MapControl* mapControl = [JSObjManager getObjWithKey:Id];
-  if (mapControl) {
-    mapControl.action = type;
-    resolve(@"1");
-  }else{
-    reject(@"mapControl",@"setAction failed!!!",nil);
   }
 }
 

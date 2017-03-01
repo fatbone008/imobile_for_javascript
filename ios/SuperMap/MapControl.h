@@ -9,17 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Action.h"
 #import "SelectionMode.h"
-#import "Navigation.h"
-#import "Navigation2.h"
-#import "Unit.h"
 
-@class Map;
-@class Workspace;
+@class Map,Navigation,Navigation2,Navigation3;
+@class Workspace,Collector;
 @class Callout;
 @class Geometry;
-@class Layer;
+@class Layer,Point2D;
 @class Color;
-@class DynamicView;
+@class DynamicView,SnapSetting;
 @protocol TouchableViewDelegate;
 @protocol MapEditDelegate;
 @protocol MapMeasureDelegate;
@@ -110,10 +107,10 @@
 @property(nonatomic,retain)NSMutableArray *callouts;
 
 ///用户的手势回调。
-@property (nonatomic ,strong) id<TouchableViewDelegate> delegate;
+@property (nonatomic) id<TouchableViewDelegate> delegate;
 
 ///编辑地图时用户回调。
-@property (nonatomic ,strong) id<MapEditDelegate> mapEditdelegate;
+@property (nonatomic) id<MapEditDelegate> mapEditdelegate;
 
 
 /**
@@ -130,7 +127,15 @@
  */
 @property (assign,nonatomic) BOOL isMagnifierEnabled;
 
-@property(nonatomic,assign)CGRect mapControlRect;
+//mapControl frame 跟随横竖屏变化
+@property(nonatomic,assign)CGRect rect;
+
+/**
+ * 设置,获取 地图控件的捕捉设置
+ * @param value
+ */
+@property(nonatomic,strong)SnapSetting* snapSetting;
+
 ///默认构造函数，构造一个新的MapControl对象。
 -(id)init;
 
@@ -147,11 +152,23 @@
 ///初始化MapControl的新实例，无返回值。
 -(void)mapControlInit;
 
+//开启、关闭 OpenGL模式下的旋转和倾斜手势
+-(void)enableRotateTouch:(BOOL)value;
+-(void)enableSlantTouch:(BOOL)value;
+
 /**@brief 设置用户的宽度和高度。
  @param  width 设置高度。
  @param  height 设置宽度 。
  */
 -(void)setSizeWithHeight:(NSInteger)height Width:(NSInteger)width;
+
+/**@brief 添加动态层。
+ */
+-(void)addDynamicView:(DynamicView*)dyView;
+
+/**@brief 删除动态层。
+ */
+-(void)removeDynamivView:(DynamicView*)dyView;
 
 /**@brief 从Mapcontrol上移除指定序号的Callout对象。
  @param  index 指定的 Callout 对象的索引。
@@ -206,6 +223,8 @@
 
 -(Navigation2 *)getNavigation2;
 
+-(Navigation3 *)getNavigation3;
+
 /**
  * 将当前显示内容绘制到指定位图上
  * @param image 需要被绘制的位图
@@ -229,7 +248,11 @@
  */
 -(BOOL)appointEditGeometryWithID:(int)ID Layer:(Layer*)layer;
 
-// Add by guanzl 2013-12-30 地图动画相关
+/**
+ * 获取GPS采集对象
+ */
+-(Collector*)getCollector;
+
 /**
  * 在指定的时间内到指定的比例尺
  * @param scaleDest 目标比例尺
@@ -256,6 +279,7 @@
 -(void)removePlotLibrary:(int)libraryID;
 //通过libraryID 和 symbolCode绘制态势标绘符号
 -(void)setPlotSymbol:(int)libraryID symbolCode:(long)symbolCode;
+
 @end
 
 ///手势回调函数，用户需要实现自定义手势时回调。
@@ -266,6 +290,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)longpress:(CGPoint)pressedPos;
+- (void)onDoubleTap:(CGPoint)onDoubleTapPos;
 @end
 
 ///地图编辑用户回调。
@@ -273,7 +298,8 @@
 
 /// 绘制对象提交后回调。
 @optional
-- (void)submitGeometry:(NSInteger)ID ;
+- (void)submitGeometry:(NSInteger)ID;
+-(void)finishEditedEvent:(Layer*)layer ids:(NSArray*)ids;
 @end
 
 /**
@@ -287,7 +313,7 @@
  * @param lastPoint 量算时绘制的最后一个点 。
  */
 -(double)getMeasureResult:(double)result lastPoint:(Point2D*)lastPoint;
-
+-(void)measureState;
 @end
 
 /**
@@ -298,8 +324,9 @@
 /**
  * @brief 几何对象被选中时响应。
  * @param geometryID 被选中对象的SmID。
- * @param layerIndex 图层索引。
+ * @param layer 选中对象所在图层。
  */
--(void)geometrySelected:(int)geometryID LayerIndex:(int)layerIndex;
-
+-(void)geometrySelected:(int)geometryID Layer:(Layer*)layer;
+//框选回调 数据类 [layer,[id1,id2]]; 组成的列表
+-(void)geometryMultiSelected:(NSArray*)layersAndIds;
 @end

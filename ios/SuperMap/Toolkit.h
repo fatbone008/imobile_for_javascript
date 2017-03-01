@@ -8,15 +8,18 @@
 #import "Geometry.h"
 #import "EncodeType.h"
 @class Geometry;
+@class GeoRegion,GeoLine;
 @class Workspace;
+@class PrjCoordSys;
+@class Point2Ds;
 //@class UIImage;
-const double DBL_MAX_VALUE = 1.7976931348623157e+308;
+extern const double DBL_MAX_VALUE ;
 
-const double DBL_MIN_VALUE = -1.7976931348623157e+308;
+extern const double DBL_MIN_VALUE ;
 
-const float FLT_MAX_VALUE = (float) 3.4028235e+038;
+extern const float FLT_MAX_VALUE ;
 
-const  float FLT_MIN_VALUE = (float) -3.4028235e+038;
+extern const  float FLT_MIN_VALUE ;
 
 /**   工具包类。
 *
@@ -53,4 +56,34 @@ const  float FLT_MIN_VALUE = (float) -3.4028235e+038;
 
 +(BOOL) isValidEncodeType:(BOOL)isVector encodeType:(EncodeType)encodeType;
 
+//计算p1 p2 p3之间夹，p2是拐点。 顺时针 线段夹角 三个点需要在同一坐标系
++(double)calcAngle:(Point2D*)p1 pos2:(Point2D*)p2 pos3:(Point2D*)p3;
+
+/**
+ * 计算点串间的总距离
+ * @param points 点串
+ * @param prj 当前地图的投影坐标系
+ * @return
+ */
++(double)calcLength:(Point2Ds*)points prj:(PrjCoordSys*)prj;
+
+/**
+ * 计算点串间围为的地理面积
+ * @param points 点串
+ * @param prj 当前地图的投影坐标系
+ * @return
+ */
++(double)calcArea:(Point2Ds*)points prj:(PrjCoordSys*)prj;
+
+//! \brief 判断两个面是否交叠
++(BOOL)isOverlap:(GeoRegion*)geo1 geo2:(GeoRegion*)geo2;
+
+//! \brief 判断是否自相交
+//! -1:数据错误或异常 1：数据存在自相交 0：数据不存在自相交
++(int)IsSelfIntersect:(Geometry*)geo;
+
+//获取当前长度
++(double)getCurrentLength:(GeoLine*)geo prj:(PrjCoordSys*)prj;
+//获取当前面积
++(double)getCurrentArea:(GeoRegion*)geo prj:(PrjCoordSys*)prj;
 @end

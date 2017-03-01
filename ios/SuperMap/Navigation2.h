@@ -8,16 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "LocationManagePlugin.h"
 
+
+@class GeoStyle;
 @class GeoLine;
-@class Point2D;
+@class Point2D,GPSData;
 @class DatasetVector;
 @protocol navigation2ChangedDelegate;
 @protocol Encryption;
 
 
-@interface Navigation2 : NSObject<locationChangedDelegate,UIAccelerometerDelegate>
+@interface Navigation2 : NSObject
 
 /**@brief 设置导航引导图层小车图片
  @param  carImage用户指定的图片（图片车头方向向下，默认图片为bundle中的carlocation.png）。
@@ -190,6 +191,11 @@
 -(void)setIsTurnInfoVisible:(BOOL)bVisible;
 -(void)setIsRoadInfoVisible:(BOOL)bVisible;
 
+/**
+ * 设置引导路径的样式
+ * @param value 引导路径的样式
+ */
+-(void)setRouteStyle:(GeoStyle*)style;
 @end
 
 @protocol navigation2ChangedDelegate<NSObject>

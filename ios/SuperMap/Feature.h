@@ -12,13 +12,7 @@
 * 
 * <p>用于向服务器进行上传数据服务动作时操作指定记录的Featrue对象。</p>
 */
-@interface Feature : NSObject{
-
-    Geometry *mGeometry;
-    NSMutableArray *mFieldNames;
-    NSMutableArray *mFieldValues;
-}
-
+@interface Feature : NSObject
 /**
  * @brief 根据指定的参数构造一个新的Feature对象。
  * @param fieldNames 指定的属性名数组。

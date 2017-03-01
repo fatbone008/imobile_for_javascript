@@ -18,6 +18,7 @@ typedef enum{
      *  
      *<p>  用户在进行二维地图缓存加载的时候，需要设置为此引擎类型，另外还需要使用 DatasourceConnectionInfo 类中的 setServer() 方法，将参数设置为二维地图缓存配置文件（SCI）。
      */
+    //废弃
     ET_IMAGEPLUGINS = 5,
     
     /// OGC引擎类型，针对于 Web 数据源。
@@ -37,8 +38,18 @@ typedef enum{
     ET_REST = 225,
 
 	/// Baidu 天地图地图服务引擎类型，该引擎为只读引擎，且不能创建。针对天地图发布的服务。
-    ET_MapWorldMaps = 226,
+    //接口废弃，不能再使用
+  //  ET_MapWorldMaps = 226,
       
 	///Baidu 百度地图服务引擎类型。 
-    ET_BAIDU = 227    
+    ET_BAIDU = 227,
+    
+    //openstreet地图
+    ET_OPENSTREEMAPS = 228,
+    
+    //必应地图
+    ET_BingMaps = 230,
+    
+    //OpenGLCache,用于打开OpenGLCache数据源
+    ET_OPENGLCACHE = 305
 }EngineType;

@@ -9,6 +9,8 @@
 #import "JSObjManager.h"
 #import "JSWorkspace.h"
 #import "SuperMap/Workspace.h"
+#import "SuperMap/Datasources.h"
+#import "SuperMap/Maps.h"
 #import "JSWorkspaceConnectionInfo.h"
 #import "JSDatasourceConnectionInfo.h"
 #import "JSDatasources.h"
@@ -45,20 +47,99 @@ RCT_REMAP_METHOD(destroyObj,destroyJSObjKey:(NSString*)key resolver:(RCTPromiseR
     reject(@"workspace",@"destroy obj failed!!!",nil);
 }
 
-RCT_REMAP_METHOD(open, openKey:(NSString*)key infoKey:(NSString*)infoKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Workspace* workspace = [JSObjManager getObjWithKey:key];
-  WorkspaceConnectionInfo* infoOC = [JSObjManager getObjWithKey:infoKey];
-  if(workspace==nil || infoOC==nil){
-    reject(@"workspace",@"open failed!!!",nil);
-  }else{
-    if([workspace open:infoOC]){
-      NSLog(@"open workspace succuss!!!");
-      
+RCT_REMAP_METHOD(getDatasources,getDatasourcesKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Datasources* dataSource = workspace.datasources;
+        [JSObjManager addObj:dataSource];
+        NSInteger nsDataSource = (NSInteger)dataSource;
+        resolve(@{@"datasourcesId":@(nsDataSource).stringValue});
     }else{
-       NSLog(@"open workspace failed!!!");
+        reject(@"workspace",@"workspace not exeist!!!",nil);
     }
-    resolve(@{@"isOpen":@"YES"});
+}
+
+#pragma mark - 原datasources类方法
+RCT_REMAP_METHOD(openDatasourceConnectionInfo, openDatasourceConnectionInfoByKey:(NSString*)key datasourceConnectionInfo:(NSString*)info resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  Workspace* workspace = [JSObjManager getObjWithKey:key];
+  DatasourceConnectionInfo* infoObj = [JSObjManager getObjWithKey:info];
+  if(workspace&&infoObj){
+      Datasource* datasource = [workspace.datasources open:infoObj];
+      [JSObjManager addObj:datasource];
+      NSInteger nsDatasource = (NSInteger)datasource;
+      resolve(@{@"datasourceId":@(nsDatasource).stringValue});
+  }else{
+      reject(@"workspace",@"open DatasourceConnectionInfo failed!!!",nil);
   }
+}
+
+RCT_REMAP_METHOD(getDatasource, getDatasourceByKey:(NSString*)key andIndex:(int)index resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Datasource* datasource = [workspace.datasources get:index];
+        [JSObjManager addObj:datasource];
+        NSInteger nsDatasource = (NSInteger)datasource;
+        resolve(@{@"datasourceId":@(nsDatasource).stringValue});
+    }else{
+        reject(@"workspace",@"get Datasource failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getDatasourceByName, getDatasourceByKey:(NSString*)key andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Datasource* datasource = [workspace.datasources getAlias:name];
+        [JSObjManager addObj:datasource];
+        NSInteger nsDatasource = (NSInteger)datasource;
+        resolve(@{@"datasourceId":@(nsDatasource).stringValue});
+    }else{
+        reject(@"workspace",@"get Datasource failed!!!",nil);
+    }
+}
+
+#pragma mark - workspace类方法
+
+RCT_REMAP_METHOD(open,openBykey:(NSString*)key andWorkspaceConnectionInfoId:(NSString*)infoId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    WorkspaceConnectionInfo* info = [JSObjManager getObjWithKey:infoId];
+    if(workspace&&info){
+        BOOL openBit = [workspace open:info];
+        NSNumber* nsOpenBit = [NSNumber numberWithBool:openBit];
+        resolve(@{@"isOpen":nsOpenBit});
+    }else
+        reject(@"workspace",@"open failed!!!",nil);
+}
+
+RCT_REMAP_METHOD(getMaps,geMapsByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Maps* maps = workspace.maps;
+        [JSObjManager addObj:maps];
+        NSInteger nsMaps = (NSInteger)maps;
+        resolve(@{@"mapsId":@(nsMaps).stringValue});
+    }else
+        reject(@"workspace",@"get maps failed!",nil);
+}
+
+#pragma mark - maps类方法
+RCT_REMAP_METHOD(getMapName,getMapNameByKey:(NSString*)key andMapIndex:(int)index resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Maps* maps = workspace.maps;
+        NSString* mapName = [maps get:index];
+        resolve(@{@"mapName":mapName});
+    }else
+        reject(@"workspace",@"get mapName failed!",nil);
+}
+//*********************************************
+RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key andMapIndex:(int)index resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    if(workspace){
+        Maps* maps = workspace.maps;
+        NSString* mapName = [maps get:index];
+        resolve(@{@"mapName":mapName});
+    }else
+        reject(@"workspace",@"get mapName failed!",nil);
 }
 
 RCT_REMAP_METHOD(save,saveKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
@@ -91,25 +172,6 @@ RCT_REMAP_METHOD(dispose,disposeKey:(NSString*)key resolver:(RCTPromiseResolveBl
     reject(@"workspace",@"save failed!!!",nil);
 }
 
-RCT_REMAP_METHOD(getMaps,geMapsKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Workspace* workspace = [JSObjManager getObjWithKey:key];
-  if(workspace){
-    Maps* maps = workspace.maps;
-    [JSObjManager addObj:maps];
-    NSInteger key = (NSInteger)maps;
-    resolve(@{@"mapsId":@(key).stringValue});
-  }else
-    reject(@"mapsId",@"workspace not exeist!!!",nil);
-}
-RCT_REMAP_METHOD(getDatasources,getDatasourcesKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Workspace* workspace = [JSObjManager getObjWithKey:key];
-  if(workspace){
-    Datasources* dataSource = workspace.datasources;
-    [JSObjManager addObj:dataSource];
-    NSInteger key = (NSInteger)dataSource;
-    resolve(@{@"datasourcesId":@(key).stringValue});
-  }else{
-    reject(@"workspace",@"workspace not exeist!!!",nil);
-  }
-}
+
+
 @end

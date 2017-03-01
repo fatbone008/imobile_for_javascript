@@ -16,17 +16,8 @@
  <p>该类存储从服务上获取的数据。</p>
  */
  
-@interface FeatureSet : NSObject{
-    @private
-     int _mCusor;                   // 
-     BOOL _bHaveGeometroy;           //     
-     BOOL _bHaveAttribute;           // 
-     int  _mFieldCount;              //
-     int  _mRecordCount;             // 
-     NSMutableArray *_mResultfeatures;  // 
-     FieldInfos *_mFieldInfos;         // 
-     id _mJsonObject;               // 
-}
+@interface FeatureSet : NSObject
+   
 
 //@brief 是否含有几何对象。
 //@return 若含有几何信息，返回 true；否则返回 false。
@@ -210,4 +201,7 @@
  @return  获取到的一个要素（包含字段名，字段值，几何信息）。
      */
 -(Feature *)getFeature;
+
+-(BOOL)toRecordset:(Recordset**)recordset;
+-(BOOL)fromRecordset:(Recordset*)recordset;
 @end

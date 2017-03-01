@@ -107,14 +107,14 @@
  * @param value 文本字体的磅数。
  *           
  */
--(void)setWeight:(int)value;
+-(void)setWeight:(int)value NS_DEPRECATED_IOS(2_0,5_0);
 /**
  * @brief 获取文本字体的磅数(文本的笔画宽度)，表示粗体的具体数值。取值为0～900中的整百数，如400表示正常显示，700表示粗体，可参见微软MSDN
  * LogFont帮助中关于LFWeight的说明。
  * <p>默认值为400，表示正常显示。</p>
  * @return 文本字体的磅数。 
  */
--(int)getWeight;
+-(int)getWeight NS_DEPRECATED_IOS(2_0,5_0);
 
 /**
  * @brief 获取文本字体是否为固定尺寸。false，表示文本为非固定尺寸的文本。

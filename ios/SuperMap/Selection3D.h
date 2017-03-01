@@ -56,4 +56,9 @@
 
 - (int)getIDWithIndex:(NSInteger)index;
 
+/*
+** 刷新selection
+*/
+-(void)updateData;
+
 @end

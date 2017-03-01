@@ -8,6 +8,7 @@
 #import "Layer3D.h"
 #import "Layer3DVectorFileDataType.h"
 
+DEPRECATED_ATTRIBUTE
 /// 矢量文件图层类。
 @interface Layer3DVectorFile : Layer3D {
     

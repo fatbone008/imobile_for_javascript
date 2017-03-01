@@ -18,6 +18,7 @@
         GT_GEOTEXT   = 7,
         /// 路由几何对象。
         GT_GEOLINEM = 35,
+        GT_GEOCIRCLE = 15,
         ///
         GT_GEOPOINT3D = 101,
         
@@ -26,6 +27,8 @@
         GT_GEOREGION3D = 105,
         
         GT_GEOTEXT3D = 107,
+        
+        GT_GEOPLACEMARK = 108,
         
         GT_GEOMODEL = 1201,
         

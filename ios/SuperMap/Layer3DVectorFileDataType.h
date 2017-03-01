@@ -18,4 +18,4 @@ typedef enum {
     TEXT = 7 ,
 	/// 模型数据类型。
     VECTORMODEL = 106 ,
-}Layer3DVectorFileDataType;
+}Layer3DVectorFileDataType DEPRECATED_ATTRIBUTE;

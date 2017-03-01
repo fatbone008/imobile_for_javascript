@@ -7,9 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class Map,Layer,Dataset;
-@class Theme;
+@class Map,Layer,Dataset,LayerGroup;
+@class Theme,Datasource;
 @protocol LayersStateDelegate;
+@protocol LayerGroupStateDelegate;
+@protocol LayerStateDelegate;
 
 /**
  *  图层集合类。
@@ -28,6 +30,8 @@
  */
 @property (strong,nonatomic) id<LayersStateDelegate> layersdelegate;
 
+@property(nonatomic,assign)id<LayerGroupStateDelegate>layerGroupdelegate;
+@property(nonatomic,assign)id<LayerStateDelegate>layerdelegate;
 /**
 	 *@brief  用于把一个数据集添加到此图层集合作为一个普通图层显示，即创建一个普通图层。其风格由系统默认设置。
 	 *
@@ -101,6 +105,28 @@
 	 * @return 成功返回真。
  */
 -(BOOL)moveTo:(int)srcIndex desIndex:(int)desIndex;
+
+/**
+ * 通过SLD文件，向图层集合中添加图层
+ * @param layers 目标图层集合
+ * @param datasource 数据所在的数据源
+ * @param strSLDFilePath SLD文件路径
+ */
+-(void)addLayer:(Layers*)layers datasource:(Datasource*)datasource path:(NSString*)strSLDFilePath;
+
+//添加图层
+-(BOOL)addLayer:(Layer*)layer;
+//插入图层
+-(BOOL)insertLayer:(int)index layer:(Layer*)layer;
+//删除图层
+-(BOOL)remove:(Layer*)layer;
+//删除分组
+-(BOOL)removeGroup:(LayerGroup*)group;
+//插入分组
+-(LayerGroup*)insertGroup:(int)index groupName:(NSString*)groupName;
+//添加分组
+-(LayerGroup*)addGroup:(NSString*)groupName;
+
 @end
 
 

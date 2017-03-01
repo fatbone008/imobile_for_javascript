@@ -22,6 +22,7 @@
      * @return 图层的类型。
      */
 @property(nonatomic,readonly)LayerSettingType layerType;
-
+@optional
+@property(nonatomic)BOOL isModefied;
 
 @end

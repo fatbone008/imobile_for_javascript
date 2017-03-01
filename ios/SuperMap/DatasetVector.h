@@ -10,6 +10,8 @@
 #import "Dataset.h"
 #import "CursorType.h"
 #import "StatisticMode.h"
+#import "SpatialIndexInfo.h"
+
 @class Geometry;
 
 @class FieldInfos,DatasetVector,Recordset,QueryParameter;
@@ -20,14 +22,8 @@
  *  <p> 用户在对矢量数据集进行操作之前，需要先打开该数据集，即调用打开数据集的方法—— [Dataset  open]
  * 方法。
  */
-@interface DatasetVector : Dataset{
-@private
-    FieldInfos* _fieldInfos;
-    
-    DatasetVector* _childDataset;
-    
-    Dataset* _parentDataset; 
-}
+@interface DatasetVector : Dataset
+
 
 /**
 * @brief 获取矢量数据集中字段的数目。
@@ -160,15 +156,16 @@
 
 /**
 	 * 从GeoJSON字符串中获取几何对象，并将其存入数据集中
-	 * <p>仅支持点、线、面和CAD数据集，获取点、线、面对象
+	 * <p>仅支持点、线、面数据集，获取点、线、面对象
 	 * @param geoJSON     GeoJSON格式的字符串
 	 * @return            获取成功，返回true;否则，返回false
 	 */
 -(BOOL)fromGeoJSON:(NSString*)geoJSON;
 
+-(BOOL)isAvailableFieldName:(NSString*)fieldName;
 /**
 	 * 将数据集中指定起止SmID的对象，转换成GeoJSON格式的字符串
-	 * <p>仅支持点、线、面和CAD数据集，转换点、线、面对象.hasAtrributte为true时，结果中包含属性值;hasAtrribute为false时，只有几何对象。
+	 * <p>仅支持点、线、面数据集，转换点、线、面对象.hasAtrributte为true时，结果中包含属性值;hasAtrribute为false时，只有几何对象。
 	 * @param hasAttributte     是否包含属性值
 	 * @param startID           起始SmID
 	 * @param endID             结束SmID
@@ -176,8 +173,33 @@
 	 */
 -(NSString*)toGeoJSON:(BOOL)hasAttributte startID:(int)startID endID:(int)endID;
 
+//从文件读取数据集，file 需要打开后传入
 -(int)fromGeoJSONFile:(FILE*)file;
 
-//file需要以追加方式打开
+//将数据集写入文件，file 需要打开后传入
 -(int)toGeoJSONFile:(FILE*)file;
+
+//! \brief 建立空间索引
+//! \remarks 此方法只能用来建立四叉树索引和R树索引,图幅索引见其他的函数,如果是IDXNone
+//!          那么默认重建四叉树索引和R树索引
+-(BOOL)buildSpatialIndex:(SpatialIndexInfo*)spatial;
+
+-(BOOL)buildSpatialIndexWithType:(SpatialIndexType)spatialIndexType;
+
+//! \brief 清除空间索引,为没有索引的状态
+-(BOOL)dropSpatialIndex;
+
+//! \brief 根据当前索引状态重建索引
+-(BOOL)reBuildSpatialIndex;
+
+//! \brief 脏数据的空间索引更新
+-(BOOL)updateSpatialIndex;
+
+//! \brief 是否需要重建空间索引
+//! \remarks 规定:如果没有索引返回FALSE,有索引看索引的情况
+-(BOOL)isSpatialIndexDirty;
+
+-(BOOL)isSpatialIndexTypeSupported:(SpatialIndexType) spatialIndexType;
+-(SpatialIndexType)getSpatialIndexType;
+-(Rectangle2D*)computeBounds;
 @end

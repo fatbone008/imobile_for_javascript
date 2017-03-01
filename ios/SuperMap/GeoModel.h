@@ -10,10 +10,16 @@
 /**三维模型几何对象类
  <p>该类用于建立三维几何对象的模型，从而实现对三维几何对象进行渲染
  */
+
+@class NodeAnimation;
+
 @interface GeoModel : Geometry3D
 
 /// 获取或设置三维模型几何对象的名称
 @property(nonatomic)NSString* modelName;
+
+/// 节点动画
+@property (nonatomic, readonly, strong) NodeAnimation *nodeAnimation;
 
 /** @brief  构造一个GeoModel对象
  @return  GeoModel对象

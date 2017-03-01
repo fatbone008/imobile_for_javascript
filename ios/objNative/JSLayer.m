@@ -18,9 +18,9 @@ RCT_REMAP_METHOD(setEditable,setEditableKey:(NSString*)key  editable:(BOOL)edita
   Layer* layer = [JSObjManager getObjWithKey:key];
   if(layer){
     layer.editable = editable;
-    resolve(@"1");
+    resolve(@"editable have been setted");
   }else{
-    reject(@"Layer",@"setEditable failed!!!",nil);
+    reject(@"Layer",@"set editable failed!",nil);
   }
 }
 
@@ -29,7 +29,7 @@ RCT_REMAP_METHOD(getName,getNameByKey:(NSString*)key andIndex:(int)index resolve
   if(layer.name){
     resolve(@{@"layerName":layer.name});
   }else{
-  reject(@"Layer",@"get name failed!!!",nil);
+  reject(@"Layer",@"get name failed!",nil);
   }
 }
 
@@ -40,21 +40,23 @@ RCT_REMAP_METHOD(getDataset,getDatasetByKey:(NSString*)key resolver:(RCTPromiseR
     [JSObjManager addObj:layer.dataset];
     resolve(@{@"datasetId":@(key).stringValue});
   }else{
-  reject(@"Layer",@"get dataset failed!!!",nil);
+  reject(@"Layer",@"get dataset failed!",nil);
   }
 }
 
-//RCT_REMAP_METHOD(setDataset,setDatasetByKey:(NSString*)key andDatasetId:(NSString*)datasetId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//  Layer* layer = [JSObjManager getObjWithKey:key];
-//  Dataset* dataset = [JSObjManager getObjWithKey:datasetId];
-//  layer.editable = TRUE;
-//  if(layer.dataset){
-//    NSInteger key = (NSInteger)layer.dataset;
-//    [JSObjManager addObj:layer.dataset];
-//    resolve(@{@"datasetId":@(key).stringValue});
-//  }else
-//  reject(@"Layer",@"get dataset failed!!!",nil);
-//}
+RCT_REMAP_METHOD(setDataset,setDatasetByKey:(NSString*)key andDatasetId:(NSString*)datasetId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  Layer* layer = [JSObjManager getObjWithKey:key];
+  Dataset* dataset = [JSObjManager getObjWithKey:datasetId];
+  if(dataset){
+    layer.editable = TRUE;
+//    layer.dataset = dataset;
+      // read only propety
+    NSInteger key = (NSInteger)layer.dataset;
+    [JSObjManager addObj:layer.dataset];
+    resolve(@{@"datasetId":@(key).stringValue});
+  }else
+  reject(@"Layer",@"get dataset failed!!!",nil);
+}
 
 RCT_REMAP_METHOD(getSelection,getSelectionByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Layer* layer = [JSObjManager getObjWithKey:key];
@@ -64,17 +66,27 @@ RCT_REMAP_METHOD(getSelection,getSelectionByKey:(NSString*)key resolver:(RCTProm
     [JSObjManager addObj:selection];
     resolve(@{@"selectionId":@(key).stringValue});
   }else{
-  reject(@"Layer",@"get selection failed!!!",nil);
+  reject(@"Layer",@"get selection failed!",nil);
   }
 }
 
 RCT_REMAP_METHOD(setSelectable,setSelectableByKey:(NSString*)layerId boolBit:(BOOL)boolBit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Layer* layer = [JSObjManager getObjWithKey:layerId];
-  layer.selectable = boolBit;
+    if(layer){
+        layer.selectable = boolBit;
+        resolve(@"selectable have been setted!");
+    }else{
+        reject(@"Layer",@"set selectable failed!",nil);
+    }
 }
 
 RCT_REMAP_METHOD(setVisible,setVisibleByKey:(NSString*)layerId boolBit:(BOOL)boolBit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Layer* layer = [JSObjManager getObjWithKey:layerId];
-  layer.visible = boolBit;
+    Layer* layer = [JSObjManager getObjWithKey:layerId];
+    if(layer){
+        layer.visible = boolBit;
+        resolve(@"visable have been setted!");
+    }else{
+        reject(@"Layer",@"set visable failed!",nil);
+    }
 }
 @end

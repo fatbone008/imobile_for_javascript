@@ -7,8 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "EncodeType.h"
+#import "DatasourceConnectionInfo.h"
 
-@class Workspace,Datasets,DatasourceConnectionInfo;
+@class Workspace,Datasets;
 @class PrjCoordSys;
 @class Dataset;
 
@@ -21,16 +22,8 @@
  * <p>一个工作空间可以打开多个数据源，不同的数据源通过不同的别名（Alias）进行标识。
  * <p>其中值得一提的是我们假设数据源中的数据都使用同样的单位和空间参考系。
  */
-@interface Datasource : NSObject{
-@private
-    Workspace* _workspace;
-    
-    Datasets* _datasets;
-    
-    PrjCoordSys* _prjCoordSys;
-    
-    DatasourceConnectionInfo* _datasourceConnectionInfo;
-}
+@interface Datasource : NSObject
+
 
 // in java, the datasource construction is protected,so we just assert(0)
 //-(id) init;
@@ -99,4 +92,9 @@
  */
 -(Dataset*)copyDataset:(Dataset*)srcDataset desDatasetName:(NSString*)datasetName encodeType:(EncodeType)encodeType;
 
+/**
+ *  @brief oldPassword: 必须输入原始密码，没有为nil，newPassword:新密码 type:修改的加密类型
+ * @return 修改是否成功。
+ */
+-(BOOL)changePassword:(NSString*)oldPassword nwePasswd:(NSString*)newPassword type:(DatasourceEncryptionType)type;
 @end

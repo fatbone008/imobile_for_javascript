@@ -8,6 +8,8 @@
 #ifndef SM_iMobile_Mapping_h
 #define SM_iMobile_Mapping_h
 
+#import "ImageStretchOption.h"
+
 #import "Action.h"
 #import "AlongLineDirection.h"
 
@@ -17,12 +19,16 @@
 #import "LabelMatrix.h"
 #import "Layer.h"
 #import "LayerSetting.h"
+#import "ScreenLayer.h"
+#import "LayerGroup.h"
 #import "LayerSettingType.h"
 #import "LayerSettingVector.h"
+#import "LayerSettingImage.h"
+#import "LayerSettingGrid.h"
 #import "Layers.h"
 #import "Map.h"
 #import "MapControl.h"
-
+#import "FloorListView.h"
 #import "Maps.h"
 #import "MixedTextStyle.h"
 #import "RangeMode.h"
@@ -39,6 +45,19 @@
 #import "TrackingLayer.h"
 #import "OverLengthLabelMode.h"
 #import "ScaleView.h"
+#import "ScreenLayer.h"
+#import "LegendView.h"
+#import "Legend.h"
+#import "LegendItem.h"
+#import "ColorLegendItem.h"
+#import "SnapSetting.h"
+#import "LayerManager.h"
+
+#import "Collector.h"
+#import "CollectorElement.h"
+#import "ColElementLine.h"
+#import "ColElementPoint.h"
+#import "ColElementPolygon.h"
 
 #import "DynamicView.h"
 #import "DynamicPoint.h"

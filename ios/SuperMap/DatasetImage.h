@@ -12,7 +12,7 @@
 #import "ColorSpaceType.h"
 #import "PixelFormat.h"
 
-@class GeoRegion,Color,Point2D;
+@class GeoRegion,Color,Point2D,MapCacheService;
 /** 影像数据集类。
  <p>影像数据集类，该类用于描述影像数据，不具备属性信息，例如影像地图、多波段影像和实物地图等。
  <p>光栅数据采用网格形式组织并使用二维栅格的像素值来记录数据，每个栅格（cell）代表一个像素要素，栅格值可以描述各种数据信息。影像数据集中每一个栅格存储的是一个颜色值或颜色的索引值（RGB 值）。 </p>
@@ -71,11 +71,24 @@
 /**@brief  返回色彩显示模式。
  @return  色彩显示模式。
      */
--(ColorSpaceType) colorSpace;
-
+-(ColorSpaceType) colorSpaceType;
+-(int)getBandCount;
  /**@brief 判断影像数据集是否已创建影像金字塔。true 表示已经创建，false 表示未创建。
  @return  影像数据集是否已创建影像金字塔。
      */
 -(BOOL) hashPyramid;
 
+// 创建金字塔
+-(BOOL)buildPyramid;
+//删除已创建的金字塔
+-(BOOL)removePyramid;
+// 更新金字塔
+-(BOOL)updatePyramid:(Rectangle2D*)value;
+/**
+ @return  获取地图缓存对象
+ */
+-(MapCacheService*)getMapCacheService;
+
+// 删除本地缓存
+-(void)removeCache:(double)scale rect:(Rectangle2D*)bounds;
 @end

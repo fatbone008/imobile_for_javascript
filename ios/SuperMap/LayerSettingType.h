@@ -9,12 +9,12 @@
 
 /// 该枚举定义了图层设置类型常量。
 typedef enum {
-  
-  /// Vector图层设置
-  VECTOR = 0,
-  //影像
-  RASTER = 1,
-  //栅格
-  GRID = 2
-  
+ 
+     /// Vector图层设置
+    VECTOR = 0,
+    //影像
+    RASTER = 1,
+    //栅格
+    GRID = 2
+    
 }LayerSettingType;
