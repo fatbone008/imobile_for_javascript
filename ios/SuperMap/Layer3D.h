@@ -9,7 +9,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "Layer3DType.h"
 
-@class Layer3Ds,Selection3D,FieldInfos,Rect2D;
+@class Layer3Ds,Selection3D,FieldInfos,Rect2D,Feature3Ds;
 
 /** 三维图层类。
  <p>该类提供了三维图层显示和控制等便于三维地图管理的一系列设置方法。</p>
@@ -25,6 +25,7 @@
     Layer3DType _type;
     Selection3D *_selection3D;
     FieldInfos *_fieldInfos;
+    Feature3Ds *_feature3Ds;
 }
 
 
@@ -41,6 +42,8 @@
  ///返回三维图层所使用标题名称。
 @property (nonatomic,readonly) NSString *captionName;
 
+///返回三维图层的文件位置。
+@property (nonatomic,readonly) NSString *dataName;
 
 ///返回三维图层的名称，此名称在场景中唯一标识此图层。
 @property (nonatomic,readonly) NSString *name;
@@ -67,4 +70,21 @@
 ///返回三维图层的范围。
 @property (nonatomic,readonly) Rect2D *bounds;
 
+///返回持有的feature3Ds属性
+@property (nonatomic, strong, readonly) Feature3Ds *feature3Ds;
+
+/**
+ 图层不可见释放内存
+ */
+@property (nonatomic, assign) BOOL releaseWhenInvisible;
+
+/**
+ *  获取或设置图层对视口的可见性
+ */
+
+- (BOOL)visibleInViewport:(NSInteger)index;
+- (void)setVisible:(BOOL)visible inViewport:(NSInteger)index;
+
+/* 更新图层 */
+- (void)updateData;
 @end

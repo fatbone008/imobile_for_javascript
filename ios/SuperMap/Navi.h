@@ -10,6 +10,8 @@
 
 #import "Navigation.h"
 #import "Navigation2.h"
+#import "Navigation3.h"
+#import "NaviDelegate.h"
 #import "LocationManagePlugin.h"
 #import "NaviInfo.h"
 #import "NaviStep.h"

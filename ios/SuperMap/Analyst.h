@@ -8,6 +8,8 @@
 #ifndef SM_iMobile_Analyst_h
 #define SM_iMobile_Analyst_h
 
+#import "RasterClip.h"
+
 #import "BufferAnalyst.h"
 #import "BufferAnalystGeometry.h"
 #import "BufferAnalystParameter.h"

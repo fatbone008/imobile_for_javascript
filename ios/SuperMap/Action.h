@@ -29,10 +29,10 @@ typedef enum {
     VERTEXADD = 55,
     
     /// 在可编辑图层中删除对象的节点。
-    DELETENODE= 500,
+    DELETENODE= 56,
     
     /// 在可编辑图层中画点。
-    CREATEPOINT = 1001,
+    CREATEPOINT = 16,
     
 	/// 在可编辑图层中画直线。
     CREATELINE = 1002,
@@ -41,10 +41,10 @@ typedef enum {
     CREATERECTANGLE = 1003,
     
 	/// 在可编辑图层中画折线。
-    CREATEPOLYLINE = 1004,
+    CREATEPOLYLINE = 17,
 	
 	/// 在可编辑图层中画多边形。
-    CREATEPOLYGON = 1005,
+    CREATEPOLYGON = 27,
 	
 	/// 在可编辑图层中画两点圆。
     CREATE_CIRCLE_2P = 1006,
@@ -53,21 +53,83 @@ typedef enum {
     CREATEELLIPSE = 1009,
     
     ///  自由线。
-    CREATE_FREE_POLYLINE = 1011,
+    CREATE_FREE_POLYLINE = 100,
     
     ///  自由绘制。
-    CREATE_FREE_DRAWPOLYGON = 1012,
+    CREATE_FREE_DRAWPOLYGON = 101,
     
     ///  自由绘制。
-    CREATE_FREE_DRAW = 1019,
+    CREATE_FREE_DRAW = 199,
     
     /// 量算长度。
-    MEASURELENGTH = 2001,
+    MEASURELENGTH = 1001,
     
 	/// 量算面积。
-	MEASUREAREA =  2002,
+	MEASUREAREA =  1002,
+    
+    /// 量算角度。
+    MEASUREANGLE =  1003,
     
     //态势标绘
     CREATE_PLOT = 3000,
     
+    /**
+     * 擦除面对象
+     */
+    ERASE_REGION = 201,
+    /**
+     * 使用线切分
+     */
+    SPLIT_BY_LINE = 202,
+    /**
+     * 面与面合并
+     */
+    UNION_REGION = 203,
+    /**
+     * 面与面组合
+     */
+    COMPOSE_REGION = 204,
+    
+    /**
+     * 切割岛洞多边形
+     */
+    PATCH_HOLLOW_REGION = 205,
+    
+    /**
+     * 填充导洞对象
+     */
+    INTERSECT_REGION = 207,
+    
+    /**
+     * 求交面对象
+     */
+    FILL_HOLLOW_REGION = 206,
+    
+    /**
+     * 多对象补洞
+     */
+    PATCH_POSOTIONAL_REGION = 208,
+    
+    /**
+     * 公共点编辑(协调编辑)
+     */
+    MOVE_COMMON_NODE = 209,
+    
+    /**
+     * 公共边构面
+     */
+    CREATE_POSITIONAL_REGION = 210,
+    /**
+     * 平移对象
+     */
+    MOVE_GEOMETRY = 301,
+    /**
+     * 框选操作
+     */
+    SELECT_BY_RECTANGLE = 302,
+    
+    /**
+     * 多选对象
+     */
+    MULTI_SELECT = 305,
 }Action;

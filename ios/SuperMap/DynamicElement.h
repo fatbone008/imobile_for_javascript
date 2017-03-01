@@ -36,9 +36,11 @@ typedef enum {
 @property (nonatomic, retain, readonly) NSString* ID;
 @property (nonatomic, readonly) Rectangle2D* bounds;
 @property (nonatomic, retain) NSString* tag;
+@property (nonatomic,strong)NSString* name;
+@property(nonatomic)BOOL nameHidden;
 
 -(void)addPoint:(Point2D*)point;
-
+-(NSArray*)getGeoPoints;
 -(void)addAnimator:(Animator*)animator;
 -(void)startAnimation;
 -(void)stopAnimation;
@@ -55,5 +57,6 @@ typedef enum {
 
 @protocol OnClickDelegate <NSObject>
 @optional
--(void)onClick:(DynamicElement*)element;
+-(void)onClick:(DynamicElement*)element pos:(CGPoint)position;
+-(void)onLongPress:(DynamicElement*)element pos:(CGPoint)position;
 @end

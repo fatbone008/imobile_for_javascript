@@ -28,6 +28,10 @@
 @property(nonatomic)Color* markerColor;
 /// 点大小
 @property(nonatomic)double markerSize;
+///点图标缩放比例
+@property (nonatomic, assign) double markerScale;
+/// 点图标
+@property(nonatomic) NSString* markerFile;
 /// 填充前景色
 @property(nonatomic)Color* fillForeColor;
 /// 填充背景色

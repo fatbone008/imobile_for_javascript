@@ -12,7 +12,7 @@
 @class Rectangle2D;
 @class DatasetVector;
 @class QueryParameter;
-@class Geometry;
+@class Geometry,FeatureSet;
 
 /** 记录集类。
  * 
@@ -27,23 +27,7 @@
  * ，而后者得到的是经过查询语句条件过滤的记录集。<p>
  * @note  用户得到  <Recordset> 对象后，当执行完系列操作后，需要对该对象进行释放。
  */
-@interface Recordset : NSObject {
-@private
-    NSInteger _fieldCount;
-    FieldInfos *_fieldInfos;
-    BOOL _isQueryCursorTypeStatic;
-    Rectangle2D *_bounds;
-    DatasetVector *_datasetVector;
-    QueryParameter *_queryParameter;
-    BOOL _isClosed;
-    BOOL _isBOF;
-    BOOL _isReadOnly;
-    NSInteger _recordCount;
-    Geometry* _geometry; 
-    NSInteger _ID;
-    NSInteger _maxBatchCount;
-   // BOOL _isBatchBegin ;
-}
+@interface Recordset : NSObject 
 
 /**
 	 * @brief 获取记录集中字段（Field）的数目。

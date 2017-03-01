@@ -20,4 +20,6 @@
 @property(nonatomic,assign)float rotaAngle;//旋转角度
 @property(nonatomic,assign)int width;//宽度，设置bitmap后有效
 @property(nonatomic,assign)int height;//高度，设置bitmap后有效
+@property(nonatomic,assign)float alpha;//透明度
+@property(nonatomic,strong)NSDictionary* textLableAttribute;//对象标签属性
 @end

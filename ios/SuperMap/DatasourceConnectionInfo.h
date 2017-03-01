@@ -9,6 +9,17 @@
 
 #import "EngineType.h"
 
+
+
+//数据源加密方式
+typedef enum{
+    
+    DEFAULT = 0,
+    AES     = 1
+}DatasourceEncryptionType;
+
+
+@class Rectangle2D;
 /**
  * 数据源连接信息类。
  * 
@@ -80,14 +91,6 @@
 	 */
 @property (strong,nonatomic) NSString* user;
 
-/**
-	 * @brief  获取或设置登录数据源连接的数据库或文件的密码。
-	 * 
-      * <p>  对于 GoogleMaps 数据源，如果打开的是基于早期版本的数据源，则返回的密码为用户在 Google 官网注册后获取的密钥。
-	  * <p>  默认值为一个空字符串。
-	 * @return 登录数据源连接的数据库或文件的密码。
-	 */
-@property (strong,nonatomic) NSString* password;
 
 /**
 	 *  @brief 获取或设置是否以只读方式打开数据源。如果以只读方式打开数据源，数据源的相关信息以及其中的数据都不可修改。
@@ -97,9 +100,61 @@
 	 */
 @property (assign,nonatomic) BOOL readOnly;
 
+/**
+ * @brief  获取或设置登录数据源连接的数据库或文件的密码,只对原有密码类型DEFAULT有效。
+ *
+ * <p>  对于 GoogleMaps 数据源，如果打开的是基于早期版本的数据源，则返回的密码为用户在 Google 官网注册后获取的密钥。
+ * <p>  默认值为一个空字符串。
+ * @return 登录数据源连接的数据库或文件的密码。
+ */
+@property (strong,nonatomic) NSString* password;
+
+/*
+ * 设置,获取 OGC数据源的坐标参考系,默认从服务上获取,优先EPSG:4326类型
+ */
+@property(strong,nonatomic)NSString* webCoordinate;
+
+/**
+ * @params String
+ * @marks 设置,获取WMS服务的版本号
+ */
+@property(strong,nonatomic)NSString* webVersion;
+
+/**
+ * @params String
+ * @marks 设置, 获取WMS服务的图片格式
+ */
+@property(strong,nonatomic)NSString* webFormat;
+
+/**
+ * @params String
+ * @marks 设置,获取WMS服务的可见图层集合
+ */
+@property(strong,nonatomic)NSString* webVisibleLayers;
+
+/**
+ * @params
+ * @marks 设置,获取WMS服务的扩展参数
+ */
+@property(strong,nonatomic)NSString* webExtendParam;
+
+/**
+ * @params
+ * @marks 设置WMS服务的地图范围
+ */
+@property(nonatomic,strong)Rectangle2D* webBBox;
    /**
 	 * @brief  释放该对象所占用的资源。当调用该方法之后，此对象不再可用。
 	 */
 -(void) dispose;
+
+/**
+ * @brief  获取或设置登录数据源连接的数据库或文件的密码,type 加密类型，只对udb有效
+ *
+ * <p>  对于 GoogleMaps 数据源，如果打开的是基于早期版本的数据源，则返回的密码为用户在 Google 官网注册后获取的密钥。
+ * <p>  默认值为一个空字符串。
+ * @return 登录数据源连接的数据库或文件的密码。
+ */
+-(void)setPassword:(NSString*)passwd type:(DatasourceEncryptionType)type;
 
 @end

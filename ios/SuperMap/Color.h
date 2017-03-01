@@ -18,7 +18,9 @@
 /// 绿色分量。
 @property (nonatomic,readonly)int green;
 /// 蓝色分量。
-@property (nonatomic,readonly)int blue; 
+@property (nonatomic,readonly)int blue;
+/// 透明度分量.
+@property (nonatomic,readonly)int alpha;
 /// rgb颜色值。
 @property (nonatomic,readonly)int rgb;
 
@@ -35,6 +37,15 @@
  * @param b 蓝色。
  */
 - (id)initWithR:(int)r G:(int)g B:(int)b;
+
+/** 由rgba四个分量构造一个颜色类。
+ *
+ * @param r 红色。
+ * @param g 绿色。
+ * @param b 蓝色。
+ * @param a 透明度
+ */
+- (id)initWithR:(int)r G:(int)g B:(int)b A:(int)a;
 
 /** 返回RGB颜色值16进制格式的字符串。
 *

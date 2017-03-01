@@ -10,12 +10,9 @@
 #import "DynamicElement.h"
 #import "DynamicAlignment.h"
 
-@interface DynamicText : DynamicElement{
-@private
-    NSString* mText;
-}
+@interface DynamicText : DynamicElement
 
-@property (nonatomic, retain) NSString* text;
+@property (nonatomic, strong) NSString* text;
 
 //对其方式
 @property(nonatomic,assign)DynamicAlignment alignment;
@@ -23,4 +20,5 @@
 // 是否有效的元素
 -(BOOL)isValidElement;
 
+-(id)initWithText:(NSString*)text;
 @end

@@ -118,8 +118,10 @@
 */
 -(BOOL)updatePyramid:(Rectangle2D *)value;
 
+// 创建影像金字塔,必须先关闭数据集
+-(BOOL)buildPyramid;
 //删除已创建的金字塔
-//-(BOOL)removePyramid;
+-(BOOL)removePyramid;
 
 //创建栅格值属性表，其类型为属性表数据集类型
 //-(DatasetVector *)buildValueTable:(Datasource *)mDatasource tableName:(NSString *)tableName;

@@ -11,6 +11,11 @@
 
 @interface DynamicPolygon : DynamicElement
 
+//设置面对象边框颜色，默认没有
+@property(nonatomic,strong)UIColor* borderColor;
+@property(nonatomic)NSUInteger borderWidth;
+
+
 -(ElementType)getType;
 
 @end

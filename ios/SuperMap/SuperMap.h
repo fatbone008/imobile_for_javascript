@@ -13,7 +13,9 @@
 #import "Analyst.h"
 #import "iServer.h"
 #import "Navi.h"
+#ifndef _NO3D_
 #import "Realspace.h"
+#endif
 #import "DataConversion.h"
 #import "Track.h"
 #import "MDataCollector.h"
