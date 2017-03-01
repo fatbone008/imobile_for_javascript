@@ -14,15 +14,7 @@
  * 
  * 该类可以单独创建使用，一个矢量数据集或记录集的所有字段的信息的集合即为一个字段信息集合类的一个实例。该类可以单独创建使用，也可以从矢量数据集或记录集中得到该类的对象。
  */
-@interface FieldInfos : NSObject{    
-@private
-    DatasetVector* _datasetVector;
-    
-    NSMutableArray* _fieldInfos;
-
-    NSRecursiveLock* _lock;
-}
-
+@interface FieldInfos : NSObject
  /**
      * @brief 构造一个新的 FieldInfos 对象，该对象中的  <FieldInfo> 对象的个数为0。
      */
@@ -87,9 +79,14 @@
      */
 -(void) dispose;
 
+/**
+ * 用于从字段信息集移除指定的索引处的项
+ * @param index int
+ * @return boolean
+ */
 -(BOOL) removeFieldAtIndex:(NSInteger) index;
 
-
+//从字段信息集中移除Name属性为name的项
 -(BOOL) removeFieldName:(NSString *) fieldName;
 
 

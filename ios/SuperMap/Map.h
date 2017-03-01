@@ -7,14 +7,23 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGGeometry.h>
-@class Workspace,GeoStyle;
+@class Workspace,GeoStyle,Legend,LayerManager;
 @class Point2D,Rectangle2D,PrjCoordSys;
-@class Layers,TrackingLayer,MapControl;
+@class Layers,TrackingLayer,MapControl,ScreenLayer;
 
 
 
 @protocol MapParameterChangedDelegate;
 @protocol MapLoadDelegate;
+
+typedef enum{
+    MCM_DEFAULT = 0,
+    MCM_BLACKWHITE = 1,
+    MCM_GRAY = 2,
+    MCM_BLACK_WHITE_REVERSE = 3,
+    MCM_ONLY_BLACK_WHITE_REVERSE = 4
+}MapColorMode;
+
 /** 地图类，负责地图显示环境的管理。
  <p> 地图是对地理数据的可视化，通常由一个或多个图层组成。一个地图对象通常通过其图层集合对象 Layers 来管理其中的所有图层，并且地图必须与一个工作空间相关联，以便来显示该工作空间中的数据。另外，对地图的显示方式的设置将对其中的所有图层起作用。该类提供了对地图的各种显示方式的返回和设置，如地图的显示范围，比例尺，坐标以及量度单位，坐标系统以及文本、点等图层的默认显示方式等，并提供了对地图进行的相关操作的方法，如地图的打开与关闭，缩放、平移与全幅显示，以及地图的输出等。</p>
  <p>注意：</p>
@@ -41,10 +50,10 @@
 
 
 /// 地图参数变化时通知委托。
-@property (nonatomic,retain) id<MapParameterChangedDelegate> delegate;
+@property (nonatomic) id<MapParameterChangedDelegate> delegate;
 
 /// 地图第一次加载完成时通知委托。
-@property (nonatomic,retain) id<MapLoadDelegate> mapLoadDelegate;
+@property (nonatomic) id<MapLoadDelegate> mapLoadDelegate;
 /**@brief  获取或设置当前地图的名称。
  @return  当前地图的名称。
      */
@@ -55,6 +64,11 @@
  @return  当前地图的空间范围。
      */
 @property (strong,nonatomic,readonly) Rectangle2D* bounds;
+
+/**@brief 获取和设置当前地图的可编辑范围。
+ @return  当前地图的可编辑范围（默认为0）。
+ */
+@property (strong,nonatomic) Rectangle2D* userEditBounds;
 
 /**@brief 获取或设置当前地图的描述信息。
  @return  当前地图的描述信息。
@@ -122,6 +136,14 @@
      */
 @property (strong,nonatomic,readonly) TrackingLayer* trackingLayer;
 
+//设置地图透明度 0.0-1.0
+@property(assign,nonatomic)CGFloat mapAlpha;
+/**
+ * 屏幕图层
+ *
+ * @return ScreenLayer
+ */
+@property(strong,nonatomic,readonly) ScreenLayer* screeanLayer;
 /**@brief  获取或设置地图的投影坐标系统。
  <p>   投影坐标系类请参见 <PrjCoordSys>。
  @return 地图的投影坐标系统。
@@ -145,16 +167,16 @@
      */
 @property (assign,nonatomic) double scale;
 
-/**@brief 获取地图的最大比例尺。
+/**@brief 获取,设置地图的最大比例尺。
  @return  地图的最大比例尺。
      */
-@property (assign,nonatomic,readonly) double maxScale;
+@property (assign,nonatomic) double maxScale;
 
-/**@brief 获取地图的最小比例尺。
+/**@brief 获取,设置地图的最小比例尺。
  <p> 默认值为 0，表示地图按照默认值可缩放到无穷远或无穷近。
  @return  返回地图的最小比例尺。
    */
-@property (assign,nonatomic,readonly) double minScale;
+@property (assign,nonatomic) double minScale;
 
 /**@brief 获取图片大小的宽度。
  @return  图片大小的宽度。
@@ -166,12 +188,47 @@
 	 */
 @property (assign,nonatomic,readonly) NSInteger imageSizeHeight;
 
+//获取图例
+@property(strong,nonatomic,readonly)Legend* legend;
+
+//获取图层管理控件
+@property(strong,nonatomic,readonly)LayerManager* layerManager;
+
+/**
+ * 设置，获取 使用固定比例尺来显示地图
+ * @return  返回是否使用固定比例尺来显示地图
+ */
+@property(assign,nonatomic)BOOL isVisibleScalesEnabled;
+
+/**
+ * 获取,设置 固定比例尺数组,即固定比例尺显示时,可显示的比例尺
+ * @return  返回取固定比例尺数组
+ */
+@property(strong,nonatomic)NSArray* visibleScales;
+
+/**
+ * 地图颜色模式
+ *
+ */
+@property(nonatomic)MapColorMode mapColorMode;
+
+
 #pragma Mark functions
+
+/**
+ * 设置投影坐标系统和是否动态投影
+ *
+ * @param value 投影坐标系
+ * @param bDynamic 地图是否动态投影
+ *            PrjCoordSys
+ */
+-(void)setDynamicProjection:(BOOL)bDynamic prj:(PrjCoordSys*)value;
+
 /**@brief  设置图片的大小。
  @param  width 图片的宽。
  @param  height 图片的高。
 	 */
--(void) setImageSizeWith:(NSInteger) width Height:(NSInteger) height;
+-(void) setImageSizeWith:(NSInteger) width Height:(NSInteger) height NS_DEPRECATED_IOS(2_0,8_0);
 
 /**@brief 将地图中指定点的像素坐标转换为地图坐标。
  <p>  这个方法必须在设置  setImageSize()  方法之后才能正常工作。
@@ -247,6 +304,40 @@
  @param  value 一个布尔值，用于指定是否允许地图动态投影显示。
  */
 -(void)setDynamicProjection:(BOOL)value;
+
+
+/**
+ * 保存当前地图到工作空间
+ * @return  返回boolean类型,保存成功返回true;否则返回false.
+ * <p>
+ * 1.若当前地图已经关闭,保存失败;
+ * 2.若当前地图没有绑定的工作空间,保存失败;
+ * </p>
+ * @throws Exception
+ */
+-(BOOL)save;
+
+/**
+ * 以指定名称保存当前地图，但不能与工作空间中现有地图重名
+ * @param mapName
+ * @return
+ * @throws Exception
+ */
+-(BOOL)save:(NSString*)mapName;
+
+/**
+ * 将当前地图另存为指定名称的地图
+ * @param mapName      地图名称,不能为null或空串("").
+ * @param isOverWrite  重名时是否覆盖,如果为false,地图重名时将不会保存地图。
+ * @return             返回boolean类型,保存成功返回true;否则返回false.
+ *<p>
+ * 1.若指定的地图名称为null或为空串(""),保存失败;
+ * 2.若当前地图已经关闭,保存失败;
+ * 3.若当前地图没有绑定的工作空间,保存失败;
+ * </p>
+ */
+-(BOOL)saveAs:(NSString*)mapName;
+
 @end
 
 

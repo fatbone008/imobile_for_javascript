@@ -15,4 +15,5 @@
 -(ElementType)getType;
 //对其方式
 @property(nonatomic,assign)DynamicAlignment alignment;
+@property(nonatomic,assign)DynamicAlignment textLableAlignment;
 @end

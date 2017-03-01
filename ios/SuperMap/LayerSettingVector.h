@@ -17,14 +17,8 @@
  *
  * <p>该类主要用来设置矢量图层的显示风格。矢量图层用单一的符号或风格绘制所有的要素。当你只想可视化地显示你的空间数据，只关心空间数据中各要素在什么位置，而不关心各要素在数量或性质上的不同时，可以用普通图层来显示要素数据。 </p>
  */
-@interface LayerSettingVector : NSObject<LayerSetting> {
-@private
-    LayerSettingType _layerType;
-    GeoStyle *_geoStyle;
-    Layer *_layer;
-    Layers *_layers;
-    BOOL isOwnerLayer;
-}
+@interface LayerSettingVector : NSObject<LayerSetting> 
+
 /**
      * @brief  获取矢量图层的类型。
      */

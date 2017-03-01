@@ -8,8 +8,9 @@
 #import <Foundation/Foundation.h>
 #import "ThemeType.h"
 @class Map,Layers,Selection,Dataset,Theme,GeoRegion,m_selfEventHandle,Point2D,QueryParameter;
+@class ChartBase;
 @protocol LayerSetting;
-
+@protocol LayerStateDelegate;
 /**  图层类。
  * 
   *  <p>该l类提供了图层显示和控制等的便于地图管理的一系列方法。当数据集被加载到地图窗口中显示的时，就形成了一个图层，因此图层是数据集的可视化显示。一个图层是对一个数据集的引用或参考。通过对可视化的图层的编辑，可以对
@@ -17,17 +18,8 @@
   *  要素或像元。</p>
   *  <p>该类的实例不可被创建，只可以通过在 <Layers Layers> 类中的   add 方法来创建。</p>
   */
-@interface Layer : NSObject{
-    @private
-    Layers * _layers;
-    Map *_map;
-    Selection  *_selection;
-    QueryParameter* _queryParameter;
-    Dataset  *_dataset;
-    Theme *_theme;
-    GeoRegion *_geoRegion;  
-    id<LayerSetting> _layerSetting;
-}
+@interface Layer : NSObject
+   
 
 /**
      * @brief 获取图层的名称。
@@ -35,6 +27,8 @@
      * @return 图层的名称。
      */
 @property(nonatomic,copy,readonly)NSString *name; 
+
+@property(nonatomic,assign)id<LayerStateDelegate>layerDelegate;
 
 /**
      * @brief 获取或设置图层的标题。
@@ -103,12 +97,26 @@
      */
 @property(nonatomic)id<LayerSetting> layerSetting;
 
+
 /**
  * @brief  获取当前专题图类
  * <p> 只读
  */
 @property(nonatomic,readonly)Theme* theme;
 
+/**
+ * 设置,获取图层是否可捕捉。True 表示该图层可捕捉，False 表示该图层不可捕捉。
+ *
+ * @param value
+ *            boolean
+ */
+@property(nonatomic)BOOL isSnapable;
+/**
+ * 设置图层不透明度
+ * @param value 不透明度   取值为0-100
+ */
+-(void)setOpaqueRate:(int)value;
+    
 /**
      *  @brief  获取此图层中的选择集对象。
      *  <p>  选择集是个集合，其中包含选择的图层中的一个或多个要素。在选择集中的要素才可以被编辑。注意选择集只适用于矢量数据集，栅格数据集和影像数据集没有选择集。
@@ -123,6 +131,8 @@
     */
 -(void)setSelection:(Selection *)selection;
 
+//添加图表对象
+-(void)addChart:(ChartBase*)chart;
 /**
  *  @brief  设置显示过滤条件，可以使图层中的一些要素显示，而另一些要素不显示，以便重点分析感兴趣的要素，而过滤掉其他要素。
 
@@ -159,5 +169,21 @@
  */
 -(BOOL)isDiaposed;
 
+-(void)removeCache;
+@end
+
+@protocol LayerStateDelegate <NSObject>
+
+/**  添加新图层时回调。
+ *
+ * @param  layerAdded 添加的新图层。
+ */
+-(void) layerAdded:(Layer*) layerAdded index:(int)index;
+
+/** 移除图层前回调。
+ *
+ * @param  layerRemove 被移除的图层。
+ */
+-(void) layerRemoving:(NSString*)layerName index:(int)index;
 
 @end

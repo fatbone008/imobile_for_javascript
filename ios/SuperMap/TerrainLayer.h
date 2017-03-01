@@ -36,4 +36,10 @@
  * @brief 返回三维地形图层的范围。
  */
 @property (nonatomic,readonly) Rect2D *bounds;
+
+/**
+ * @brief 返回或设置三维地形图层的LOD切换距离缩放系数。
+ */
+@property (assign, nonatomic) double lodRangeScale;
+
 @end

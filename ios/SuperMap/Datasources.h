@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Workspace,Datasource,DatasourceConnectionInfo;
+@class Workspace,Datasource,DatasourceConnectionInfo,WebParams;
 
 /**  数据源的集合类。
  * 
@@ -69,6 +69,10 @@
  */
 -(Datasource*) open:(DatasourceConnectionInfo*) info;
 
+/**
+ * 打开数据源,通过Web服务参数打开
+ */
+-(Datasource*)open:(DatasourceConnectionInfo*)connectionInfo webParams:(WebParams*)params;
 /**
  * @brief 关闭指定序号的数据源。
  * 

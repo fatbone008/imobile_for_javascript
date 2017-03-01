@@ -5,54 +5,108 @@
 //  版权所有 （c）2013 北京超图软件股份有限公司。保留所有权利。
 //
 
+
+
 #ifndef SM_iMobile_Environment_h
 #define SM_iMobile_Environment_h
 
+#import <Foundation/Foundation.h>
+#import "EngineType.h"
 	///该类定义了SuperMap iMobile 7C for iOS支持的模块类型常量。
-typedef enum {
-	/// 核心开发模块，包括数据管理、地图浏览和编辑、基础的GIS功能 等。
-    CORE_DEV = 1,            
-	/// 核心运行模块，包括数据管理、地图浏览和编辑、基础GIS功能等。
-    CORE_RUNTIME = 2,       
-	/// 导航开发模块，包括路径规划、导航引导等。
-    NAVIGATION_DEV = 4,     
-	/// 导航运行模块，包括路径规划、导航引导等。
-    NAVIGATION_RUNTIME = 8, 
-	/// 三维开发模块。
-    MAP3D_DEV = 16,        
-	/// 三维运行模块。
-    MAP3D_RUNTIME = 32,    
-}Module;
+
+/**
+ * 核心开发模块，包括数据管理、地图浏览和编辑、基础GIS功能等
+ */
+extern const NSString* CORE_DEV ;
+/**
+ * 核心运行模块，包括数据管理、地图浏览和编辑、基础GIS功能等
+ */
+extern const NSString* CORE_RUNTIME ;
+/**
+ * 传统导航开发模块，包括路径规划、导航引导等
+ */
+extern const NSString* NAVIGATION_DEV ;
+/**
+ * 传统导航运行模块，包括路径规划、导航引导等
+ */
+extern const NSString* NAVIGATION_RUNTIME ;
+/**
+ * 三维场景开发模块
+ */
+extern const NSString* MAP3D_DEV ;
+/**
+ * 三维场景运行模块
+ */
+extern const NSString* MAP3D_RUNTIME ;
+
+/**
+ * 二维标绘开发模块
+ */
+extern const NSString* PLOT_DEV  ;
+
+/**
+ * 二维标绘运行模块
+ */
+extern const NSString* PLOT_RUNTIME ;
+
+//810新增模块
+/**
+ * 行业导航开发模块
+ */
+extern const NSString* INDUSTRY_NAVIGATION_DEV ;
+extern const NSString* INDUSTRY_NAVIGATION_RUNTIME ;
+
+/**
+ * 室内导航开发模块
+ */
+extern const NSString* INDOOR_NAVIGATION_DEV ;
+extern const NSString* INDOOR_NAVIGATION_RUNTIME ;
+
+/**
+ * 三维标绘开发模块
+ */
+extern const NSString* PLOT3D_DEV ;
+extern const NSString* PLOT3D_RUNTIME ;
+
+/**
+ * 三维分析开发模块
+ */
+extern const NSString* REALPLACE_ANALYST_DEV ;
+extern const NSString* REALPLACE_ANALYST_RUNTIME ;
+
+/**
+ * 三维特效开发模块
+ */
+extern const NSString* REALPLACE_EFFECT_DEV ;
+extern const NSString* REALPLACE_EFFECT_RUNTIME ;
+
 
  /**
      * @brief 默认零值判断最大精度。系统给定的精度范围的上界，为公有静态只读字段，用户不能修改。
  <p> 默认值为 1E-10。
           */
-const double DEFAULT_MAX_EQUAL_ZERO_PRECISION = 1e-10;
+extern const double DEFAULT_MAX_EQUAL_ZERO_PRECISION ;
 
  /**
      * @brief 默认零值判断最小精度。系统给定的精度范围的下界，为公有静态只读字段，用户不能修改。
  <p>  默认值为 -1E-10。
      */
-const double DEFAULT_MIN_EQUAL_ZERO_PRECISION = -1e-10;
+extern const double DEFAULT_MIN_EQUAL_ZERO_PRECISION ;
 
  /**
      * @brief 返回判断一个单精度或者双精度数是否为零的最大判断精度。如果返回或设置的数值在最小判断精度(MinEqualPrecision)和最大判断精度(MaxEqualPrecision)精度范围之间，就认为它为0。即设 a 为返回或设置的数值，那么当 a 大于等于 MinEqualPrecision 且小于等于 MaxEqualPrecision 时，则认为 a 为0。注意：事实上，MaxEqualPrecision 应该大于等于 MinEqualPrecision，但目前版本的组件代码暂时不对此进行控制。
       * <p>  默认值为 1E-10。
      * @return 判断一个单精度或者双精度数是否为零的判断最大精度。
      */
-const double maxEqualZeroPrecision = DEFAULT_MAX_EQUAL_ZERO_PRECISION;
+extern const double maxEqualZeroPrecision ;
 
 /**
      * @brief 返回判断一个单精度或者双精度数是否为零的最小判断精度。如果返回或设置的数值在最小判断精度(MinEqualPrecision)和最大判断精度(MaxEqualPrecision)精度范围之间，就认为它为0。即设 a 为返回或设置的数值，那么当 a 大于等于 MinEqualPrecision 且小于等于 MaxEqualPrecision 时，则认为 a 为0。注意：事实上，MaxEqualPrecision 应该大于等于 MinEqualPrecision，但目前版本的组件代码暂时不对此进行控制。
        * <p>   默认值为 -1E-10。
      * @return 判断一个单精度或者双精度数是否为零的判断最小精度。
      */
-const double minEqualZeroPrecision = DEFAULT_MIN_EQUAL_ZERO_PRECISION;
+extern const double minEqualZeroPrecision ;
 
-
-#import <Foundation/Foundation.h>
-#import "EngineType.h"
 
 @protocol LicenseActivationDelegate;
 @class PermissionToolKit;
@@ -64,7 +118,7 @@ const double minEqualZeroPrecision = DEFAULT_MIN_EQUAL_ZERO_PRECISION;
 @interface Environment : NSObject
 
 /// 设置许可激活回调。
-+(void)setLicenseDelegate:(id)delegate;
++(void)setLicenseDelegate:(id<LicenseActivationDelegate>)delegate;
 
 /**@brief  根据指定的参数构造一个新的Environment对象。
  @param  cachePath 指定的存放网络地图缓存的路径。
@@ -100,9 +154,13 @@ const double minEqualZeroPrecision = DEFAULT_MIN_EQUAL_ZERO_PRECISION;
  * @return 返回当前的许可状态
  */
 +(LicenseStatus *)getLicenseStatus;
-
++(NSString *)getVersion;
 +(BOOL)isOpenGLMode;
 +(void)setOpenGLMode:(BOOL)bOpenGLMode;
++(void)setMainScreenScale:(double)scale;
++(double)mainScreenScale;
+
++(void)setPrintWMSLog:(BOOL)bPrintWMSLog;
 @end
 
 

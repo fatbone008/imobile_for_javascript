@@ -10,7 +10,10 @@
 #import "Rect2D.h"
 #import "Camera.h"
 #import "Workspace.h"
-@class Layer3D,Layer3Ds,FlyManager,Workspace,TerrainLayers,TrackingLayer3D,GeoPoint3D;
+#import "PixelToGlobeMode.h"
+#import "MultiViewportMode.h"
+
+@class Layer3D,Layer3Ds,FlyManager,Workspace,TerrainLayers,TrackingLayer3D,GeoPoint3D,GlobalImage;
 
 /** 三维场景类。
  <p>三维场景的主体是一个模拟地球的三维球体（以半径为6378137 米的球体来模拟地球），该球体具有地理参考，球体上的点采用经纬度进行定位，并且可以通过三维场景提供的球体上的经纬网格，方便地浏览；同时，使用全球的遥感影像图作为背景覆盖在球体表面，增强三维球体模拟的逼真性；除此之外，三维场景还模拟了地球所处的环境，包括：宇宙的星空，地球的大气环境，地球表面的雾环境等。三维场景还提供了相机的设置，相机可以用来控制对球体的观测角度、方位和观测范围，从而以不同的视角呈现球体的不同部位。
@@ -24,6 +27,7 @@
     Camera camera;
     NSString *_url;
     Workspace* _workspace;
+    GlobalImage *_globalImage;
 }
 
  /// 返回或设置场景名称。
@@ -34,6 +38,9 @@
 
 /// 返回当前场景的相机。
 @property(nonatomic)Camera camera;
+
+/// 返回当前场景的相机。
+@property(nonatomic)Camera firstPersonCamera;
 
  /// 返回三维场景的飞行管理对象。
 @property(nonatomic,readonly)FlyManager *flyManager;
@@ -50,6 +57,20 @@
 /// 设置或返回三维场景对应的工作空间对象。
 @property (strong,nonatomic) Workspace* workspace;
 
+/// 获取或设置地形是否有裙边
+@property (assign, nonatomic, getter=isCreateSkirt) BOOL createSkirt;
+
+/// 返回全球底图对象
+@property (nonatomic, readonly) GlobalImage *globalImage;
+
+/// 获取或设置下行俯仰
+@property (assign, nonatomic, getter=isZoomFlyPitching) BOOL zoomFlyPitching;
+
+/// 获取或设置多视口模式
+@property (assign, nonatomic) RealspaceMultiViewportMode multiViewportMode;
+
+/// 获取或设置大气层可见性
+@property (assign, nonatomic, getter=isAtmosphereVisible) BOOL atmosphereVisible;
 
 /**@brief 打开指定名称的三维场景。
  @param  sceneName 三维场景名称。
@@ -80,6 +101,11 @@
  */
 - (void)flyToPoint:(Point3D)point3D;
 
+/**@brief 飞行到指定相机位置。
+ @param  camera 指定相机位置。
+ */
+- (void)flyToCamera:(Camera)camera;
+
 /**@brief 飞行到指定的经纬度范围。
  @param  bounds 指定的经纬度范围。
  */
@@ -96,5 +122,30 @@
 
  ///全幅显示三维球。
 - (void)viewEntire;
+
+ ///缩放
+- (void)zoom:(double)ratio;
+
+ ///平移
+- (void)panWithOffsetLongitude:(double)offsetLongitude offsetLatitude:(double)offsetLatitude;
+
+ ///停止相机惯性
+- (void)stopCameraInteria;
+
+/**@brief 屏幕坐标转地理坐标。
+ @param  point 指定的屏幕坐标。   
+ */
+- (Point3D)pixelToGlobe:(CGPoint)point;
+
+/**@brief 屏幕坐标转地理坐标。
+ @param  point 指定的屏幕坐标。  
+ @param  mode 判断所选择点位于模型之上或是地形之上
+ */
+- (Point3D)pixelToGlobeWith:(CGPoint)point andPixelToGlobeMode:(PixelToGlobeMode) mode;
+
+/**@brief 地理坐标转屏幕坐标。
+ @param  point 指定的地理坐标。
+ */
+- (CGPoint)globeToPixel:(Point3D)point;
 
 @end

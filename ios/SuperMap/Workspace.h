@@ -19,17 +19,7 @@
  * 2. 关闭 MapControl 对象；
  * 3. 关闭 Workspace 对象。
  */
-@interface Workspace : NSObject{
-@private
-    
-    WorkspaceConnectionInfo* _workspaceConnection; 
-    
-    Datasources* _datasources;
-    
-    Maps* _maps;
-    
-    Scenes *_scenes;
-}
+@interface Workspace : NSObject
 
  /**
      * @brief 构造一个新的 Workspace 对象。
@@ -102,11 +92,17 @@
      */
 -(BOOL) open:(WorkspaceConnectionInfo*) info;
 
- /**
-     * @brief  用于将现存的工作空间存盘，不改变原有的名称。成功则返回 true。当工作空间没有指定工作空间文件或者工作空间文件的名称不合法的时候，将抛出异常。
-     *
-     * @return 工作空间是否保存成功。如果成功，返回 true，否则返回 false。
-     */
+/**
+ * 保存工作空间
+ * @return 返回boolean类型，保存成功返回true，否则返回false
+ * @throws Exception
+ * <p>以下情况会抛出异常：
+ * 1.当前工作空间对象已经释放;
+ * 2.工作空间是新建的，没有指定保存路径;
+ * 3.指定保存文件所在目录不存在，将自动创建目录，但创建失败;
+ * 4.指定了保存文件的路径，但文件后缀名不是有效的工作空间类型，且没有指定工作空间类型;
+ * </p>
+ */
 -(BOOL) save;
 
  /**
@@ -120,12 +116,5 @@
      * <p>对数据集进行操作后必须调用 dispose() 方法，否则数据修改内容不能被保存。
      */
 -(void) dispose;
-
-   /**
-     * @brief  用指定的工作空间连接信息对象来保存工作空间文件。
-     * @param connectionInfo 工作空间连接信息对象。
-     * @return 工作空间是否保存成功，如果成功返回 true，否则返回 false。
-     */
--(BOOL) saveAs:(WorkspaceConnectionInfo *)connectionInfo;
 
 @end

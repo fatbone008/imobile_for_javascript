@@ -24,10 +24,29 @@ typedef enum {
      */
     TT_Range = 2,
 	
-
+    //! \brief GRAPH专题图
+    TT_Graph = 	3,
+    
+    //! \brief GRADUATED_SYMBOL专题图
+    TT_GraduatedSymbol = 4,
+    
+    //! \brief DENSITY专题图
+    TT_DotDensity =		5,
+    
+    //	TT_SymbolShade =	6,	//SYMBOL_SHADE专题图
+    
+    //! \brief LABEL专题图
 	/// 标签专题图 。
     TT_label	= 7,
 	
 	///自定义专题图 。
     TT_Custom = 8,
+    
+    //! \brief GRIDUNIQUE专题图
+    TT_GridUnique = 11,
+    //! \brief GRIDRANGE专题图
+    TT_GridRange = 	12,
+    //! \brief 扩展专题图
+    TT_Plugin = 13,
+    
 }ThemeType;

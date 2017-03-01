@@ -44,6 +44,9 @@
 ///返回或设置状态条是否可见。
 @property(nonatomic)BOOL statusBarVisible;
 
+///返回或设置导航条是否可见。
+@property (assign, nonatomic, getter=isNavigationControlVisible) BOOL navigationControlVisible;
+
 /**@brief 在指定的视图控件上初始化三维场景控件。
  @param  viewControl 指定的视图控件。
  */

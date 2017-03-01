@@ -10,6 +10,7 @@
 
 #import "Charset.h"
 #import "Color.h"
+#import "ColorDictionary.h"
 #import "ColorGradientType.h"
 #import "ColorSpaceType.h"
 #import "Colors.h"
@@ -38,6 +39,7 @@
 #import "FillGradientMode.h"
 #import "GeoCoordSys.h"
 #import "GeoCoordSysType.h"
+#import "GeoCircle.h"
 #import "GeoDatum.h"
 #import "GeoDatumType.h"
 #import "GeoLine.h"
@@ -52,10 +54,13 @@
 #import "GeoStyle.h"
 #import "GeoText.h"
 #import "Geometry.h"
+#import "ImageFormatType.h"
 #import "JoinItem.h"
 #import "JoinItems.h"
 #import "JoinType.h"
 
+#import "NodeAnimation.h"
+#import "NodeAnimationPlayMode.h"
 #import "PixelFormat.h"
 #import "Point2D.h"
 #import "Point2Ds.h"
@@ -85,7 +90,7 @@
 #import "TextAlignment.h"
 #import "TextPart.h"
 #import "TextStyle.h"
-//#import "Toolkit.h"
+#import "Toolkit.h"
 #import "Unit.h"
 #import "Workspace.h"
 #import "WorkspaceConnectionInfo.h"
@@ -94,5 +99,6 @@
 #import "PointM.h"
 #import "GeoLineM.h"
 #import "LicenseStatus.h"
-
+#import "MapCacheService.h"
+#import "CloudLicenseManager.h"
 #endif

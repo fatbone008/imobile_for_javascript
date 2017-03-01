@@ -6,24 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LocationManagePlugin.h"
+#import "NaviDelegate.h"
 
 @class GeoLine;
 @class Point2D;
 @class GeoStyle;
-@class NaviInfo;
+@class NaviInfo,GPSData;
 
-@protocol Encryption <NSObject>
 
-/**
- * 数据加密算法
- * @param GPS 	加密前的GPS点
- * @return 		加密后的GPS点
- */
--(Point2D*)encryptGPS:(Point2D*)GPS;
-
-@end
-@protocol NaviListener;
 
 /**导航类，导航类提供路径分析和引导功能。
  1. 设置起点和目的地后，可以进行路径分析，并在分析成功后进行导航；
@@ -32,7 +22,7 @@
  <p>  引导中提供引导信息的显示。
 
 */
-@interface Navigation : NSObject<locationChangedDelegate>
+@interface Navigation : NSObject
 
 /*
  加密回调
@@ -182,30 +172,16 @@
  *获取导航路径详情
  */
 -(NSArray*)getNavPath;
+
+/**
+ * 设置模拟导航速度(单位m/s)
+ */
+-(BOOL)setSimulationSpeed:(double)speed;
+
+/**
+ * 设置模拟导航间隔时间(单位ms)
+ */
+-(BOOL)setSimulationInterval:(int)interval;
+
 @end
 
-@protocol NaviListener<NSObject>
-@optional
-
-/**
- * 导航引导信息更新回调
- * @param naviInfo 引导信息
- */
--(void)onNaviInfoUpdate:(NaviInfo*)naviInfo;
-
-/**
- * 启动导航后回调
- */
--(void)onStartNavi;
-
-/**
- * 到达目的地回调
- */
--(void)onAarrivedDestination;
-
-/**
- * 停止导航后回调
- */
--(void)onStopNavi;
-
-@end

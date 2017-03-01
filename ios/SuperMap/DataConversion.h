@@ -57,4 +57,65 @@
  */
 +(BOOL)exportMIFNamed:(NSString *)fileName fromDataset:(Dataset *)dataset;
 
+// bImportingAsGrid 是否导入为栅格数据集
+// wordFile 坐标参考文件
++(BOOL)importTIFFile:(NSString*)filePath toDatasource:(Datasource *)datasource ;//isImportingAsGrid:(BOOL)bImportingAsGrid /*NSString* wordFile*/;
+
++(BOOL)exportTIFNamed:(NSString*)fileName fromDataset:(Dataset *)dataset;
+
+// 导入dwg文件
+//! \param filepath 导入文件路径
+//! \param datasource 目标数据源
+//! \param  inverseBlackWhite 是否导入为黑白反色模式
+//! \param  importAsCAD 是否导入为cad数据集，默认为cad数据集，false为简单数据集
++(BOOL)importDWG:(NSString*)filepath toDatasource:(Datasource*) datasource bIsBlack:(BOOL)inverseBlackWhite isCad:(BOOL)importAsCAD;
++(BOOL)exportDWG:(NSString*)filepath fromDataset:(Dataset*)dataset;
+
+// 导入dxf文件
+//! \param filepath 导入文件路径
+//! \param datasource 目标数据源
+//! \param  inverseBlackWhite 是否导入为黑白反色模式
+//! \param  importAsCAD 是否导入为cad数据集，默认为cad数据集，false为简单数据集
++(BOOL)importDXF:(NSString*)filepath toDatasource:(Datasource*)datasource bIsBlack:(BOOL)inverseBlackWhite isCad:(BOOL)importAsCAD;
++(BOOL)exportDXF:(NSString*)filepath fromDataset:(Dataset*)dataset;
+
+// 导入kml文件
+// param filepath 导入文件路径名
+// param datasource 目标数据源
+// param targetDatasetName 目标数据集名称
+// param importAsCAD 是否导入为复合数据集， 默认导入为复合数据集
++(BOOL)importKML:(NSString*)filepath  toDatasource:(Datasource*)datasource targetDatasetName:(NSString*)targetDatasetName isCad:(BOOL)importAsCAD;
+// 导出kml文件
+// KML只支持矢量数据集进行导出
+// 数据集投影必须为地理坐标系WGS-1984
+// param filepath 导出文件路径名
+// param dataset 目标数据集
++(BOOL)exportKML:(NSString*)filepath fromDataset:(Dataset*)dataset;
+
+// 导入kmz文件
+// param filepath 导入文件路径名
+// param datasource 目标数据源
+// param targetDatasetName 目标数据集名称
+// param importAsCAD 是否导入为复合数据集， 默认导入为复合数据集
++(BOOL)importKMZ:(NSString*)filepath  toDatasource:(Datasource*)datasource targetDatasetName:(NSString*)targetDatasetName isCad:(BOOL)importAsCAD;
+
+// 导出kmz文件
+// KMZ只支持矢量数据集进行导出
+// 数据集投影必须为地理坐标系WGS-1984
+// param filepath 导出文件路径名
+// param dataset 目标数据集
++(BOOL)exportKMZ:(NSString*)filepath fromDataset:(Dataset*)dataset;
+
+// 导入GPX文件
+// param filepath 导入文件路径名
+// param datasource 目标数据源
+// param targetDatasetName 目标数据集名称
++(BOOL)importGPX:(NSString*)filepath toDatasource:(Datasource*)datasource  targetDatasetName:(NSString*)targetDatasetName;
+
+// 导出GPX文件
+// GPX只支持矢量数据集进行导出
+// 数据集投影必须为地理坐标系WGS-1984
+// param filepath 导出文件路径名
+// param dataset 目标数据集
++(BOOL)exportGPX:(NSString*)filepath fromDataset:(Dataset*)dataset;
 @end
