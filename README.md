@@ -78,11 +78,7 @@ class XXX extends Component {
         try {
           this.workspace = await workspaceModule.createObj();
 
-          this.workspaceConnectionInfo = await WorkspaceConnectionInfoModule.createJSObj();
-          await this.workspaceConnectionInfo.setType(Workspace.SMWU);
-          await this.workspaceConnectionInfo.setServer("/SampleData/City/Changchun.smwu");
-
-          await this.workspace.open(this.workspaceConnectionInfo);
+          await this.workspace.open("/SampleData/City/Changchun.smwu");
           this.maps = await this.workspace.getMaps();
 
           this.mapControl = await this.mapView.getMapControl();
