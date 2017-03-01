@@ -49,7 +49,6 @@ argument in the function setServer() of WorkspaceConnection object in the next s
 ...
 import {
   Workspace,
-    WorkspaceConnectionInfo,
     SMMapView,
 } from 'imobile_for_javascript';
 
@@ -70,7 +69,6 @@ class XXX extends Component {
       //创建workspace模块对象
       //Create workspace object
       var workspaceModule = new Workspace();
-      var WorkspaceConnectionInfoModule = new WorkspaceConnectionInfo();
 
       //加载工作空间等一系列打开地图的操作
       //Operations for loading workspace and opening map
