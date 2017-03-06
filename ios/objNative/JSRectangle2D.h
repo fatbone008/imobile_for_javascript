@@ -7,7 +7,9 @@
 //
 
 #import <React/RCTBridgeModule.h>
-
+#import <Foundation/Foundation.h>
+#import "SuperMap/Rectangle2D.h"
 @interface JSRectangle2D : NSObject<RCTBridgeModule>
-
++(NSDictionary*)reactangle2DToDic:(Rectangle2D*)reactangle;
++(Rectangle2D*)dicToReactangle2D:(NSDictionary*)dic;
 @end

@@ -50,7 +50,7 @@ export default class Map{
     async getLayer(layerIndex){
         try{
             var layer = new Layer();
-            if(typeof index == "string"){
+            if(typeof layerIndex == "string"){
                 var {layerId} = await M.getLayerByName(this.mapId,layerIndex);
             }else{
                 var {layerId} = await M.getLayer(this.mapId,layerIndex);

@@ -7,7 +7,8 @@
 //
 
 #import <React/RCTBridgeModule.h>
-
-@interface JSMap : NSObject<RCTBridgeModule>
+#import <React/RCTEventEmitter.h>
+#import "SuperMap/Map.h"
+@interface JSMap : RCTEventEmitter<RCTBridgeModule,MapLoadDelegate,MapParameterChangedDelegate>
 
 @end

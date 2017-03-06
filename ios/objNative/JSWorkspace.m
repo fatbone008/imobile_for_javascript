@@ -11,6 +11,7 @@
 #import "SuperMap/Workspace.h"
 #import "SuperMap/Datasources.h"
 #import "SuperMap/DatasourceConnectionInfo.h"
+#import "SuperMap/Rectangle2D.h"
 #import "SuperMap/Maps.h"
 #import "JSWorkspaceConnectionInfo.h"
 #import "JSDatasourceConnectionInfo.h"
@@ -159,20 +160,36 @@ RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key andPath:(NSSt
     }else
         reject(@"workspace",@"open LocalDatasource failed!",nil);
 }
-/////////!!!!!!!!!!!!!
-//RCT_REMAP_METHOD(openWMSDatasource,openDatasourceByKey:(NSString*)key andServer:(NSString*)server andEngineType:(int)type andDriverStr:(NSString*)driver andVersionStr:(NSString*)version andVisableLayers:(NSString*)vLayers andWebBox:(NSString*)w resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//    Workspace* workspace = [JSObjManager getObjWithKey:key];
-//    Datasources* dataSources = workspace.datasources;
-//    DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
-//    if(workspace&&info){
-//        info.server = path;
-//        info.engineType = type;
-//        info.driver = driver;
-//        Datasource* dataSource = [dataSources open:info];
-//        resolve(@"open");
-//    }else
-//        reject(@"workspace",@"open LocalDatasource failed!",nil);
-//}
+
+RCT_REMAP_METHOD(openWMSDatasource,openDatasourceByKey:(NSString*)key andServer:(NSString*)server andEngineType:(int)type andDriverStr:(NSString*)driver andVersionStr:(NSString*)version andVisableLayers:(NSString*)vLayers andWebBox:(NSDictionary*)webBox andWebCoordinate:(NSString*)webCoordinate resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Workspace* workspace = [JSObjManager getObjWithKey:key];
+    Datasources* dataSources = workspace.datasources;
+    DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+    if(workspace&&info){
+        info.server = server;
+        info.engineType = type;
+        info.driver = driver;
+        info.webVersion = version;
+        info.webVisibleLayers = vLayers;
+        
+        NSNumber* nsBottom = [webBox objectForKey:@"bottom"];
+        double bottom = nsBottom.doubleValue;
+        NSNumber* nsLeft = [webBox objectForKey:@"left"];
+        double left = nsLeft.doubleValue;
+        NSNumber* nsRight = [webBox objectForKey:@"right"];
+        double right = nsRight.doubleValue;
+        NSNumber* nsTop = [webBox objectForKey:@"top"];
+        double top = nsTop.doubleValue;
+        
+        Rectangle2D* rect2D = [[Rectangle2D alloc]initWith:left bottom:bottom right:right top:left];
+        info.webBBox = rect2D;
+        info.webCoordinate = webCoordinate;
+        
+        Datasource* dataSource = [dataSources open:info];
+        resolve(@"open");
+    }else
+        reject(@"workspace",@"open LocalDatasource failed!",nil);
+}
 
 RCT_REMAP_METHOD(saveWorkspace,saveWorkspaceByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Workspace* workspace = [JSObjManager getObjWithKey:key];

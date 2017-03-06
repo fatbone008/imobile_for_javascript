@@ -7,11 +7,35 @@
 //
 
 #import "JSMap.h"
-#import "SuperMap/Map.h"
 #import "SuperMap/Layers.h"
+#import "SuperMap/Rectangle2D.h"
 #import "JSObjManager.h"
+#import "JSRectangle2D.h"
+#import "JSPoint.h"
 
 @implementation JSMap
+//所有导出方法名
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"com.supermap.RN.JSMap.map_loaded", @"com.supermap.RN.JSMap.map_opened", @"com.supermap.RN.JSMap.map_closed"];
+}
+//地图册第一次加载完毕代理方法
+-(void) onMapLoaded{
+    [self sendEventWithName:@"com.supermap.RN.JSMap.map_loaded"
+                       body:@{@"body":@"this delegate no body"
+                              }];
+}
+-(void) mapOpened{
+    [self sendEventWithName:@"com.supermap.RN.JSMap.map_opened"
+                       body:@{@"body":@"this delegate no body"
+                              }];
+}
+
+-(void) mapClosed{
+    [self sendEventWithName:@"com.supermap.RN.JSMap.map_closed"
+                       body:@{@"body":@"this delegate no body"
+                              }];
+}
 //注册为Native模块
 RCT_EXPORT_MODULE();
 
@@ -111,35 +135,6 @@ RCT_REMAP_METHOD(open,openKey:(NSString*)key mapName:(NSString*)mapName resolver
     reject(@"Map",@"getLayers:Map not exeist!!!",nil);
 }
 
-//RCT_REMAP_METHOD(pixelToMap,pixelToMapKey:(NSString*)key pointId:(NSString*)pointId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//  Map* map = [JSObjManager getObjWithKey:key];
-//  NSArray* pointArr = [JSObjManager getObjWithKey:pointId];
-//  double pointx = [pointArr[0] doubleValue];
-//  double pointy = [pointArr[1] doubleValue];
-//  CGPoint point = CGPointMake((CGFloat)pointx, (CGFloat)pointy);
-//  if(map){
-//    Point2D* point2D = [map pixelTomap:point];
-//    NSInteger key = (NSInteger)point2D;
-//    [JSObjManager addObj:point2D];
-//    resolve(@{@"point2DId":@(key).stringValue});
-//  }else{
-//  reject(@"Map",@"pixelToMap failed!!!",nil);
-//  }
-//}
-
-//RCT_REMAP_METHOD(pixelToMap,pixelToMapKey:(NSString*)key xNum:(double)xNum yNum:(double)yNum resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//  Map* map = [JSObjManager getObjWithKey:key];
-//  CGPoint point = CGPointMake((CGFloat)xNum, (CGFloat)yNum);
-//  if(map){
-//    Point2D* point2D = [map pixelTomap:point];
-//    NSInteger key = (NSInteger)point2D;
-//    [JSObjManager addObj:point2D];
-//    resolve(@{@"point2DId":@(key).stringValue});
-//  }else{
-//    reject(@"Map",@"pixelToMap failed!!!",nil);
-//  }
-//}
-
 RCT_REMAP_METHOD(pixelToMap,pixelToMapByKey:(NSString*)key andPointId:(NSString*)pointId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Map* map = [JSObjManager getObjWithKey:key];
     NSDictionary* pointDic = [JSObjManager getObjWithKey:pointId];
@@ -156,6 +151,20 @@ RCT_REMAP_METHOD(pixelToMap,pixelToMapByKey:(NSString*)key andPointId:(NSString*
         resolve(@{@"point2DId":@(key).stringValue});
     }else{
         reject(@"Map",@"pixelToMap failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(mapToPixel,mapToPixelByKey:(NSString*)key andPoint2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    Point2D* point2d = [JSObjManager getObjWithKey:point2DId];
+    if(map&&point2d){
+        CGPoint point = [map mapToPixel:point2d];
+        NSNumber* nsX = [NSNumber numberWithDouble:point.x];
+        NSNumber* nsY = [NSNumber numberWithDouble:point.y];
+        NSString* jsPointId = [JSPoint createObjWithX:point.x Y:point.y];
+        resolve(@{@"pointId":jsPointId,@"x":nsX,@"y":nsY});
+    }else{
+        reject(@"Map",@"mapToPixel failed!!!",nil);
     }
 }
 
@@ -181,6 +190,124 @@ RCT_REMAP_METHOD(getTrackingLayer,getTrackingLayerKey:(NSString*)key resolver:(R
   }
 }
 
+RCT_REMAP_METHOD(saveAs,saveAsByKey:(NSString*)key andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        BOOL saved = [map saveAs:name];
+        NSNumber* nsSaved = [NSNumber numberWithBool:saved];
+        resolve(@{@"saved":nsSaved});
+    }else{
+        reject(@"Map",@"saveAsName failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getBounds,getBoundsByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        Rectangle2D* bounds = map.bounds;
+        NSDictionary* dic = [JSRectangle2D reactangle2DToDic:bounds];
+        resolve(@{@"bound":dic});
+    }else{
+        reject(@"Map",@"getBounds failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getViewBounds,getViewBoundsByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        Rectangle2D* bounds = map.viewBounds;
+        NSDictionary* dic = [JSRectangle2D reactangle2DToDic:bounds];
+        resolve(@{@"bound":dic});
+    }else{
+        reject(@"Map",@"getBounds failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setViewBounds,setViewBoundsByKey:(NSString*)key andBounds:(NSDictionary*)boundsDic resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        
+        Rectangle2D* bounds = [JSRectangle2D dicToReactangle2D:boundsDic];
+        map.viewBounds = bounds;
+        resolve(@"setted");
+    }else{
+        reject(@"Map",@"getBounds failed!!!",nil);
+    }
+}
+
+//RCT_REMAP_METHOD(isDynamicProjection,isDynamicProjectionByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+//    Map* map = [JSObjManager getObjWithKey:key];
+//    if(map){
+//        Rectangle2D* bounds = map.viewBounds;
+//        NSDictionary* dic = [JSRectangle2D reactangle2DToDic:bounds];
+//        resolve(@{@"bound":dic});
+//    }else{
+//        reject(@"Map",@"getBounds failed!!!",nil);
+//    }
+//}
+
+RCT_REMAP_METHOD(setDynamicProjection,setDynamicProjectionByKey:(NSString*)key andValue:(BOOL)value resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        [map setDynamicProjection:value];
+        resolve(@"setted");
+    }else{
+        reject(@"Map",@"setDynamicProjection failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setMapLoadedListener,setMapLoadedListenerByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        map.mapLoadDelegate =self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:TRUE];
+        resolve(nsTrue);
+    }else{
+        reject(@"Map",@"setMapLoadedListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setMapOperateListener,setMapOperateListenerByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        map.delegate =self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:TRUE];
+        resolve(nsTrue);
+    }else{
+        reject(@"Map",@"setMapOperateListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(pan,panByKey:(NSString*)key andOffsetX:(double)offsetX andOffsetY:(double)offsetY resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        [map panOffsetX:offsetX offsetY:offsetY];
+        resolve(@"panned");
+    }else{
+        reject(@"Map",@"pan failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(viewEntire,viewEntireByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        [map viewEntire];
+        resolve(@"viewEntire");
+    }else{
+        reject(@"Map",@"viewEntire failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(zoom,zoomByKey:(NSString*)key andRatio:(double)ratio resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        [map zoom:ratio];
+        resolve(@"zoomed");
+    }else{
+        reject(@"Map",@"zoom failed!!!",nil);
+    }
+}
+
 RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Map* map = [JSObjManager getObjWithKey:key];
   if(map.prjCoordSys){
@@ -192,14 +319,4 @@ RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPr
   }
 }
 
-//RCT_REMAP_METHOD(setPrjCoordSys,setPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//  Map* map = [JSObjManager getObjWithKey:key];
-//  if(map.prjCoordSys){
-//    NSInteger projKey = (NSInteger)map.prjCoordSys;
-//    [JSObjManager addObj:map.prjCoordSys];
-//    resolve(@{@"prjCoordSysId":@(projKey).stringValue});
-//  }else{
-//    reject(@"Map",@"getProjSys failed!!!",nil);
-//  }
-//}
 @end

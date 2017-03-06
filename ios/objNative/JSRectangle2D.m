@@ -7,9 +7,35 @@
 //
 
 #import "JSRectangle2D.h"
-#import "SuperMap/Rectangle2D.h"
 #import "JSObjManager.h"
+#import "SuperMap/Point2D.h"
 @implementation JSRectangle2D
++(NSDictionary*)reactangle2DToDic:(Rectangle2D*)reactangle{
+    NSNumber* nsLeft = [NSNumber numberWithDouble:reactangle.left];
+    NSNumber* nsBottom = [NSNumber numberWithDouble:reactangle.bottom];
+    NSNumber* nsRight = [NSNumber numberWithDouble:reactangle.right];
+    NSNumber* nsTop = [NSNumber numberWithDouble:reactangle.top];
+    NSNumber* nsHeight = [NSNumber numberWithDouble:reactangle.height];
+    NSNumber* nsWidth = [NSNumber numberWithDouble:reactangle.width];
+    Point2D* centerPoint = reactangle.center;
+    NSNumber* nsX = [NSNumber numberWithDouble:centerPoint.x];
+    NSNumber* nsY = [NSNumber numberWithDouble:centerPoint.y];
+    NSDictionary* dic = @{@"left":nsLeft,@"bottom":nsBottom,@"right":nsRight,@"top":nsTop,@"height":nsHeight,@"width":nsWidth,@"center":@{@"x":nsX,@"y":nsY}};
+    return dic;
+}
+
++(Rectangle2D*)dicToReactangle2D:(NSDictionary*)dic{
+    NSNumber* nsLeft = [dic objectForKey:@"left"];
+    double left = nsLeft.doubleValue;
+    NSNumber* nsBottom = [dic objectForKey:@"bottom"];
+    double bottom = nsBottom.doubleValue;
+    NSNumber* nsRight = [dic objectForKey:@"right"];
+    double right = nsRight.doubleValue;
+    NSNumber* nsTop = [dic objectForKey:@"top"];
+    double top = nsTop.doubleValue;
+    Rectangle2D* reactangle = [[Rectangle2D alloc]initWith:left bottom:bottom right:right top:left];
+    return reactangle;
+}
 RCT_EXPORT_MODULE();
 RCT_REMAP_METHOD(createObjBy2Pt,createObjBy2Pt:(NSString*)point2DId1 point2:(NSString*)point2DID2 resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Point2D* point1 = [JSObjManager getObjWithKey:point2DId1];

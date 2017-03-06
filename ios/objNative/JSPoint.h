@@ -9,5 +9,5 @@
 #import <React/RCTBridgeModule.h>
 
 @interface JSPoint : NSObject<RCTBridgeModule>
-
++(NSString*)createObjWithX:(double)xNum Y:(double)yNum;
 @end
