@@ -77,13 +77,12 @@ class XXX extends Component {
           this.workspace = await workspaceModule.createObj();
 
           await this.workspace.open("/SampleData/City/Changchun.smwu");
-          this.maps = await this.workspace.getMaps();
 
           this.mapControl = await this.mapView.getMapControl();
           this.map = await this.mapControl.getMap();
 
           await this.map.setWorkspace(this.workspace);
-          var mapName = await this.maps.get(0);
+          var mapName = await this.workspace.getMapName(0);
 
           await this.map.open(mapName);
           await this.map.refresh();

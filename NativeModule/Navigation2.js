@@ -26,13 +26,12 @@ export default class Navigation2{
     /**
      * 设置用于分析的网络数据集。必选。
      * @memberOf Navigation2
-     * @param {object} datasetId - 网络数据集。
+     * @param {object} datasetVector - 网络数据集。
      * @returns {Promise.<void>}
      */
-    async setNetworkDataset(dataset){
-
+    async setNetworkDataset(datasetVector){
             try{
-                await N.setNetworkDataset(this.navigation2Id,dataset.datasetId);
+                await N.setNetworkDataset(this.navigation2Id,datasetVector.datasetVectorId);
             }catch (e){
                 console.error(e);
             }
@@ -46,7 +45,65 @@ export default class Navigation2{
      */
     async loadModel(path){
         try{
-            await D.loadModel(this.navigation2Id,path);
+            await N.loadModel(this.navigation2Id,path);
+        }catch(e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置导航起点
+     * @memberOf Navigation2
+     * @param x - 起点横坐标
+     * @param y - 起点纵坐标
+     * @returns {Promise.<void>}
+     */
+    async setStartPoint(x,y,map){
+        try{
+            console.log("科学计数法？"+ x);
+            await N.setStartPoint(this.navigation2Id,x,y,map.mapId);
+        }catch(e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置导航终点
+     * @memberOf Navigation2
+     * @param x - 终点横坐标
+     * @param y - 终点纵坐标
+     * @returns {Promise.<void>}
+     */
+    async setDestinationPoint(x,y,map){
+        try{
+            await N.setDestinationPoint(this.navigation2Id,x,y,map.mapId);
+        }catch(e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 路径分析
+     * @returns {Promise.<Promise.boolean>}
+     */
+    async routeAnalyst(){
+        try{
+            var {finished} = await N.routeAnalyst(this.navigation2Id);
+            return finished;
+        }catch(e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 开始导航
+     * @param guideMode - 导航模式：1：真实导航；2：模拟导航
+     * @returns {Promise.<Promise.boolean>}
+     */
+    async startGuide(guideMode){
+        try{
+            var {isGuiding} = await N.startGuide(this.navigation2Id,guideMode);
+            return isGuiding;
         }catch(e){
             console.error(e);
         }
