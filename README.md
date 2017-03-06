@@ -49,7 +49,6 @@ argument in the function setServer() of WorkspaceConnection object in the next s
 ...
 import {
   Workspace,
-    WorkspaceConnectionInfo,
     SMMapView,
 } from 'imobile_for_javascript';
 
@@ -70,7 +69,6 @@ class XXX extends Component {
       //创建workspace模块对象
       //Create workspace object
       var workspaceModule = new Workspace();
-      var WorkspaceConnectionInfoModule = new WorkspaceConnectionInfo();
 
       //加载工作空间等一系列打开地图的操作
       //Operations for loading workspace and opening map
@@ -78,18 +76,13 @@ class XXX extends Component {
         try {
           this.workspace = await workspaceModule.createObj();
 
-          this.workspaceConnectionInfo = await WorkspaceConnectionInfoModule.createJSObj();
-          await this.workspaceConnectionInfo.setType(Workspace.SMWU);
-          await this.workspaceConnectionInfo.setServer("/SampleData/City/Changchun.smwu");
-
-          await this.workspace.open(this.workspaceConnectionInfo);
-          this.maps = await this.workspace.getMaps();
+          await this.workspace.open("/SampleData/City/Changchun.smwu");
 
           this.mapControl = await this.mapView.getMapControl();
           this.map = await this.mapControl.getMap();
 
           await this.map.setWorkspace(this.workspace);
-          var mapName = await this.maps.get(0);
+          var mapName = await this.workspace.getMapName(0);
 
           await this.map.open(mapName);
           await this.map.refresh();
