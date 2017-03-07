@@ -1,7 +1,7 @@
 /**
  * Created by will on 2016/6/17.
  */
-import { NativeModules } from 'react-native';
+import { NativeModules,DeviceEventEmitter,NativeEventEmitter,Platform } from 'react-native';
 let M = NativeModules.JSMap;
 import Layer from './Layer.js';
 import Layers from './Layers.js';
@@ -9,11 +9,13 @@ import Point2D from './Point2D.js';
 import Point from './Point.js';
 import TrackingLayer from './TrackingLayer.js';
 
+const nativeEvt = new NativeEventEmitter(M);
 
 /**
  * @class Map
  */
 export default class Map{
+
     /**
      * 设置当前地图所关联的工作空间。地图是对其所关联的工作空间中的数据的显示。
      * @memberOf Map
@@ -288,6 +290,18 @@ export default class Map{
             var success = await M.setMapLoadedListener(this.mapId);
 
             if(!success) return ;
+            //差异化处理
+            if(Platform.OS === 'ios'){
+                
+                nativeEvt.addListener("com.supermap.RN.JSMap.map_loaded",function (e) {
+                    if(typeof onMapLoaded === 'function'){
+                        onMapLoaded();
+                    }else{
+                        console.error("Please set a callback function to the first argument.");
+                    }
+                });
+                return
+            }
 
             DeviceEventEmitter.addListener("com.supermap.RN.JSMap.map_loaded",function (e) {
                 if(typeof onMapLoaded === 'function'){
@@ -312,6 +326,26 @@ export default class Map{
             var success = await M.setMapOperateListener(this.mapId);
 
             if(!success) return ;
+            //差异化处理
+            if(Platform.OS === 'ios'){
+                
+                nativeEvt.addListener("com.supermap.RN.JSMap.map_opened",function (e) {
+                    if(typeof events.mapOpened === 'function'){
+                        events.mapOpened();
+                    }else{
+                        console.error("Please set a callback to the property 'mapOpened' in the first argument.");
+                    }
+                });
+                
+                nativeEvt.addListener("com.supermap.RN.JSMap.map_closed",function (e) {
+                    if(typeof events.mapClosed === 'function'){
+                        events.mapClosed();
+                    }else{
+                        console.error("Please set a callback to the property 'mapClosed' in the first argument.");
+                    }
+                });
+                return
+            }
 
             DeviceEventEmitter.addListener("com.supermap.RN.JSMap.map_opened",function (e) {
                 if(typeof events.mapOpened === 'function'){
