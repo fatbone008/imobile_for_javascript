@@ -1,14 +1,16 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "02E1B325DAC0BE0D60EB3666CF9F4169C3849300",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EEDD288248AFE34171E79F9FFC6BAA3AAA690844",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EEDD288248AFE34171E79F9FFC6BAA3AAA690844" : 9223372036854775807,
     "02E1B325DAC0BE0D60EB3666CF9F4169C3849300" : 9223372036854775807,
     "FF42AD07298E107555F31721F0D07A1279DB38DB" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "12E16490-121E-45FE-8429-656F3C7E3269",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EEDD288248AFE34171E79F9FFC6BAA3AAA690844" : "imobile_for_javascript\/",
     "02E1B325DAC0BE0D60EB3666CF9F4169C3849300" : "SuperMap_Package_for_Publish\/",
     "FF42AD07298E107555F31721F0D07A1279DB38DB" : ""
   },
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Wangzihao5325\/SuperMap_Package_for_Publish.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "02E1B325DAC0BE0D60EB3666CF9F4169C3849300"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Wangzihao5325\/imobile_for_javascript.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EEDD288248AFE34171E79F9FFC6BAA3AAA690844"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Wangzihao5325\/MyselfDemo.git",

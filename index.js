@@ -35,6 +35,7 @@ import QueryParameter from './NativeModule/QueryParameter.js';
 import QueryService from './NativeModule/QueryService.js';
 import Recordset from './NativeModule/Recordset.js';
 import Rectangle2D from './NativeModule/Rectangle2D.js';
+import ScaleView from './NativeModule/ScaleView.js';
 import Selection from './NativeModule/Selection.js';
 import ServiceBase from './NativeModule/ServiceBase.js';
 import ServiceQueryParameter from './NativeModule/ServiceQueryParameter.js';
@@ -95,6 +96,7 @@ export {
     QueryService,
     Recordset,
     Rectangle2D,
+    ScaleView,
     Selection,
     ServiceBase,
     ServiceQueryParameter,
