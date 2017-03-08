@@ -52,6 +52,7 @@
 		FFD1F0441E31E22200CACDC5 /* JSTrackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0141E31E22200CACDC5 /* JSTrackingLayer.m */; };
 		FFD1F0451E31E22200CACDC5 /* JSWorkspace.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0161E31E22200CACDC5 /* JSWorkspace.m */; };
 		FFD1F0461E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1F0181E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m */; };
+		FFFA24831E6E878A0064CA76 /* JSScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFFA24821E6E878A0064CA76 /* JSScaleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -158,6 +159,8 @@
 		FFD1F0161E31E22200CACDC5 /* JSWorkspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSWorkspace.m; path = objNative/JSWorkspace.m; sourceTree = "<group>"; };
 		FFD1F0171E31E22200CACDC5 /* JSWorkspaceConnectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSWorkspaceConnectionInfo.h; path = objNative/JSWorkspaceConnectionInfo.h; sourceTree = "<group>"; };
 		FFD1F0181E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSWorkspaceConnectionInfo.m; path = objNative/JSWorkspaceConnectionInfo.m; sourceTree = "<group>"; };
+		FFFA24811E6E878A0064CA76 /* JSScaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSScaleView.h; path = objNative/JSScaleView.h; sourceTree = "<group>"; };
+		FFFA24821E6E878A0064CA76 /* JSScaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSScaleView.m; path = objNative/JSScaleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +185,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				FFFA24811E6E878A0064CA76 /* JSScaleView.h */,
+				FFFA24821E6E878A0064CA76 /* JSScaleView.m */,
 				FFD1EFBD1E31E22200CACDC5 /* JSAdoptMapView.h */,
 				FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */,
 				FFD1EFBF1E31E22200CACDC5 /* JSBufferAnalystGeometry.h */,
@@ -354,6 +359,7 @@
 				FFD1F0391E31E22200CACDC5 /* JSPoint2D.m in Sources */,
 				FFD1F0461E31E22200CACDC5 /* JSWorkspaceConnectionInfo.m in Sources */,
 				FFD1F01A1E31E22200CACDC5 /* JSBufferAnalystGeometry.m in Sources */,
+				FFFA24831E6E878A0064CA76 /* JSScaleView.m in Sources */,
 				FFD1F0261E31E22200CACDC5 /* JSFeature.m in Sources */,
 				FFD1F0281E31E22200CACDC5 /* JSGeoLine.m in Sources */,
 				FFD1F0361E31E22200CACDC5 /* JSNavigation2.m in Sources */,
