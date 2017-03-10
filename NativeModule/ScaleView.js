@@ -30,7 +30,7 @@ export default class ScaleView {
         }
     }
     
-    async setShowEnable(){
+    async setShowEnable(enable){
         try{
             await S.setShowEnable(this.scaleViewId,enable);
         }catch (e){
