@@ -43,6 +43,7 @@ import ServiceQueryParameter from './NativeModule/ServiceQueryParameter.js';
 import Size2D from './NativeModule/Size2D.js';
 import Track from './NativeModule/Track.js';
 import TrackingLayer from './NativeModule/TrackingLayer.js';
+import TraditionalNavi from './NativeModule/TraditionalNavi.js';
 import Workspace from './NativeModule/Workspace.js';
 import WorkspaceConnectionInfo from './NativeModule/WorkspaceConnectionInfo.js';
 

@@ -409,4 +409,22 @@ export default class Map{
             console.error(e);
         }
     }
+
+    /**
+     * 用于把一个数据集添加到此图层集合作为一个普通图层显示，即创建一个普通图层。其风格由系统默认设置。
+     * @memberOf Map
+     * @param dataset - 要添加到图层的数据集。
+     * @param addToHead - 指定新创建图层是否放在图层集合的最上面一层。当设置为 false 时，则将此新创建图层放在最底层。
+     * @returns {Promise.<void>}
+     */
+    async addLayer(dataset,addToHead){
+        try{
+            var {layerId} = await M.addLayer(this.mapId,dataset.datasetId,addToHead);
+            var layer = new Layer();
+            layer.layerId = layerId;
+            return layer;
+        }catch(e){
+            console.error(e);
+        }
+    }
 }
