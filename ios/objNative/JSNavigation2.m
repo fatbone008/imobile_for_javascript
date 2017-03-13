@@ -30,7 +30,7 @@ RCT_REMAP_METHOD(setPathVisible,setPathVisibleById:(NSString*)nav2Id visible:(BO
   Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
   if (nav) {
     [nav setPathVisible:visible];
-    resolve(@"1");
+    resolve(@"path visible setted");
   }else{
     reject(@"Nav2",@"setPathVisible failed!!!",nil);
   }
@@ -38,13 +38,45 @@ RCT_REMAP_METHOD(setPathVisible,setPathVisibleById:(NSString*)nav2Id visible:(BO
 
 RCT_REMAP_METHOD(setNetworkDataset,setNetworkDatasetById:(NSString*)nav2Id datasetId:(NSString*)datasetId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
-  if (nav) {
-    DatasetVector* dsVector = [JSObjManager getObjWithKey:datasetId];
+  DatasetVector* dsVector = [JSObjManager getObjWithKey:datasetId];
+  if (nav&&dsVector) {
     [nav setNetworkDataset:dsVector];
-    resolve(@"1");
+    resolve(@"network dataset setted");
   }else{
     reject(@"Nav2",@"setNetworkDataset failed!!!",nil);
   }
+}
+
+RCT_REMAP_METHOD(loadModel,loadModelById:(NSString*)nav2Id filePath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    if(nav){
+        [nav loadModel:path];
+        resolve(@"model loaded");
+    }else{
+        reject(@"Nav2",@"loadModel failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)nav2Id point2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    Point2D* point = [JSObjManager getObjWithKey:point2DId];
+    if (nav) {
+        [nav setStartPoint:point.x sPointY:point.y];
+        resolve(@"1");
+    }else{
+        reject(@"Nav2",@"set startPoint failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setDestPoint,setDestPointById:(NSString*)nav2Id point2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    Point2D* point = [JSObjManager getObjWithKey:point2DId];
+    if (nav) {
+        [nav setDestinationPoint:point.x dPointY:point.y];
+        resolve(@"1");
+    }else{
+        reject(@"Nav2",@"set DestPoint failed!!!",nil);
+    }
 }
 
 RCT_REMAP_METHOD(setTurnDataset,setTurnDatasetById:(NSString*)nav2Id datasetId:(NSString*)datasetId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
@@ -58,10 +90,6 @@ RCT_REMAP_METHOD(setTurnDataset,setTurnDatasetById:(NSString*)nav2Id datasetId:(
   }
 }
 
-RCT_REMAP_METHOD(loadModel,loadModelById:(NSString*)nav2Id filePath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
-  [nav loadModel:path];
-}
 
 RCT_REMAP_METHOD(loadModelByFilePath,loadModelByFilePathId:(NSString*)nav2Id filePath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
@@ -76,27 +104,6 @@ RCT_REMAP_METHOD(loadModelByFilePath,loadModelByFilePathId:(NSString*)nav2Id fil
   }
 }
 
-RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)nav2Id point2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
-  Point2D* point = [JSObjManager getObjWithKey:point2DId];
-  if (nav) {
-     [nav setStartPoint:point.x sPointY:point.y];
-     resolve(@"1");
-  }else{
-    reject(@"Nav2",@"set startPoint failed!!!",nil);
-  }
-}
-
-RCT_REMAP_METHOD(setDestPoint,setDestPointById:(NSString*)nav2Id point2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
-  Point2D* point = [JSObjManager getObjWithKey:point2DId];
-  if (nav) {
-    [nav setDestinationPoint:point.x dPointY:point.y];
-    resolve(@"1");
-  }else{
-    reject(@"Nav2",@"set DestPoint failed!!!",nil);
-  }
-}
 
 RCT_REMAP_METHOD(isGuiding,isGuidingById:(NSString*)nav2Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
