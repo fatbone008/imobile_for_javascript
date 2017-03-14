@@ -90,7 +90,7 @@ RCT_REMAP_METHOD(getLayerByName,getLayerByKey:(NSString*)key andName:(NSString*)
         reject(@"Map",@"getLayerByName:get layer failed !",nil);
 }
 
-RCT_REMAP_METHOD(addDataset,addDatasetByKey:(NSString*)key andDataSetId:(NSString*)id withHeadBool:(bool)ToHead resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(addDataset,addDatasetByKey:(NSString*)key andDataSetId:(NSString*)id withHeadBool:(BOOL)ToHead resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Map* map = [JSObjManager getObjWithKey:key];
     Dataset* dataset = [JSObjManager getObjWithKey:id];
     if(map&&dataset){
@@ -308,15 +308,26 @@ RCT_REMAP_METHOD(zoom,zoomByKey:(NSString*)key andRatio:(double)ratio resolver:(
     }
 }
 
-RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  Map* map = [JSObjManager getObjWithKey:key];
-  if(map.prjCoordSys){
-    NSInteger projKey = (NSInteger)map.prjCoordSys;
-    [JSObjManager addObj:map.prjCoordSys];
-    resolve(@{@"prjCoordSysId":@(projKey).stringValue});
-  }else{
-    reject(@"Map",@"getProjSys failed!!!",nil);
-  }
-}
+//RCT_REMAP_METHOD(addLayer,addLayerById:(NSString*)mapId andDatasetId:(NSString*)dsId andHead:(BOOL)head resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+//  Map* map = [JSObjManager getObjWithKey:key];
+//  if(map.prjCoordSys){
+//    NSInteger projKey = (NSInteger)map.prjCoordSys;
+//    [JSObjManager addObj:map.prjCoordSys];
+//    resolve(@{@"prjCoordSysId":@(projKey).stringValue});
+//  }else{
+//    reject(@"Map",@"getProjSys failed!!!",nil);
+//  }
+//}
+
+//RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+//    Map* map = [JSObjManager getObjWithKey:key];
+//    if(map.prjCoordSys){
+//        NSInteger projKey = (NSInteger)map.prjCoordSys;
+//        [JSObjManager addObj:map.prjCoordSys];
+//        resolve(@{@"prjCoordSysId":@(projKey).stringValue});
+//    }else{
+//        reject(@"Map",@"getProjSys failed!!!",nil);
+//    }
+//}
 
 @end

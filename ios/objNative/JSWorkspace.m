@@ -138,11 +138,14 @@ RCT_REMAP_METHOD(openLocalDatasource,openLocalDatasourceByKey:(NSString*)key and
     Workspace* workspace = [JSObjManager getObjWithKey:key];
     Datasources* dataSources = workspace.datasources;
     DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+    path = [NSHomeDirectory() stringByAppendingString:path];
     if(workspace&&info){
         info.server = path;
         info.engineType = type;
         Datasource* dataSource = [dataSources open:info];
-        resolve(@"open");
+        NSInteger nsDSource = (NSInteger)dataSource;
+        [JSObjManager addObj:dataSource];
+        resolve(@{@"datasourceId":@(nsDSource).stringValue});
     }else
         reject(@"workspace",@"open LocalDatasource failed!",nil);
 }
@@ -156,7 +159,9 @@ RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key andPath:(NSSt
         info.engineType = type;
         info.driver = driver;
         Datasource* dataSource = [dataSources open:info];
-        resolve(@"open");
+        NSInteger nsDSource = (NSInteger)dataSource;
+        [JSObjManager addObj:dataSource];
+        resolve(@{@"datasourceId":@(nsDSource).stringValue});
     }else
         reject(@"workspace",@"open LocalDatasource failed!",nil);
 }
