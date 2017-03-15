@@ -8,6 +8,7 @@
 
 #import "JSAdoptMapView.h"
 #import "JSObjManager.h"
+#import "SuperMap/Geometry.h"
 @implementation JSAdoptMapView
 RCT_EXPORT_MODULE(JSMapControl);
 RCT_REMAP_METHOD(getMap,geMapKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
@@ -53,16 +54,44 @@ RCT_REMAP_METHOD(getNavigation2,getNavigation2BymapControlId:(NSString*)Id resol
   }
 }
 
+RCT_REMAP_METHOD(getTraditionalNavi,getTraditionalNaviBymapControlId:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    Navigation2* navi = [mapControl getNavigation];
+    if(navi){
+        NSInteger key = (NSInteger)navi;
+        [JSObjManager addObj:navi];
+        resolve(@{@"traditionalNaviId":@(key).stringValue});
+    }else{
+        reject(@"mapControl",@"get traditionalNavi failed!!!",nil);
+    }
+}
+
 RCT_REMAP_METHOD(getCurrentGeometry,getCurrentGeometryById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   MapControl* mapControl = [JSObjManager getObjWithKey:Id];
   Geometry *geo = [mapControl getCurrentGeometry];
-  if (geo) {
-    NSInteger key = (NSInteger)geo;
-    [JSObjManager addObj:geo];
-    resolve(@{@"geometryId":@(key).stringValue});
-  }else{
-    reject(@"mapControl",@"getCurrentGeometry failed!!!",nil);
-  }
+    if (geo) {
+      GeometryType type = [geo getType];
+        NSString* typeStr = [NSNull null];
+        switch (type) {
+            case GT_GEOPOINT:
+                typeStr = @"GeoPoint";
+                break;
+            case GT_GEOREGION:
+                typeStr = @"GeoRegion";
+                break;
+            case GT_GEOLINE:
+                typeStr = @"GeoLine";
+                break;
+            default:
+                typeStr = @"otherGeoType";
+                break;
+        }
+      NSInteger key = (NSInteger)geo;
+      [JSObjManager addObj:geo];
+      resolve(@{@"geometryId":@(key).stringValue,@"geoType":typeStr});
+    }else{
+        reject(@"mapControl",@"getCurrentGeometry failed!!!",nil);
+    }
 }
 
 RCT_REMAP_METHOD(setRefreshListener,setRefreshListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
