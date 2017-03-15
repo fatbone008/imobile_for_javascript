@@ -6,9 +6,10 @@
 //  Copyright © 2017年 Facebook. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #import "SuperMap/MapControl.h"
-@interface JSAdoptMapView : NSObject<RCTBridgeModule>
+#import "SuperMap/Map.h"
+@interface JSAdoptMapView : RCTEventEmitter<RCTBridgeModule,MapParameterChangedDelegate>
 
 @end

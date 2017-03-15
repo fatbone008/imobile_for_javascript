@@ -22,16 +22,32 @@ RCT_REMAP_METHOD(createObj,createObjWithURL:(NSString*)url resolver:(RCTPromiseR
     reject(@"QueryService",@"create Obj failed!!!",nil);
   }
 }
-
-RCT_REMAP_METHOD(query,queryById:(NSString*)QSId withServiceParam:(ServiceQueryParameter*)para mode:(QueryMode)mode resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+/* 即将废弃
+ */
+RCT_REMAP_METHOD(query,queryById:(NSString*)QSId withServiceQueryParamId:(NSString*)paraId mode:(int)mode resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     QueryService* queryService = [JSObjManager getObjWithKey:QSId];
+    ServiceQueryParameter* para = [JSObjManager getObjWithKey:paraId];
     FeatureSet* featureSet = [queryService queryWithServiceParam:para QueryMode:mode];
   if (featureSet) {
     NSInteger key = (NSInteger)featureSet;
     [JSObjManager addObj:featureSet];
     resolve(@{@"_queryResultId_":@(key).stringValue});
   }else{
-    reject(@"QueryService",@"create Obj failed!!!",nil);
+    reject(@"QueryService",@"query with serviceQueryParam failed!!!",nil);
   }
+}
+/*  即将废弃
+ */
+RCT_REMAP_METHOD(queryByUrl,queryById:(NSString*)QSId withUrl:(NSString*)url withServiceQueryParamId:(NSString*)paraId mode:(int)mode resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    QueryService* queryService = [JSObjManager getObjWithKey:QSId];
+    ServiceQueryParameter* para = [JSObjManager getObjWithKey:paraId];
+    FeatureSet* featureSet = [queryService queryWithServiceParam:para QueryMode:mode];
+    if (featureSet) {
+        NSInteger key = (NSInteger)featureSet;
+        [JSObjManager addObj:featureSet];
+        resolve(@{@"_queryResultId_":@(key).stringValue});
+    }else{
+        reject(@"QueryService",@"query with serviceQueryParam failed!!!",nil);
+    }
 }
 @end
