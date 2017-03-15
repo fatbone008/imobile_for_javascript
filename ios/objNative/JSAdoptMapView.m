@@ -9,8 +9,33 @@
 #import "JSAdoptMapView.h"
 #import "JSObjManager.h"
 #import "SuperMap/Geometry.h"
+#import "SuperMap/Point2D.h"
 @implementation JSAdoptMapView
 RCT_EXPORT_MODULE(JSMapControl);
+
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"Supermap.MapControl.MapParamChanged.BoundsChanged", @"Supermap.MapControl.MapParamChanged.ScaleChanged"];
+}
+
+-(void) boundsChanged:(Point2D*) newMapCenter{
+    double x = newMapCenter.x;
+    NSNumber* nsX = [NSNumber numberWithDouble:x];
+    double y = newMapCenter.y;
+    NSNumber* nsY = [NSNumber numberWithDouble:y];
+    [self sendEventWithName:@"Supermap.MapControl.MapParamChanged.BoundsChanged"
+                       body:@{@"x":nsX,
+                              @"y":nsY
+                              }];
+}
+
+-(void) scaleChanged:(double) newscale{
+    NSNumber* nsNewScale = [NSNumber numberWithDouble:newscale];
+    [self sendEventWithName:@"Supermap.MapControl.MapParamChanged.ScaleChanged"
+                       body:@{@"scale":nsNewScale
+                              }];
+}
+
 RCT_REMAP_METHOD(getMap,geMapKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   MapControl* mapcontrol = [JSObjManager getObjWithKey:key];
   if(mapcontrol){
@@ -39,6 +64,18 @@ RCT_REMAP_METHOD(submit,submitByKey:(NSString*)key resolver:(RCTPromiseResolveBl
         resolve(@"submit successful");
     }else{
         reject(@"mapControl",@"submit failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setMapParamChangedListener,setMapParamChangedListenerByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapCtrl = [JSObjManager getObjWithKey:key];
+    Map* map = mapCtrl.map;
+    if(map){
+        map.delegate =self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:TRUE];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"set MapParamChangedListener failed!!!",nil);
     }
 }
 

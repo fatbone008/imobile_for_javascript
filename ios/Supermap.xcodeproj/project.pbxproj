@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FF1B90321E78C92400CE2481 /* JSNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1B90311E78C92400CE2481 /* JSNavigation.m */; };
+		FF21004A1E7910E200E49464 /* JSCallOutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2100491E7910E200E49464 /* JSCallOutManager.m */; };
 		FFD1F0191E31E22200CACDC5 /* JSAdoptMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */; };
 		FFD1F01A1E31E22200CACDC5 /* JSBufferAnalystGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC01E31E22200CACDC5 /* JSBufferAnalystGeometry.m */; };
 		FFD1F01B1E31E22200CACDC5 /* JSCallOut.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1EFC21E31E22200CACDC5 /* JSCallOut.m */; };
@@ -73,6 +74,8 @@
 		134814201AA4EA6300B7C361 /* libSupermap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSupermap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF1B90301E78C92400CE2481 /* JSNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSNavigation.h; path = objNative/JSNavigation.h; sourceTree = "<group>"; };
 		FF1B90311E78C92400CE2481 /* JSNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSNavigation.m; path = objNative/JSNavigation.m; sourceTree = "<group>"; };
+		FF2100481E7910E200E49464 /* JSCallOutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSCallOutManager.h; path = objNative/JSCallOutManager.h; sourceTree = "<group>"; };
+		FF2100491E7910E200E49464 /* JSCallOutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSCallOutManager.m; path = objNative/JSCallOutManager.m; sourceTree = "<group>"; };
 		FFD1EFBD1E31E22200CACDC5 /* JSAdoptMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSAdoptMapView.h; path = objNative/JSAdoptMapView.h; sourceTree = "<group>"; };
 		FFD1EFBE1E31E22200CACDC5 /* JSAdoptMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSAdoptMapView.m; path = objNative/JSAdoptMapView.m; sourceTree = "<group>"; };
 		FFD1EFBF1E31E22200CACDC5 /* JSBufferAnalystGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSBufferAnalystGeometry.h; path = objNative/JSBufferAnalystGeometry.h; sourceTree = "<group>"; };
@@ -191,8 +194,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				FF1B90301E78C92400CE2481 /* JSNavigation.h */,
-				FF1B90311E78C92400CE2481 /* JSNavigation.m */,
+				FF2100481E7910E200E49464 /* JSCallOutManager.h */,
+				FF2100491E7910E200E49464 /* JSCallOutManager.m */,
 				FFE609761E6FAB9E00ACB6DE /* JSLegend.h */,
 				FFE609771E6FAB9E00ACB6DE /* JSLegend.m */,
 				FFFA24811E6E878A0064CA76 /* JSScaleView.h */,
@@ -253,6 +256,8 @@
 				FFD1EFF41E31E22200CACDC5 /* JSMaps.m */,
 				FFD1EFF51E31E22200CACDC5 /* JSMapView.h */,
 				FFD1EFF61E31E22200CACDC5 /* JSMapView.m */,
+				FF1B90301E78C92400CE2481 /* JSNavigation.h */,
+				FF1B90311E78C92400CE2481 /* JSNavigation.m */,
 				FFD1EFF71E31E22200CACDC5 /* JSNavigation2.h */,
 				FFD1EFF81E31E22200CACDC5 /* JSNavigation2.m */,
 				FFD1EFF91E31E22200CACDC5 /* JSObjManager.h */,
@@ -386,6 +391,7 @@
 				FFD1F01B1E31E22200CACDC5 /* JSCallOut.m in Sources */,
 				FFD1F0241E31E22200CACDC5 /* JSDataUploadService.m in Sources */,
 				FFD1F02C1E31E22200CACDC5 /* JSGeoStyle.m in Sources */,
+				FF21004A1E7910E200E49464 /* JSCallOutManager.m in Sources */,
 				FFD1F03C1E31E22200CACDC5 /* JSQueryService.m in Sources */,
 				FFD1F02D1E31E22200CACDC5 /* JSLayer.m in Sources */,
 				FFD1F02E1E31E22200CACDC5 /* JSLayers.m in Sources */,
