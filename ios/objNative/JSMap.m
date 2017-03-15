@@ -234,17 +234,18 @@ RCT_REMAP_METHOD(setViewBounds,setViewBoundsByKey:(NSString*)key andBounds:(NSDi
         reject(@"Map",@"getBounds failed!!!",nil);
     }
 }
-
-//RCT_REMAP_METHOD(isDynamicProjection,isDynamicProjectionByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//    Map* map = [JSObjManager getObjWithKey:key];
-//    if(map){
-//        Rectangle2D* bounds = map.viewBounds;
-//        NSDictionary* dic = [JSRectangle2D reactangle2DToDic:bounds];
-//        resolve(@{@"bound":dic});
-//    }else{
-//        reject(@"Map",@"getBounds failed!!!",nil);
-//    }
-//}
+/* ios端暂无此接口
+RCT_REMAP_METHOD(isDynamicProjection,isDynamicProjectionByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        Rectangle2D* bounds = map.viewBounds;
+        NSDictionary* dic = [JSRectangle2D reactangle2DToDic:bounds];
+        resolve(@{@"bound":dic});
+    }else{
+        reject(@"Map",@"getBounds failed!!!",nil);
+    }
+}
+ */
 
 RCT_REMAP_METHOD(setDynamicProjection,setDynamicProjectionByKey:(NSString*)key andValue:(BOOL)value resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Map* map = [JSObjManager getObjWithKey:key];
@@ -308,26 +309,30 @@ RCT_REMAP_METHOD(zoom,zoomByKey:(NSString*)key andRatio:(double)ratio resolver:(
     }
 }
 
-//RCT_REMAP_METHOD(addLayer,addLayerById:(NSString*)mapId andDatasetId:(NSString*)dsId andHead:(BOOL)head resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//  Map* map = [JSObjManager getObjWithKey:key];
-//  if(map.prjCoordSys){
-//    NSInteger projKey = (NSInteger)map.prjCoordSys;
-//    [JSObjManager addObj:map.prjCoordSys];
-//    resolve(@{@"prjCoordSysId":@(projKey).stringValue});
-//  }else{
-//    reject(@"Map",@"getProjSys failed!!!",nil);
-//  }
-//}
-
-//RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-//    Map* map = [JSObjManager getObjWithKey:key];
-//    if(map.prjCoordSys){
-//        NSInteger projKey = (NSInteger)map.prjCoordSys;
-//        [JSObjManager addObj:map.prjCoordSys];
-//        resolve(@{@"prjCoordSysId":@(projKey).stringValue});
-//    }else{
-//        reject(@"Map",@"getProjSys failed!!!",nil);
-//    }
-//}
+RCT_REMAP_METHOD(addLayer,addLayerById:(NSString*)mapId andDatasetId:(NSString*)dsId andHead:(BOOL)head resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Dataset* dataset = [JSObjManager getObjWithKey:dsId];
+  if(map&&dataset){
+      Layers* layers = map.layers;
+      Layer* addingLayer = [layers addDataset:dataset ToHead:head];
+    NSInteger layerKey = (NSInteger)addingLayer;
+    [JSObjManager addObj:addingLayer];
+    resolve(@{@"layerId":@(layerKey).stringValue});
+  }else{
+    reject(@"Map",@"addLayer failed!!!",nil);
+  }
+}
+/* 此接口未开出
+RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map.prjCoordSys){
+        NSInteger projKey = (NSInteger)map.prjCoordSys;
+        [JSObjManager addObj:map.prjCoordSys];
+        resolve(@{@"prjCoordSysId":@(projKey).stringValue});
+    }else{
+        reject(@"Map",@"getProjSys failed!!!",nil);
+    }
+}
+ */
 
 @end

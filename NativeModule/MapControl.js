@@ -3,7 +3,7 @@
  */
 const LONGPRESS_EVENT = "com.supermap.RN.JSMapcontrol.long_press_event";
 
-import { NativeModules,DeviceEventEmitter } from 'react-native';
+import { NativeModules,DeviceEventEmitter,NativeEventEmitter,Platform } from 'react-native';
 let MC = NativeModules.JSMapControl;
 import Map from './Map.js';
 import Navigation2 from './IndustryNavi.js';
@@ -12,6 +12,8 @@ import GeoPoint from './GeoPoint.js';
 import GeoRegion from './GeoRegion.js';
 import GeoLine from './GeoLine.js';
 import Geometry from './Geometry.js';
+
+const nativeEvt = new NativeEventEmitter(MC);
 
 /**
  * @class MapControl
@@ -126,7 +128,7 @@ export default class MapControl{
     }
 
     /**
-     *  监听地图参数变化，分别由边界变化sizeChanged,比例尺变化scaleChanged,角度变化angleChanged,中心店变化boundsChanged。
+     *  监听地图参数变化，分别由边界变化sizeChanged,比例尺变化scaleChanged,角度变化angleChanged,中心点变化boundsChanged(iOS目前只支持比例尺变化监听与中心点变化监听)。
      * @memberOf MapControl
      * @param events 该对象有下面四个函数类型的属性分别处理四种监听事件
      * {boundsChanged,scaleChanged,angleChanged,sizeChanged}
@@ -142,6 +144,25 @@ export default class MapControl{
             console.debug("Listening map parameters changed.");
 
             if(!success) return;
+            //差异化处理
+            if(Platform.OS === 'ios'){
+                nativeEvt.addListener('Supermap.MapControl.MapParamChanged.BoundsChanged',function (e) {
+                   if(typeof boundsChanged == 'function'){
+                       events.boundsChanged(e);
+                   }else{
+                       console.error("Please set a callback to the property 'boundsChanged' in the first argument.");
+                   }
+                });
+                nativeEvt.addListener('Supermap.MapControl.MapParamChanged.ScaleChanged',function (e) {
+                  if(typeof events.scaleChanged == 'function'){
+                      events.scaleChanged(e);
+                  }else{
+                      console.error("Please set a callback to the property 'scaleChanged' in the first argument.");
+                  }
+                });
+
+                return
+            }
 
             DeviceEventEmitter.addListener('Supermap.MapControl.MapParamChanged.BoundsChanged',function (e) {
                 if(typeof boundsChanged == 'function'){

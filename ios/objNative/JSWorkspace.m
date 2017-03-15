@@ -138,7 +138,10 @@ RCT_REMAP_METHOD(openLocalDatasource,openLocalDatasourceByKey:(NSString*)key and
     Workspace* workspace = [JSObjManager getObjWithKey:key];
     Datasources* dataSources = workspace.datasources;
     DatasourceConnectionInfo* info = [[DatasourceConnectionInfo alloc]init];
+    NSString* firstStr = [path substringToIndex:1];
+    if([firstStr isEqualToString:@"/"]){
     path = [NSHomeDirectory() stringByAppendingString:path];
+    }
     if(workspace&&info){
         info.server = path;
         info.engineType = type;
