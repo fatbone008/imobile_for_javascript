@@ -12,6 +12,7 @@ import GeoPoint from './GeoPoint.js';
 import GeoRegion from './GeoRegion.js';
 import GeoLine from './GeoLine.js';
 import Geometry from './Geometry.js';
+import Layer from './Layer.js';
 
 const nativeEvt = new NativeEventEmitter(MC);
 
@@ -312,6 +313,101 @@ export default class MapControl{
             console.error(e);
         }
     }
+
+    /**
+     * 返回地图控件中地图的当前操作状态。
+     * @memberOf MapControl
+     * @returns {Promise.<string>}
+     */
+    async getAction(){
+        try{
+            var {actionType} = await MC.getAction();
+            for( p in this.ACTION){
+                if(this.ACTION[p] === actionType){
+                    console.log("MapControl.js:"+p);
+                    return p;
+                }else{
+                    throw new Error("Unknown Type");
+                }
+            }
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图窗口上恢复上一步的操作。
+     * @memberOf MapControl
+     * @returns {Promise.<boolean>}
+     */
+    async redo(){
+        try{
+            var {redone} = await MC.redo();
+            return redone;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图控件上撤消上一次的操作。
+     * @memberOf MapControl
+     * @returns {Promise.<boolean>}
+     */
+    async undo(){
+        try{
+            var {undone} = await MC.undo();
+            return undone;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 取消操作，对于采集而言，新建的未提交的数据将被清除，对于编辑，将回到上一次提交保存的状态。
+     * @memberOf MapControl
+     * @returns {Promise.<void>}
+     */
+    async cancel(){
+        try{
+            var {canceled} = await MC.cancel();
+            return canceled;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除当前绘制出来的几何对象。
+     * @memberOf MapControl
+     * @returns {Promise.<Promise.deleted>}
+     */
+    async deleteCurrentGeometry(){
+        try{
+            var {deleted} = await MC.deleteCurrentGeometry();
+            return deleted;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取当前编辑图层
+     * @memberOf MapControl
+     * @returns {Promise.<object>}
+     */
+    async getEditLayer(){
+        try{
+            var {layerId} = await MC.getEditLayer();
+            var layer = new Layer();
+            layer.layerId = layerId;
+            return layer;
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+
 }
 
 MapControl.ACTION = {
