@@ -8,6 +8,8 @@
 
 
 #import <React/RCTBridgeModule.h>
-@interface JSNavigation : NSObject<RCTBridgeModule>
+#import <React/RCTEventEmitter.h>
+#import "SuperMap/Navigation.h"
+@interface JSNavigation : RCTEventEmitter<RCTBridgeModule,NaviListener>
 
 @end
