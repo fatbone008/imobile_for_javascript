@@ -93,7 +93,7 @@ export default class MapControl{
     }
 
     /**
-     * 监听导航事件
+     * 监听手势事件
      * @memberOf MapControl
      * @param {object} events - 传入一个对象作为参数，该对象可以包含两个属性：longPressHandler和scrollHandler。两个属性的值均为function类型，分部作为长按与滚动监听事件的处理函数。
      * @returns {Promise.<void>}
@@ -101,18 +101,35 @@ export default class MapControl{
     async setGestureDetector(handlers){
         try{
             if(!handlers) return;
+            //差异化
+            if(Platform.OS === 'ios'){
+                if(typeof handlers.longPressHandler === "function"){
+                    nativeEvt.addListener(LONGPRESS_EVENT,function (e) {
+                                                   // longPressHandler && longPressHandler(e);
+                                                   handlers.longPressHandler(e);
+                                                   });
+                }
+                
+                if(typeof handlers.scrollHandler === "function"){
+                    nativeEvt.addListener('NavigationScroll',function (e) {
+                                                   scrollHandler && scrollHandler(e);
+                                                   });
+                }
 
-            if(typeof handlers.longPressHandler === "function"){
-                DeviceEventEmitter.addListener(LONGPRESS_EVENT,function (e) {
-                    // longPressHandler && longPressHandler(e);
-                    handlers.longPressHandler(e);
-                });
-            }
-
-            if(typeof handlers.scrollHandler === "function"){
-                DeviceEventEmitter.addListener('NavigationScroll',function (e) {
-                    scrollHandler && scrollHandler(e);
-                });
+            }else{
+                if(typeof handlers.longPressHandler === "function"){
+                    DeviceEventEmitter.addListener(LONGPRESS_EVENT,function (e) {
+                                                   // longPressHandler && longPressHandler(e);
+                                                   handlers.longPressHandler(e);
+                                                   });
+                }
+                
+                if(typeof handlers.scrollHandler === "function"){
+                    DeviceEventEmitter.addListener('NavigationScroll',function (e) {
+                                                   scrollHandler && scrollHandler(e);
+                                                   });
+                }
+            
             }
 
             // console.log('MapControl.js:----------------------------------');

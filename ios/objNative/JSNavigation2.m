@@ -195,4 +195,25 @@ RCT_REMAP_METHOD(enablePanOnGuide,enablePanOnGuideById:(NSString*)nav2Id andPan:
 //    }
 //}
 
+RCT_REMAP_METHOD(setIsAutoNavi,setIsAutoNaviById:(NSString*)nav2Id withIsAudo:(BOOL)isAudo resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    if (nav) {
+        [nav setIsAutoNavi:isAudo];
+        resolve(@"set Audo");
+    }else{
+        reject(@"Nav2",@"set IsAutoNavi failed!!!",nil);
+    }
+}
+/*GPSdata结构
+RCT_REMAP_METHOD(setGPSData,setGPSDataById:(NSString*)nav2Id andData:(BOOL)Data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    if (nav) {
+        [nav enablePanOnGuide:pan];
+        resolve(@"setted");
+    }else{
+        reject(@"Nav2",@"set pan onGuide failed!!!",nil);
+    }
+}
+ */
+
 @end

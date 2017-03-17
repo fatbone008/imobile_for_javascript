@@ -10,6 +10,6 @@
 #import <React/RCTEventEmitter.h>
 #import "SuperMap/MapControl.h"
 #import "SuperMap/Map.h"
-@interface JSAdoptMapView : RCTEventEmitter<RCTBridgeModule,MapParameterChangedDelegate>
+@interface JSAdoptMapView : RCTEventEmitter<RCTBridgeModule,MapParameterChangedDelegate,TouchableViewDelegate>
 
 @end
