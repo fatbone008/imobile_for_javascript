@@ -328,7 +328,6 @@ export default class TraditionalNavi {
                                                    events.playNaviMessage(e);
                                                    });
                 }
-
             }
             return success;
         }catch(e){
