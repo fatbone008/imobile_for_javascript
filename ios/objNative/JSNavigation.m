@@ -8,6 +8,10 @@
 
 #import "JSNavigation.h"
 #import "JSObjManager.h"
+#import "SuperMap/Map.h"
+#import "SuperMap/CoordSysTranslator.h"
+#import "SuperMap/Point2D.h"
+#import "SuperMap/Point2Ds.h"
 @implementation JSNavigation
 RCT_EXPORT_MODULE();
 
@@ -66,8 +70,14 @@ RCT_REMAP_METHOD(routeAnalyst,routeAnalystById:(NSString*)naviId withMode:(int)m
 
 RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)naviId withPointX:(double)pointX withPointY:(double)pointY withMapId:(NSString*)mapId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation* navi = [JSObjManager getObjWithKey:naviId];
-    if(navi){
-        [navi setStartPoint:pointX sPointY:pointY];
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    PrjCoordSys* prj = map.prjCoordSys;
+    Point2D* point = [[Point2D alloc]initWithX:pointX Y:pointY];
+    Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
+    BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
+    if(navi&&isTranslate){
+        Point2D* translatedPoint = [points getItem:0];
+        [navi setStartPoint:translatedPoint.x sPointY:translatedPoint.y];
         resolve(@"startPoint setted");
     }else{
         reject(@"Navigation",@"set StartPoint failed!!!",nil);
@@ -76,8 +86,14 @@ RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)naviId withPointX:(d
 
 RCT_REMAP_METHOD(setDestinationPoint,setDestinationPointById:(NSString*)naviId withPointX:(double)pointX withPointY:(double)pointY withMapId:(NSString*)mapId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation* navi = [JSObjManager getObjWithKey:naviId];
-    if(navi){
-        [navi setDestinationPoint:pointX dPointY:pointY];
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    PrjCoordSys* prj = map.prjCoordSys;
+    Point2D* point = [[Point2D alloc]initWithX:pointX Y:pointY];
+    Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
+    BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
+    if(navi&&isTranslate){
+        Point2D* translatedPoint = [points getItem:0];
+        [navi setDestinationPoint:translatedPoint.x dPointY:translatedPoint.y];
         resolve(@"destinationPoint setted");
     }else{
         reject(@"Navigation",@"set destinationPoint failed!!!",nil);

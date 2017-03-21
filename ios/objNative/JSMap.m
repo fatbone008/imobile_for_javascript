@@ -9,6 +9,7 @@
 #import "JSMap.h"
 #import "SuperMap/Layers.h"
 #import "SuperMap/Rectangle2D.h"
+#import "SuperMap/Point2D.h"
 #import "JSObjManager.h"
 #import "JSRectangle2D.h"
 #import "JSPoint.h"
@@ -146,9 +147,11 @@ RCT_REMAP_METHOD(pixelToMap,pixelToMapByKey:(NSString*)key andPointId:(NSString*
         double pointY = nsY.doubleValue;
         CGPoint point = CGPointMake(pointX, pointY);
         Point2D* point2D = [map pixelTomap:point];
+        NSNumber* nsPointX = [NSNumber numberWithDouble:point2D.x];
+        NSNumber* nsPointY = [NSNumber numberWithDouble:point2D.y];
         NSInteger key = (NSInteger)point2D;
         [JSObjManager addObj:point2D];
-        resolve(@{@"point2DId":@(key).stringValue});
+        resolve(@{@"point2DId":@(key).stringValue,@"x":nsPointX,@"y":nsPointY});
     }else{
         reject(@"Map",@"pixelToMap failed!!!",nil);
     }
