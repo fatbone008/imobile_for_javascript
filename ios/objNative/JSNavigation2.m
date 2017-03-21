@@ -60,8 +60,13 @@ RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)nav2Id xPoint:(doubl
     Point2D* point = [[Point2D alloc]initWithX:xPoint Y:yPoint];
     Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
     BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
-    if (nav&&isTranslate) {
-        Point2D* translatedPoint = [points getItem:0];
+    if (nav) {
+        Point2D* translatedPoint = nil;
+        if ([points getCount]==0) {
+            translatedPoint = point;
+        }else{
+            translatedPoint = [points getItem:0];
+        }
         [nav setStartPoint:translatedPoint.x sPointY:translatedPoint.y];
         resolve(@"StartPoint setted");
     }else{
@@ -76,8 +81,13 @@ RCT_REMAP_METHOD(setDestinationPoint,setDestinationPointById:(NSString*)nav2Id x
     Point2D* point = [[Point2D alloc]initWithX:xPoint Y:yPoint];
     Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
     BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
-    if (nav&&isTranslate) {
-        Point2D* translatedPoint = [points getItem:0];
+    if (nav) {
+        Point2D* translatedPoint = nil;
+        if ([points getCount]==0) {
+            translatedPoint = point;
+        }else{
+            translatedPoint = [points getItem:0];
+        }
         [nav setDestinationPoint:translatedPoint.x dPointY:translatedPoint.y];
         resolve(@"DestinationPoint setted");
     }else{
