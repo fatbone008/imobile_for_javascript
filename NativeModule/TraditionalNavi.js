@@ -334,4 +334,5 @@ export default class TraditionalNavi {
             console.error(e);
         }
     }
+
 }

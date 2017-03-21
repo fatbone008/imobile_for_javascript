@@ -107,7 +107,7 @@ export default class MapControl{
     }
 
     /**
-     * 监听手势事件
+     * 监听导航事件
      * @memberOf MapControl
      * @param {object} events - 传入一个对象作为参数，该对象可以包含两个属性：longPressHandler和scrollHandler。两个属性的值均为function类型，分部作为长按与滚动监听事件的处理函数。
      * @returns {Promise.<void>}
@@ -148,6 +148,14 @@ export default class MapControl{
                 }
             }
 
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    async deleteGestureDetector(){
+        try{
+            await MC.deleteGestureDetector(this.mapControlId)
         }catch (e){
             console.error(e);
         }
