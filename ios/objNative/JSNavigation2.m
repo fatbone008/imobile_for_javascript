@@ -6,10 +6,13 @@
 //  Copyright © 2016年 Facebook. All rights reserved.
 //
 
-#import "JSNavigation2.h"
+#import "SuperMap/Map.h"
+#import "SuperMap/CoordSysTranslator.h"
 #import "SuperMap/Navigation2.h"
 #import "SuperMap/Point2D.h"
+#import "SuperMap/Point2Ds.h"
 #import "JSObjManager.h"
+#import "JSNavigation2.h"
 
 @implementation JSNavigation2
 RCT_EXPORT_MODULE();
@@ -38,8 +41,11 @@ RCT_REMAP_METHOD(setNetworkDataset,setNetworkDatasetById:(NSString*)nav2Id datas
 RCT_REMAP_METHOD(loadModel,loadModelById:(NSString*)nav2Id filePath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
     if(nav){
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *absPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:path];
+        NSString* firstStr = [path substringToIndex:1];
+        NSString* absPath = path;
+        if ([firstStr isEqualToString:@"/"]) {
+            absPath = [NSHomeDirectory() stringByAppendingString:path];
+        }
         [nav loadModel:absPath];
         resolve(@"model loaded");
     }else{
@@ -49,8 +55,19 @@ RCT_REMAP_METHOD(loadModel,loadModelById:(NSString*)nav2Id filePath:(NSString*)p
 
 RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)nav2Id xPoint:(double)xPoint yPoint:(double)yPoint andMapId:(NSString*)mapId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    PrjCoordSys* prj = map.prjCoordSys;
+    Point2D* point = [[Point2D alloc]initWithX:xPoint Y:yPoint];
+    Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
+    BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
     if (nav) {
-        [nav setStartPoint:xPoint sPointY:yPoint];
+        Point2D* translatedPoint = nil;
+        if ([points getCount]==0) {
+            translatedPoint = point;
+        }else{
+            translatedPoint = [points getItem:0];
+        }
+        [nav setStartPoint:translatedPoint.x sPointY:translatedPoint.y];
         resolve(@"StartPoint setted");
     }else{
         reject(@"Nav2",@"set startPoint failed!!!",nil);
@@ -59,8 +76,19 @@ RCT_REMAP_METHOD(setStartPoint,setStartPointById:(NSString*)nav2Id xPoint:(doubl
 
 RCT_REMAP_METHOD(setDestinationPoint,setDestinationPointById:(NSString*)nav2Id xPoint:(double)xPoint yPoint:(double)yPoint andMapId:(NSString*)mapId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    PrjCoordSys* prj = map.prjCoordSys;
+    Point2D* point = [[Point2D alloc]initWithX:xPoint Y:yPoint];
+    Point2Ds* points = [[Point2Ds alloc]initWithPoint2DsArray:@[point]];
+    BOOL isTranslate = [CoordSysTranslator inverse:points PrjCoordSys:prj];
     if (nav) {
-        [nav setDestinationPoint:xPoint dPointY:yPoint];
+        Point2D* translatedPoint = nil;
+        if ([points getCount]==0) {
+            translatedPoint = point;
+        }else{
+            translatedPoint = [points getItem:0];
+        }
+        [nav setDestinationPoint:translatedPoint.x dPointY:translatedPoint.y];
         resolve(@"DestinationPoint setted");
     }else{
         reject(@"Nav2",@"set DestinationPoint failed!!!",nil);
@@ -194,5 +222,26 @@ RCT_REMAP_METHOD(enablePanOnGuide,enablePanOnGuideById:(NSString*)nav2Id andPan:
 //        reject(@"Nav2",@"set pan onGuide failed!!!",nil);
 //    }
 //}
+
+RCT_REMAP_METHOD(setIsAutoNavi,setIsAutoNaviById:(NSString*)nav2Id withIsAudo:(BOOL)isAudo resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    if (nav) {
+        [nav setIsAutoNavi:isAudo];
+        resolve(@"set Audo");
+    }else{
+        reject(@"Nav2",@"set IsAutoNavi failed!!!",nil);
+    }
+}
+/*GPSdata结构
+RCT_REMAP_METHOD(setGPSData,setGPSDataById:(NSString*)nav2Id andData:(BOOL)Data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
+    if (nav) {
+        [nav enablePanOnGuide:pan];
+        resolve(@"setted");
+    }else{
+        reject(@"Nav2",@"set pan onGuide failed!!!",nil);
+    }
+}
+ */
 
 @end

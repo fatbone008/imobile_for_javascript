@@ -15,7 +15,8 @@ RCT_EXPORT_MODULE(JSMapControl);
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"Supermap.MapControl.MapParamChanged.BoundsChanged", @"Supermap.MapControl.MapParamChanged.ScaleChanged"];
+    return @[@"Supermap.MapControl.MapParamChanged.BoundsChanged", @"Supermap.MapControl.MapParamChanged.ScaleChanged",
+        @"com.supermap.RN.JSMapcontrol.long_press_event"];
 }
 
 -(void) boundsChanged:(Point2D*) newMapCenter{
@@ -35,6 +36,24 @@ RCT_EXPORT_MODULE(JSMapControl);
                        body:@{@"scale":nsNewScale
                               }];
 }
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self sendEventWithName:@"Supermap.MapControl.MapParamChanged.ScaleChanged"
+                       body:@{@"body":@"listener undefine"
+                              }];
+}
+
+- (void)longpress:(CGPoint)pressedPos{
+    CGFloat x = pressedPos.x;
+    CGFloat y = pressedPos.y;
+    NSNumber* nsX = [NSNumber numberWithFloat:x];
+    NSNumber* nsY = [NSNumber numberWithFloat:y];
+    [self sendEventWithName:@"com.supermap.RN.JSMapcontrol.long_press_event"
+                       body:@{@"x":nsX,
+                              @"y":nsY
+                              }];
+}
+
 
 RCT_REMAP_METHOD(getMap,geMapKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   MapControl* mapcontrol = [JSObjManager getObjWithKey:key];
@@ -64,6 +83,17 @@ RCT_REMAP_METHOD(submit,submitByKey:(NSString*)key resolver:(RCTPromiseResolveBl
         resolve(@"submit successful");
     }else{
         reject(@"mapControl",@"submit failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setGestureDetector,setGestureDetectorById:(NSString*)mapControlId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapCtrl = [JSObjManager getObjWithKey:mapControlId];
+    if(mapCtrl){
+        mapCtrl.delegate =self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:TRUE];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"set GestureDetector failed!!!",nil);
     }
 }
 

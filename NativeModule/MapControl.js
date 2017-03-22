@@ -114,28 +114,48 @@ export default class MapControl{
      */
     async setGestureDetector(handlers){
         try{
-            if(!handlers) return;
-
-            if(typeof handlers.longPressHandler === "function"){
-                DeviceEventEmitter.addListener("com.supermap.RN.JSMapcontrol.long_press_event",function (e) {
-                    // longPressHandler && longPressHandler(e);
-                    handlers.longPressHandler(e);
-                });
-            }
-
-            if(typeof handlers.scrollHandler === "function"){
-                DeviceEventEmitter.addListener('com.supermap.RN.JSMapcontrol.scroll_event',function (e) {
-                    scrollHandler && scrollHandler(e);
-                });
-            }
-
-            // console.log('MapControl.js:----------------------------------');
             if(handlers){
                 await MC.setGestureDetector(this.mapControlId);
-                // console.log("GestrueDetector listening!");
             }else{
                 throw new Error("setGestureDetector need callback functions as first two argument!");
             }
+            //差异化
+            if(Platform.OS === 'ios'){
+                if(typeof handlers.longPressHandler === "function"){
+                    nativeEvt.addListener("com.supermap.RN.JSMapcontrol.long_press_event",function (e) {
+                                                   // longPressHandler && longPressHandler(e);
+                                                   handlers.longPressHandler(e);
+                                                   });
+                }
+                
+                if(typeof handlers.scrollHandler === "function"){
+                    nativeEvt.addListener('com.supermap.RN.JSMapcontrol.scroll_event',function (e) {
+                                                   scrollHandler && scrollHandler(e);
+                                                   });
+                }
+            }else{
+                if(typeof handlers.longPressHandler === "function"){
+                    DeviceEventEmitter.addListener("com.supermap.RN.JSMapcontrol.long_press_event",function (e) {
+                                                   // longPressHandler && longPressHandler(e);
+                                                   handlers.longPressHandler(e);
+                                                   });
+                }
+                
+                if(typeof handlers.scrollHandler === "function"){
+                    DeviceEventEmitter.addListener('com.supermap.RN.JSMapcontrol.scroll_event',function (e) {
+                                                   scrollHandler && scrollHandler(e);
+                                                   });
+                }
+            }
+
+        }catch (e){
+            console.error(e);
+        }
+    }
+
+    async deleteGestureDetector(){
+        try{
+            await MC.deleteGestureDetector(this.mapControlId)
         }catch (e){
             console.error(e);
         }

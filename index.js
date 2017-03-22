@@ -47,6 +47,8 @@ import TraditionalNavi from './NativeModule/TraditionalNavi.js';
 import Workspace from './NativeModule/Workspace.js';
 import WorkspaceConnectionInfo from './NativeModule/WorkspaceConnectionInfo.js';
 
+import Utility from './NativeModule/utility/utility.js';
+
 import SMMapView from './NativeModule/components/SMMapViewUI.js';
 import SMLayerListView from './NativeModule/components/SMLayerListViewUI.js';
 import SMLegendView from './NativeModule/components/SMLegendViewUI.js';
@@ -59,6 +61,7 @@ export {
     SMLegendView,
     SMScaleView,
 
+    Utility,
 
     //Modules
     BufferAnalystGeometry,

@@ -25,15 +25,26 @@
 }
 
 +(Rectangle2D*)dicToReactangle2D:(NSDictionary*)dic{
+    Rectangle2D* reactangle = [NSNull null];
     NSNumber* nsLeft = [dic objectForKey:@"left"];
     double left = nsLeft.doubleValue;
     NSNumber* nsBottom = [dic objectForKey:@"bottom"];
     double bottom = nsBottom.doubleValue;
-    NSNumber* nsRight = [dic objectForKey:@"right"];
-    double right = nsRight.doubleValue;
-    NSNumber* nsTop = [dic objectForKey:@"top"];
-    double top = nsTop.doubleValue;
-    Rectangle2D* reactangle = [[Rectangle2D alloc]initWith:left bottom:bottom right:right top:left];
+    NSArray* keyArr = [dic allKeys];
+    if ([keyArr containsObject:@"right"]&&[keyArr containsObject:@"top"]) {
+        NSNumber* nsRight = [dic objectForKey:@"right"];
+        double right = nsRight.doubleValue;
+        NSNumber* nsTop = [dic objectForKey:@"top"];
+        double top = nsTop.doubleValue;
+        reactangle = [[Rectangle2D alloc]initWith:left bottom:bottom right:right top:top];
+    }else if ([keyArr containsObject:@"width"]&&[keyArr containsObject:@"height"]){
+        NSNumber* nsWidth = [dic objectForKey:@"width"];
+        double width = nsWidth.doubleValue;
+        NSNumber* nsHeight = [dic objectForKey:@"height"];
+        double height = nsHeight.doubleValue;
+        Point2D* leftBottom = [[Point2D alloc]initWithX:left Y:bottom];
+        reactangle = [[Rectangle2D alloc]initWithLeftBottom:leftBottom Width:width Height:height];
+    }
     return reactangle;
 }
 RCT_EXPORT_MODULE();
