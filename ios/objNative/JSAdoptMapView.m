@@ -9,6 +9,7 @@
 #import "JSAdoptMapView.h"
 #import "JSObjManager.h"
 #import "SuperMap/Geometry.h"
+#import "SuperMap/Layer.h"
 #import "SuperMap/Point2D.h"
 @implementation JSAdoptMapView
 RCT_EXPORT_MODULE(JSMapControl);
@@ -16,7 +17,10 @@ RCT_EXPORT_MODULE(JSMapControl);
 - (NSArray<NSString *> *)supportedEvents
 {
     return @[@"Supermap.MapControl.MapParamChanged.BoundsChanged", @"Supermap.MapControl.MapParamChanged.ScaleChanged",
-        @"com.supermap.RN.JSMapcontrol.long_press_event"];
+        @"com.supermap.RN.JSMapcontrol.scroll_event",
+        @"com.supermap.RN.JSMapcontrol.long_press_event",
+        @"com.supermap.RN.JSMapcontrol.geometry_selected",
+        @"com.supermap.RN.JSMapcontrol.geometry_multi_selected"];
 }
 
 -(void) boundsChanged:(Point2D*) newMapCenter{
@@ -37,8 +41,9 @@ RCT_EXPORT_MODULE(JSMapControl);
                               }];
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self sendEventWithName:@"Supermap.MapControl.MapParamChanged.ScaleChanged"
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    [self sendEventWithName:@"com.supermap.RN.JSMapcontrol.scroll_event"
                        body:@{@"body":@"listener undefine"
                               }];
 }
@@ -54,6 +59,33 @@ RCT_EXPORT_MODULE(JSMapControl);
                               }];
 }
 
+-(void)geometrySelected:(int)geometryID Layer:(Layer*)layer{
+    NSNumber* nsId = [NSNumber numberWithInt:geometryID];
+    NSInteger nsLayer = (NSInteger)layer;
+    [JSObjManager addObj:layer];
+    [self sendEventWithName:@"com.supermap.RN.JSMapcontrol.geometry_selected" body:@{@"layerId":@(nsLayer).stringValue,
+                                                                                     @"id":nsId
+                                                                                     }];
+}
+
+-(void)geometryMultiSelected:(NSArray*)layersAndIds{
+    NSMutableArray* layersIdAndIds = [[NSMutableArray alloc]initWithCapacity:10];
+    for (id layerAndId in layersAndIds) {
+        if ([layerAndId isKindOfClass:[NSArray class]]&&[layerAndId[0]isKindOfClass:[Layer class]]) {
+            Layer*layer = layerAndId[0];
+            [JSObjManager addObj:layer];
+            NSInteger nslayer = (NSInteger)layer;
+            [layersIdAndIds addObject:@[@(nslayer).stringValue,layerAndId[1]]];
+        }
+    }
+    [self sendEventWithName:@"com.supermap.RN.JSMapcontrol.geometry_multi_selected" body:@{@"geometries":(NSArray*)layersIdAndIds}];
+}
+/*此处对应三种回调
+-(double)getMeasureResult:(double)result lastPoint:(Point2D*)lastPoint{
+    [self sendEventWithName:@"" body:@{@"":@""}];
+    return result;
+}
+*/
 
 RCT_REMAP_METHOD(getMap,geMapKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   MapControl* mapcontrol = [JSObjManager getObjWithKey:key];
@@ -94,6 +126,17 @@ RCT_REMAP_METHOD(setGestureDetector,setGestureDetectorById:(NSString*)mapControl
         resolve(nsTrue);
     }else{
         reject(@"mapControl",@"set GestureDetector failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(deleteGestureDetector,deleteGestureDetectorById:(NSString*)mapControlId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapCtrl = [JSObjManager getObjWithKey:mapControlId];
+    if(mapCtrl){
+        mapCtrl.delegate = nil;
+        NSNumber* nsTrue = [NSNumber numberWithBool:TRUE];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"delete GestureDetector failed!!!",nil);
     }
 }
 
@@ -158,6 +201,139 @@ RCT_REMAP_METHOD(getCurrentGeometry,getCurrentGeometryById:(NSString*)Id resolve
       resolve(@{@"geometryId":@(key).stringValue,@"geoType":typeStr});
     }else{
         reject(@"mapControl",@"getCurrentGeometry failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getAction,getActionById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        int action = (int)mapControl.action;
+        NSNumber* nsAction = [NSNumber numberWithInt:action];
+        resolve(@{@"actionType":nsAction});
+    }else{
+        reject(@"mapControl",@"get Action failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(redo,redoById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        [mapControl redo];
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(@{@"redone":nsTrue});
+    }else{
+        reject(@"mapControl",@"redo failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(undo,undoById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        [mapControl undo];
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(@{@"undone":nsTrue});
+    }else{
+        reject(@"mapControl",@"undo failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(cancel,cancelById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        [mapControl cancel];
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(@{@"canceled":nsTrue});
+    }else{
+        reject(@"mapControl",@"canceled failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(deleteCurrentGeometry,deleteCurrentGeometryById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        [mapControl deleteCurrentGeometry];
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(@{@"deleted":nsTrue});
+    }else{
+        reject(@"mapControl",@"deleteCurrentGeometry failed!!!",nil);
+    }
+}
+ /*
+RCT_REMAP_METHOD(getEditLayer,getEditLayerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    if (Id) {
+        MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+        [mapControl deleteCurrentGeometry];
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(@{@"deleted":nsTrue});
+    }else{
+        reject(@"mapControl",@"deleteCurrentGeometry failed!!!",nil);
+    }
+}
+  */
+/*
+RCT_REMAP_METHOD(addGeometryAddedListener,addGeometryAddedListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.mapEditdelegate = self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add GeometryAddedListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(removeGeometryAddedListener,removeGeometryAddedListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.mapEditdelegate = nil;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add GeometryAddedListener failed!!!",nil);
+    }
+} */
+
+RCT_REMAP_METHOD(addGeometrySelectedListener,addGeometrySelectedListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.geometrySelectedDelegate = self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add GeometryAddedListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(removeGeometrySelectedListener,removeGeometrySelectedListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.geometrySelectedDelegate = nil;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add GeometryAddedListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(addMeasureListener,addMeasureListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.mapMeasureDelegate = self;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add MeasureListener failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(removeMeasureListener,removeMeasureListenerById:(NSString*)Id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    MapControl* mapControl = [JSObjManager getObjWithKey:Id];
+    if (mapControl) {
+        mapControl.mapMeasureDelegate = nil;
+        NSNumber* nsTrue = [NSNumber numberWithBool:YES];
+        resolve(nsTrue);
+    }else{
+        reject(@"mapControl",@"add MeasureListener failed!!!",nil);
     }
 }
 

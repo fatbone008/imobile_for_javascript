@@ -161,14 +161,6 @@ export default class MapControl{
         }
     }
 
-    async deleteGestureDetector(){
-        try{
-            await MC.deleteGestureDetector(this.mapControlId)
-        }catch (e){
-            console.error(e);
-        }
-    }
-
     /**
      *  监听地图参数变化，分别由边界变化sizeChanged,比例尺变化scaleChanged,角度变化angleChanged,中心点变化boundsChanged(iOS目前只支持比例尺变化监听与中心点变化监听)。
      * @memberOf MapControl
@@ -658,9 +650,33 @@ export default class MapControl{
      */
     async addGeometrySelectedListener(events){
         try{
-            var success = await MC.addGeometryModifyingListener(this.mapControlId);
+            var success = await MC.addGeometrySelectedListener(this.mapControlId);
             if(!success) return ;
-
+            //差异化
+            if(Platform.OS === 'ios'){
+                nativeEvt.addListener('com.supermap.RN.JSMapcontrol.geometry_selected',function (e) {
+                        if(typeof events.geometrySelected === 'function'){
+                            var layer = new Layer();
+                            layer.layerId = e.layerId;
+                            e.layer = layer;
+                            events.geometrySelected(e);
+                        }else{
+                            console.error("Please set a callback to the first argument.");
+                        }
+                });
+                nativeEvt.addListener('com.supermap.RN.JSMapcontrol.geometry_multi_selected',function (e) {
+                        if(typeof events.geometryMultiSelected === 'function'){
+                            e.geometries.map(function (geometry) {
+                                var layer = new Layer();
+                                layer.layerId = geometry.layerId;
+                                geometry.layer = layer;
+                            })
+                            events.geometryMultiSelected(e);
+                         }else{
+                            console.error("Please set a callback to the first argument.");
+                         }
+                        });
+            }else{
             DeviceEventEmitter.addListener('com.supermap.RN.JSMapcontrol.geometry_selected',function (e) {
                 if(typeof events.geometrySelected === 'function'){
                     var layer = new Layer();
@@ -683,6 +699,7 @@ export default class MapControl{
                     console.error("Please set a callback to the first argument.");
                 }
             });
+            }
             return success;
         }catch (e){
             console.error(e);
