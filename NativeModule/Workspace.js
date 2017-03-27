@@ -166,6 +166,8 @@ export default class Workspace{
      * @param {string} driver 驱动
      * @returns {Promise.<void>}
      */
+    
+    /*
     async openDatasource(path,engineType,driver){
         try{
 //            if(arguments.length < 3){
@@ -189,6 +191,31 @@ export default class Workspace{
                 default :
                     var {datasourceId} = await W.openLocalDatasource(this.workspaceId,path,engineType);
             }
+            var datasource = new Datasource();
+            datasource.datasourceId = datasourceId;
+            return datasource;
+        }catch(e){
+            console.error(e);
+        }
+    } */
+    
+    /**
+     * 打开数据源 jsonObject 获取网络数据源
+     * @memberOf Workspace
+     * @param {object} jsonObject {alis:<string> ,engineType:<int> ,server:<sring> ,driver:<string> ,
+                                   user:<string> ,readOnly<bool> ,password:<string> ,webCoordinate:<string> ,
+                                   webVersion:<string> ,webFormat:<string> ,webVisibleLayers:<string> ,
+                                   webExtendParam:<string> ,webBBox:<Rectangle2D> }
+     * @returns {Promise.<datasource>}
+     */
+    
+    async openDatasource(jsonObject){
+        try{
+            if(jsonObject.webBBox){
+                var rect = jsonObject.webBBox;
+                if(typeof rect != 'string') jsonObject.webBBox = rect.rectangle2DId;
+            }
+            var {datasourceId} = await W.openDatasource(this.workspaceId,jsonObject);
             var datasource = new Datasource();
             datasource.datasourceId = datasourceId;
             return datasource;

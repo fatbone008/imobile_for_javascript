@@ -273,7 +273,7 @@ export default class Map{
      */
     async setDynamicProjection(value){
         try{
-            await M.isDynamicProjection(this.mapId,value);
+            await M.setDynamicProjection(this.mapId,value);
         }catch(e){
             console.error(e);
         }

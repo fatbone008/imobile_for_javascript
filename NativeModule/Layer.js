@@ -100,6 +100,21 @@ export default class Layer{
             console.error(e);
         }
     }
+    
+    /**
+     * 获取此图层是否可见。true 表示此图层可见，false 表示图层不可见。当图层不可见时，其他所有的属性的设置将无效。
+     * @memberOf Layer
+     * @param {boolean} b - 指定图层是否可见。
+     * @returns {Promise.<boolean>}
+     */
+    async getVisible(b){
+        try{
+            var isVisible = await L.getVisible(this.layerId);
+            return isVisible;
+        }catch(e){
+            console.error(e);
+        }
+    }
 
     /**
      * 设置此图层是否可见。true 表示此图层可见，false 表示图层不可见。当图层不可见时，其他所有的属性的设置将无效。
