@@ -37,6 +37,8 @@ import QueryService from './NativeModule/QueryService.js';
 import Recordset from './NativeModule/Recordset.js';
 import Rectangle2D from './NativeModule/Rectangle2D.js';
 import ScaleView from './NativeModule/ScaleView.js';
+import Scene from './NativeModule/Scene.js';
+import SceneControl from './NativeModule/SceneControl.js';
 import Selection from './NativeModule/Selection.js';
 import ServiceBase from './NativeModule/ServiceBase.js';
 import ServiceQueryParameter from './NativeModule/ServiceQueryParameter.js';
@@ -53,6 +55,7 @@ import SMMapView from './NativeModule/components/SMMapViewUI.js';
 import SMLayerListView from './NativeModule/components/SMLayerListViewUI.js';
 import SMLegendView from './NativeModule/components/SMLegendViewUI.js';
 import SMScaleView from './NativeModule/components/SMScaleViewUI.js';
+import SMSceneView from './NativeModule/components/SMSceneViewUI.js'
 
 export {
     //Components
