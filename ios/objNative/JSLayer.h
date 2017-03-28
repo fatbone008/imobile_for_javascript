@@ -7,6 +7,7 @@
 //
 
 #import <React/RCTBridgeModule.h>
+#import "SuperMap/Layer.h"
 
 @interface JSLayer : NSObject<RCTBridgeModule>
 

@@ -37,6 +37,23 @@ RCT_REMAP_METHOD(getStyle,getStyleById:(NSString*)LSVId resolver:(RCTPromiseReso
 RCT_REMAP_METHOD(setStyle,setStyleById:(NSString*)LSVId geoStyleId:(NSString*)geoStyleId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   LayerSettingVector* LSV = [JSObjManager getObjWithKey:LSVId];
   GeoStyle* style = [JSObjManager getObjWithKey:geoStyleId];
-  LSV.geoStyle = style;
+    if (LSV&&style) {
+        LSV.geoStyle = style;
+        resolve(@"style setted");
+    }else{
+        reject(@"layerSettingVector",@"set Style failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getType,getTypeById:(NSString*)LSVId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    LayerSettingVector* LSV = [JSObjManager getObjWithKey:LSVId];
+    if(LSV){
+        LayerSettingType type = LSV.layerType;
+        NSInteger key = (NSInteger)LSV.geoStyle;
+        [JSObjManager addObj:LSV.geoStyle];
+        resolve(@{@"geoStyleId":@(key).stringValue});
+    }else{
+        reject(@"layerSettingVector",@"get geoStyle failed!!!",nil);
+    }
 }
 @end
