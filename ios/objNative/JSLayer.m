@@ -7,8 +7,8 @@
 //
 
 #import "JSLayer.h"
-#import "SuperMap/Layer.h"
 #import "JSObjManager.h"
+#import "SuperMap/LayerSettingVector.h"
 
 @implementation JSLayer
 //注册为Native模块
@@ -80,6 +80,17 @@ RCT_REMAP_METHOD(setSelectable,setSelectableByKey:(NSString*)layerId boolBit:(BO
     }
 }
 
+RCT_REMAP_METHOD(getVisible,getVisibleByKey:(NSString*)layerId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Layer* layer = [JSObjManager getObjWithKey:layerId];
+    if(layer){
+        BOOL isVisable = layer.visible;
+        NSNumber* nsVisable = [NSNumber numberWithBool:isVisable];
+        resolve(nsVisable);
+    }else{
+        reject(@"Layer",@"set visable failed!",nil);
+    }
+}
+
 RCT_REMAP_METHOD(setVisible,setVisibleByKey:(NSString*)layerId boolBit:(BOOL)boolBit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Layer* layer = [JSObjManager getObjWithKey:layerId];
     if(layer){
@@ -87,6 +98,29 @@ RCT_REMAP_METHOD(setVisible,setVisibleByKey:(NSString*)layerId boolBit:(BOOL)boo
         resolve(@"visable have been setted!");
     }else{
         reject(@"Layer",@"set visable failed!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(getAdditionalSetting,getAdditionalSettingByKey:(NSString*)layerId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Layer* layer = [JSObjManager getObjWithKey:layerId];
+    if(layer){
+        LayerSettingVector* layerSetting = layer.layerSetting;
+        NSInteger nsLayerSetting = (NSInteger)layerSetting;
+        [JSObjManager addObj:layerSetting];
+        resolve(@{@"_layerSettingId_":@(nsLayerSetting).stringValue});
+    }else{
+        reject(@"Layer",@"get Additional Setting failed!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(setAdditionalSetting,setAdditionalSettingByKey:(NSString*)layerId andLayerSettingId:(NSString*)layerSettingId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Layer* layer = [JSObjManager getObjWithKey:layerId];
+    LayerSettingVector* layerSetting = [JSObjManager getObjWithKey:layerSettingId];
+    if(layerSetting){
+        layer.layerSetting = layerSetting;
+        resolve(@"layerSetting setted");
+    }else{
+        reject(@"Layer",@"get Additional Setting failed!",nil);
     }
 }
 @end
