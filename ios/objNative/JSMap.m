@@ -171,6 +171,21 @@ RCT_REMAP_METHOD(mapToPixel,mapToPixelByKey:(NSString*)key andPoint2DId:(NSStrin
     }
 }
 
+RCT_REMAP_METHOD(getCenter,getCenterByKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:key];
+    if(map){
+        Point2D* point = map.center;
+        double x = point.x;
+        NSNumber* nsX = [NSNumber numberWithDouble:x];
+        double y = point.y;
+        NSNumber* nsY = [NSNumber numberWithDouble:y];
+        NSInteger nsPoint = (NSInteger)point;
+        resolve(@{@"point2DId":@(nsPoint).stringValue,@"x":nsX,@"y":nsY});
+    }else{
+        reject(@"Map",@"get Center failed!!!",nil);
+    };
+}
+
 RCT_REMAP_METHOD(setCenter,setCenterKey:(NSString*)key point2DId:(NSString*)point2DId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   Map* map = [JSObjManager getObjWithKey:key];
   Point2D* point = [JSObjManager getObjWithKey:point2DId];

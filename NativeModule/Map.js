@@ -162,6 +162,25 @@ export default class Map{
             console.error(e);
         }
     }
+    
+    /**
+     * 获取当前地图的显示范围的中心点。
+     * @memberOf Map
+     * @param {object} point2D
+     * @returns {Promise.<void>}
+     */
+    async getCenter(){
+        try{
+            var {point2DId,x,y} = await M.getCenter(this.mapId);
+            var point2D = new Point2D();
+            point2D.point2DId = point2DId;
+            point2D.x = x;
+            point2D.y = y;
+            return point2D;
+        }catch(e){
+            console.error(e);
+        }
+    }
 
     /**
      * 设置当前地图的显示范围的中心点。
