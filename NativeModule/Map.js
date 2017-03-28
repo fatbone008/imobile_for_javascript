@@ -215,7 +215,7 @@ export default class Map{
      */
     async getBounds(){
         try{
-            var {bound} = await M.saveAs(this.mapId);
+            var {bound} = await M.getBounds(this.mapId);
             return bound;
         }catch(e){
             console.error(e);
@@ -229,7 +229,7 @@ export default class Map{
      */
     async getViewBounds(){
         try{
-            var {bound} = await M.saveAs(this.mapId);
+            var {bound} = await M.getViewBounds(this.mapId);
             return bound;
         }catch(e){
             console.error(e);
@@ -251,7 +251,7 @@ export default class Map{
     }
 
     /**
-     * 返回是否允许地图动态投影显示。
+     * 返回是否允许地图动态投影显示(该接口为安卓端专有接口，iOS无此接口)。
      * @memberOf Map
      * @param {object} bounds
      * @returns {Promise.<Promise.is>}
