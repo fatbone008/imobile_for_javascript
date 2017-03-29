@@ -124,6 +124,8 @@ RCT_REMAP_METHOD(getLayersCount,getLayersCountByKey:(NSString*)key resolver:(RCT
         reject(@"Map",@"getLayersCount:Map not exeist!",nil);
 }
 
+#pragma mark - map方法
+
 RCT_REMAP_METHOD(open,openKey:(NSString*)key mapName:(NSString*)mapName resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   
   Map* map = [JSObjManager getObjWithKey:key];
@@ -339,6 +341,68 @@ RCT_REMAP_METHOD(addLayer,addLayerById:(NSString*)mapId andDatasetId:(NSString*)
   }else{
     reject(@"Map",@"addLayer failed!!!",nil);
   }
+}
+
+RCT_REMAP_METHOD(removeLayerByName,removeLayerById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Layers* layers = map.layers;
+    BOOL isRemove = [layers removeWithName:name];
+    if(isRemove){
+        resolve(@"remove successfully");
+    }else{
+        reject(@"Map",@"remove Layer By Name failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(removeLayerByIndex,removeLayerById:(NSString*)mapId andIndex:(int)index resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Layers* layers = map.layers;
+    BOOL isRemove = [layers removeAt:index];
+    if(isRemove){
+        resolve(@"remove successfully");
+    }else{
+        reject(@"Map",@"remove Layer By Index failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(contains,containsById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Layers* layers = map.layers;
+    if(layers){
+        int index = [layers indexOf:name];
+        NSNumber* nsIsContain = [NSNumber numberWithInt:index];
+        resolve(@{@"isContain":nsIsContain});
+    }else{
+        reject(@"Map",@"remove Layer By Index failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(moveDown,moveDownById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Layers* layers = map.layers;
+    int count = [layers getCount];
+    int index = [layers indexOf:name];
+    if(layers && index<=count-2 && index>=0){
+        BOOL isMove = [layers moveTo:index desIndex:index+1];
+        NSNumber* nsIsMove = [NSNumber numberWithInt:isMove];
+        resolve(@{@"moved":nsIsMove});
+    }else{
+        reject(@"Map",@"move down By name failed!!!",nil);
+    }
+}
+
+RCT_REMAP_METHOD(moveUp,moveUpById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    Map* map = [JSObjManager getObjWithKey:mapId];
+    Layers* layers = map.layers;
+    int count = [layers getCount];
+    int index = [layers indexOf:name];
+    if(layers && index<=count-1 && index>0){
+        BOOL isMove = [layers moveTo:index desIndex:index-1];
+        NSNumber* nsIsMove = [NSNumber numberWithInt:isMove];
+        resolve(@{@"moved":nsIsMove});
+    }else{
+        reject(@"Map",@"move down By name failed!!!",nil);
+    }
 }
 /* 此接口未开出
 RCT_REMAP_METHOD(getPrjCoordSys,getPrjCoordSysKey:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
