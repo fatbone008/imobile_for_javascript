@@ -45,10 +45,6 @@ RCT_EXPORT_MODULE();
 RCT_REMAP_METHOD(connectNaviData,connectNaviDataById:(NSString*)naviId withDataPath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation* navi = [JSObjManager getObjWithKey:naviId];
     if(navi){
-        NSString* firstStr = [path substringToIndex:1];
-        if ([firstStr isEqualToString:@"/"]) {
-            path = [NSHomeDirectory() stringByAppendingString:path];
-        }
         BOOL success = [navi connectNaviData:path];
         NSNumber* nsSuccess = [NSNumber numberWithBool:success];
         resolve(@{@"success":nsSuccess});

@@ -87,12 +87,6 @@ RCT_REMAP_METHOD(getServer,getServerKey:(NSString*)key resolver:(RCTPromiseResol
 RCT_REMAP_METHOD(setServer,setServerKey:(NSString*)key server:(NSString*)server  resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   WorkspaceConnectionInfo* info = [JSObjManager getObjWithKey:key];
   if(info){
-      /*
-    if([server containsString:@"+"]){
-      server = [NSHomeDirectory() stringByAppendingString:[server substringFromIndex:1]];
-    }
-       */
-    server = [NSHomeDirectory() stringByAppendingString:server];
     info.server = server;
     resolve(@"1");
   }else

@@ -62,7 +62,6 @@ RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 - (UIView *)view
 {
   MapControl* mapControl = [[MapControl alloc]init];
-  NSLog(@"%@",NSHomeDirectory());
   mapControl.jsMapControl = self;
   [JSObjManager addObj:mapControl];
 

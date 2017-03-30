@@ -186,8 +186,6 @@ RCT_REMAP_METHOD(openDatasource,openDatasourceByKey:(NSString*)key jsonObject:(N
         if ([keyArr containsObject:@"engineType"]) info.engineType = [jsObj objectForKey:@"engineType"];
         if ([keyArr containsObject:@"server"]){
             NSString* path = [jsObj objectForKey:@"server"];
-            NSString* firstStr = [path substringToIndex:1];
-            if([firstStr isEqualToString:@"/"]) path = [NSHomeDirectory() stringByAppendingString:path];
             info.server = path;
         }
         if ([keyArr containsObject:@"driver"]) info.driver = [jsObj objectForKey:@"driver"];

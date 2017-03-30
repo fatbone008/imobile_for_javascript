@@ -41,12 +41,7 @@ RCT_REMAP_METHOD(setNetworkDataset,setNetworkDatasetById:(NSString*)nav2Id datas
 RCT_REMAP_METHOD(loadModel,loadModelById:(NSString*)nav2Id filePath:(NSString*)path resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Navigation2* nav = [JSObjManager getObjWithKey:nav2Id];
     if(nav){
-        NSString* firstStr = [path substringToIndex:1];
-        NSString* absPath = path;
-        if ([firstStr isEqualToString:@"/"]) {
-            absPath = [NSHomeDirectory() stringByAppendingString:path];
-        }
-        [nav loadModel:absPath];
+        [nav loadModel:path];
         resolve(@"model loaded");
     }else{
         reject(@"Nav2",@"loadModel failed!!!",nil);
