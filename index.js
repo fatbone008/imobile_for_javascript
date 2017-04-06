@@ -21,7 +21,7 @@ import FeatureSet from './NativeModule/FeatureSet.js';
 import Layer from './NativeModule/Layer.js';
 import Layers from './NativeModule/Layers.js';
 import LayerSetting from './NativeModule/LayerSetting.js';
-import LayerSettingVector from './NativeModule/LayerSetting.js';
+import LayerSettingVector from './NativeModule/LayerSettingVector.js';
 import Legend from './NativeModule/Legend.js';
 import LocationManager from './NativeModule/LayerSetting.js';
 import Map from './NativeModule/Map.js';
