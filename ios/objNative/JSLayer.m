@@ -9,6 +9,8 @@
 #import "JSLayer.h"
 #import "JSObjManager.h"
 #import "SuperMap/LayerSettingVector.h"
+#import "SuperMap/Datasource.h"
+#import "SuperMap/Layer.h"
 
 @implementation JSLayer
 //注册为Native模块
@@ -104,7 +106,7 @@ RCT_REMAP_METHOD(setVisible,setVisibleByKey:(NSString*)layerId boolBit:(BOOL)boo
 RCT_REMAP_METHOD(getAdditionalSetting,getAdditionalSettingByKey:(NSString*)layerId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Layer* layer = [JSObjManager getObjWithKey:layerId];
     if(layer){
-        LayerSettingVector* layerSetting = layer.layerSetting;
+        id<LayerSetting> layerSetting = layer.layerSetting;
         NSInteger nsLayerSetting = (NSInteger)layerSetting;
         [JSObjManager addObj:layerSetting];
         resolve(@{@"_layerSettingId_":@(nsLayerSetting).stringValue});
@@ -115,7 +117,7 @@ RCT_REMAP_METHOD(getAdditionalSetting,getAdditionalSettingByKey:(NSString*)layer
 
 RCT_REMAP_METHOD(setAdditionalSetting,setAdditionalSettingByKey:(NSString*)layerId andLayerSettingId:(NSString*)layerSettingId resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Layer* layer = [JSObjManager getObjWithKey:layerId];
-    LayerSettingVector* layerSetting = [JSObjManager getObjWithKey:layerSettingId];
+    id<LayerSetting> layerSetting = [JSObjManager getObjWithKey:layerSettingId];
     if(layerSetting){
         layer.layerSetting = layerSetting;
         resolve(@"layerSetting setted");
