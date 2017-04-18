@@ -429,4 +429,111 @@ public class JSMap extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+
+    @ReactMethod
+    public void addLayer(String mapId,String datasetId,boolean addToHead,Promise promise){
+        try{
+            Map map = mapList.get(mapId);
+            Dataset dataset = JSDataset.getObjById(datasetId);
+            Layer layer = map.getLayers().add(dataset,addToHead);
+            String layerId = JSLayer.registerId(layer);
+
+            WritableMap map1 = Arguments.createMap();
+            map1.putString("layerId",layerId);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getCenter(String mapId,String datasetId,Promise promise){
+        try{
+            Map map = mapList.get(mapId);
+            Point2D point2D = map.getCenter();
+            String point2DId = JSPoint2D.registerId(point2D);
+
+            WritableMap map1 = Arguments.createMap();
+            map1.putString("point2DId",point2DId);
+            map1.putDouble("x",point2D.getX());
+            map1.putDouble("y",point2D.getY());
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeLayerByName(String mapId,String datasetId,String layerName,Promise promise){
+        try{
+            Map map = mapList.get(mapId);
+            String layerId = JSLayer.registerId(map.getLayers().get(layerName));
+            map.getLayers().remove(layerName);
+
+            WritableMap map1 = Arguments.createMap();
+            map1.putString("layerId",layerId);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeLayerByIndex(String mapId,String datasetId,int index,Promise promise){
+        try{
+            Map map = mapList.get(mapId);
+            String layerId = JSLayer.registerId(map.getLayers().get(index));
+            map.getLayers().remove(index);
+
+            WritableMap map1 = Arguments.createMap();
+            map1.putString("layerId",layerId);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void contains(String mapId,String name,Promise promise){
+        try {
+            Map map = mapList.get(mapId);
+            Layers layers = map.getLayers();
+            boolean isContain = layers.contains(name);
+            WritableMap map1 = Arguments.createMap();
+            map1.putBoolean("isContain",isContain);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveDown(String mapId,String name,Promise promise){
+        try{
+            Map map = mapList.get(mapId);
+            Layers layers = map.getLayers();
+            int index = layers.indexOf(name);
+            boolean isMoved = layers.moveDown(index);
+            WritableMap map1 = Arguments.createMap();
+            map1.putBoolean("moved",isMoved);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveUp(String mapId,String name,Promise promise){
+        try {
+            Map map = mapList.get(mapId);
+            Layers layers = map.getLayers();
+            int index = layers.indexOf(name);
+            boolean isMoved = layers.moveUp(index);
+            WritableMap map1 = Arguments.createMap();
+            map1.putBoolean("moved",isMoved);
+            promise.resolve(map1);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
 }
