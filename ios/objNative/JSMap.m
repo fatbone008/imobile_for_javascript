@@ -402,7 +402,7 @@ RCT_REMAP_METHOD(moveDown,moveDownById:(NSString*)mapId andName:(NSString*)name 
     }
 }
 
-RCT_REMAP_METHOD(i,moveUpById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(moveUp,moveUpById:(NSString*)mapId andName:(NSString*)name resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     Map* map = [JSObjManager getObjWithKey:mapId];
     Layers* layers = map.layers;
     int count = [layers getCount];
